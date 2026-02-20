@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://dxsmvpbrprx5b"]
+
+[ext_resource type="Script" uid="uid://s3qjrm61nwpw" path="res://scripts/player.gd" id="1_mi8v4"]
+[ext_resource type="PackedScene" uid="uid://cnen6trnllcqy" path="res://models/character-test.fbx" id="2_lmksl"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yqjtg"]
+radius = 0.3
+height = 2.4
+
+[sub_resource type="Environment" id="Environment_mi8v4"]
+
+[node name="Ground" type="Node3D" unique_id=1916199610]
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=1510734023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+script = ExtResource("1_mi8v4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=442795404]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("CapsuleShape3D_yqjtg")
+
+[node name="Camera3D" type="Camera3D" parent="Player" unique_id=1839118399]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 2.15, 0)
+fov = 90.0
+size = 10.0
+
+[node name="character-test" parent="Player" unique_id=1398574842 instance=ExtResource("2_lmksl")]
+visible = false
+
+[node name="THE FUCKING FLOOR" type="CSGBox3D" parent="." unique_id=808435658]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+use_collision = true
+size = Vector3(12, 1, 12)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1392721533]
+environment = SubResource("Environment_mi8v4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1474504860]
+transform = Transform3D(0.9296801, -0.29720894, 0.21762764, 0, 0.5907888, 0.8068263, -0.36836794, -0.75009036, 0.5492446, 0, 0, 0)
+shadow_enabled = true
