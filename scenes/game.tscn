@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://bvo24lokvih1e" path="res://sounds/boost_finish.mp3" id="6_0tnpc"]
 [ext_resource type="AudioStream" uid="uid://cgde1dap3r4d2" path="res://sounds/collision.mp3" id="7_vtaks"]
 [ext_resource type="PackedScene" uid="uid://mp08hha7v1bs" path="res://scenes/enemy.tscn" id="9_vtaks"]
+[ext_resource type="PackedScene" uid="uid://cp43uhhcxh22n" path="res://scenes/laser.tscn" id="11_kvpfn"]
 
 [sub_resource type="Environment" id="Environment_uwrxv"]
 background_mode = 1
@@ -61,7 +62,7 @@ visible = false
 texture = ExtResource("1_uwrxv")
 
 [node name="Camera" type="Camera3D" parent="Player" unique_id=1916892619]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 12)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 8, 12)
 fov = 110.0
 far = 1000000.0
 
@@ -117,3 +118,19 @@ text = "SHIT ASS UI
 boost: 100
 health: 100
 weapon: dingus"
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer" unique_id=673854783]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Laser" parent="." unique_id=1703704797 instance=ExtResource("11_kvpfn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 24000)

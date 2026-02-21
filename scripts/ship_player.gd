@@ -19,6 +19,22 @@ func _physics_process(delta: float) -> void:
 	move_x = input_dir.x
 	move_y = input_dir.y
 	
+	var crosshair_screen_pos = Vector2(1280/2, 720/2)  # crosshair position on screen
+
+	var ray_origin = $Camera.project_ray_origin(crosshair_screen_pos)
+	var ray_direction = $Camera.project_ray_normal(crosshair_screen_pos)
+
+	# Cast a ray into the world to find the target point
+	var space_state = get_world_3d().direct_space_state
+	var ray_length = 5000  # max distance for shooting
+
+	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_origin + ray_direction * ray_length)
+	var result = space_state.intersect_ray(query)
+	
+	var target_point: Vector3 = ray_origin + ray_direction * ray_length
+	if result:
+		firing_target = result.position
+	
 	super(delta)
 	
 	_handle_controller_rotation_input(delta)
