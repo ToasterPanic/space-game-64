@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://powqf1q618rs" path="res://sounds/boost.mp3" id="5_gee14"]
 [ext_resource type="AudioStream" uid="uid://bvo24lokvih1e" path="res://sounds/boost_finish.mp3" id="6_0tnpc"]
 [ext_resource type="AudioStream" uid="uid://cgde1dap3r4d2" path="res://sounds/collision.mp3" id="7_vtaks"]
+[ext_resource type="PackedScene" uid="uid://mp08hha7v1bs" path="res://scenes/enemy.tscn" id="9_vtaks"]
 
 [sub_resource type="Environment" id="Environment_uwrxv"]
 background_mode = 1
@@ -49,7 +50,7 @@ autoplay = true
 environment = SubResource("Environment_uwrxv")
 
 [node name="Player" type="RigidBody3D" parent="." unique_id=698545354]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4913)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24000)
 linear_damp = 4.0
 angular_damp = 16.832
 script = ExtResource("3_0tnpc")
@@ -62,7 +63,7 @@ texture = ExtResource("1_uwrxv")
 [node name="Camera" type="Camera3D" parent="Player" unique_id=1916892619]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 12)
 fov = 90.0
-far = 999999.0
+far = 1000000.0
 
 [node name="ship" parent="Player" unique_id=2080348093 instance=ExtResource("4_iywne")]
 
@@ -78,11 +79,18 @@ stream = ExtResource("6_0tnpc")
 [node name="Collision" type="AudioStreamPlayer" parent="Player" unique_id=733125420]
 stream = ExtResource("7_vtaks")
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=1492795932]
-transform = Transform3D(64, 0, 0, 0, 64, 0, 0, 0, 64, 0, 0, 0)
+[node name="Enemy" parent="." unique_id=1828576788 instance=ExtResource("9_vtaks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 23969)
+
+[node name="Sun" type="CSGSphere3D" parent="." unique_id=1492795932]
+transform = Transform3D(256, 0, 0, 0, 256, 0, 0, 0, 256, 0, 0, 0)
 use_collision = true
 radius = 64.0
+radial_segments = 32
+rings = 32
 material = SubResource("StandardMaterial3D_lnu2h")
+
+[node name="Sprite3D" type="Sprite3D" parent="Sun" unique_id=253360212]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=798378190]
 

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://mp08hha7v1bs"]
+
+[ext_resource type="Script" uid="uid://cpp6uk6cxnlcm" path="res://scripts/ship.gd" id="1_5uy6h"]
+[ext_resource type="PackedScene" uid="uid://bsgkqnjb6ic6h" path="res://models/ship.fbx" id="2_c4w8v"]
+[ext_resource type="AudioStream" uid="uid://powqf1q618rs" path="res://sounds/boost.mp3" id="3_xwavj"]
+[ext_resource type="AudioStream" uid="uid://cgde1dap3r4d2" path="res://sounds/collision.mp3" id="4_nenq2"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_uwrxv"]
+radius = 5.0
+
+[node name="Enemy" type="RigidBody3D" unique_id=1828576788]
+linear_damp = 4.0
+angular_damp = 16.832
+script = ExtResource("1_5uy6h")
+
+[node name="ship" parent="." unique_id=2080348093 instance=ExtResource("2_c4w8v")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1285681210]
+shape = SubResource("SphereShape3D_uwrxv")
+
+[node name="Boost" type="AudioStreamPlayer" parent="." unique_id=1924417130]
+stream = ExtResource("3_xwavj")
+
+[node name="Collision" type="AudioStreamPlayer" parent="." unique_id=611897558]
+stream = ExtResource("4_nenq2")

@@ -1,6 +1,6 @@
 extends RigidBody3D
 
-var speed = 512
+var speed = 64
 var boost_speed_multiplier = 2
 
 var controller_camera_sensitivity = 2.2
@@ -12,10 +12,6 @@ var boosting = false
 var boosting_last_process = false
 
 func _physics_process(delta: float) -> void:
-	var input_dir := Input.get_vector("ship_left", "ship_right", "move_forward", "move_backwards")
-	move_x = input_dir.x
-	move_y = input_dir.y
-	
 	if boosting:
 		move_y = -1
 		
