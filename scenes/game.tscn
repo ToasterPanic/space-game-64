@@ -2,9 +2,13 @@
 
 [ext_resource type="Script" uid="uid://xol6sqxtln7w" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://dnpdbcx6yacie" path="res://textures/placeholder.png" id="1_uwrxv"]
-[ext_resource type="Script" uid="uid://din3hfw6gk6m4" path="res://scripts/ship_player.gd" id="1_yqjtg"]
+[ext_resource type="AudioStream" uid="uid://dmkoqkk5u124" path="res://sounds/music/ballad_of_the_cats.mp3" id="2_0tnpc"]
+[ext_resource type="Script" uid="uid://dyj3ggaq1yxa3" path="res://scripts/ship_player.gd" id="3_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://bsgkqnjb6ic6h" path="res://models/ship.fbx" id="4_iywne"]
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="4_lbhrr"]
+[ext_resource type="AudioStream" uid="uid://powqf1q618rs" path="res://sounds/boost.mp3" id="5_gee14"]
+[ext_resource type="AudioStream" uid="uid://bvo24lokvih1e" path="res://sounds/boost_finish.mp3" id="6_0tnpc"]
+[ext_resource type="AudioStream" uid="uid://cgde1dap3r4d2" path="res://sounds/collision.mp3" id="7_vtaks"]
 
 [sub_resource type="Environment" id="Environment_uwrxv"]
 background_mode = 1
@@ -35,6 +39,10 @@ shader_parameter/lens_distortion_strength = 0.05
 [node name="Space" type="Node3D" unique_id=855322861]
 script = ExtResource("1_lnu2h")
 
+[node name="BalladOfTheCats" type="AudioStreamPlayer" parent="." unique_id=1163087554]
+stream = ExtResource("2_0tnpc")
+autoplay = true
+
 [node name="Sunlight" type="DirectionalLight3D" parent="." unique_id=2063979181]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1277428618]
@@ -44,7 +52,7 @@ environment = SubResource("Environment_uwrxv")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4913)
 linear_damp = 4.0
 angular_damp = 16.832
-script = ExtResource("1_yqjtg")
+script = ExtResource("3_0tnpc")
 
 [node name="Placeholder" type="Sprite3D" parent="Player" unique_id=52921020]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0)
@@ -60,6 +68,15 @@ far = 999999.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=2050655082]
 shape = SubResource("SphereShape3D_uwrxv")
+
+[node name="Boost" type="AudioStreamPlayer" parent="Player" unique_id=1662083656]
+stream = ExtResource("5_gee14")
+
+[node name="BoostFinish" type="AudioStreamPlayer" parent="Player" unique_id=1213524032]
+stream = ExtResource("6_0tnpc")
+
+[node name="Collision" type="AudioStreamPlayer" parent="Player" unique_id=733125420]
+stream = ExtResource("7_vtaks")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=1492795932]
 transform = Transform3D(64, 0, 0, 0, 64, 0, 0, 0, 64, 0, 0, 0)
@@ -77,3 +94,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" unique_id=1201290524]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -107.0
+offset_right = 107.0
+offset_bottom = 164.0
+grow_horizontal = 2
+text = "SHIT ASS UI
+
+boost: 100
+health: 100
+weapon: dingus"
