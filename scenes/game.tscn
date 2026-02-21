@@ -1,34 +1,79 @@
 [gd_scene format=3 uid="uid://f0ygvclgtofg"]
 
-[ext_resource type="PackedScene" uid="uid://cnen6trnllcqy" path="res://models/character-test.fbx" id="1_uwrxv"]
-[ext_resource type="Script" uid="uid://s3qjrm61nwpw" path="res://scripts/player.gd" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://xol6sqxtln7w" path="res://scripts/game.gd" id="1_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://dnpdbcx6yacie" path="res://textures/placeholder.png" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://din3hfw6gk6m4" path="res://scripts/ship_player.gd" id="1_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://bsgkqnjb6ic6h" path="res://models/ship.fbx" id="4_iywne"]
+[ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="4_lbhrr"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yqjtg"]
-radius = 0.3
-height = 2.4
+[sub_resource type="Environment" id="Environment_uwrxv"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(0.37036446, 0.3703645, 0.37036443, 1)
 
-[node name="Game" type="Node3D" unique_id=1916199610]
+[sub_resource type="SphereShape3D" id="SphereShape3D_uwrxv"]
+radius = 5.0
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=1510734023]
-script = ExtResource("2_yqjtg")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnu2h"]
+emission_enabled = true
+emission = Color(1, 0.7882353, 0, 1)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=442795404]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
-shape = SubResource("CapsuleShape3D_yqjtg")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iywne"]
+shader = ExtResource("4_lbhrr")
+shader_parameter/shake = 0.015
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.001
+shader_parameter/offsetIntensity = 0.0009999999747
+shader_parameter/colorOffsetIntensity = 0.2
+shader_parameter/pixelSize = 640.0000303525
+shader_parameter/grainIntensity = 0.04
+shader_parameter/use_overlay = true
+shader_parameter/use_lens_distortion = false
+shader_parameter/overlay_color = Color(1, 1, 1, 10)
+shader_parameter/lens_distortion_strength = 0.05
 
-[node name="Camera3D" type="Camera3D" parent="Player" unique_id=1839118399]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 2.15, 0)
-fov = 90.0
+[node name="Space" type="Node3D" unique_id=855322861]
+script = ExtResource("1_lnu2h")
 
-[node name="character-test" parent="Player" unique_id=1398574842 instance=ExtResource("1_uwrxv")]
+[node name="Sunlight" type="DirectionalLight3D" parent="." unique_id=2063979181]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1277428618]
+environment = SubResource("Environment_uwrxv")
+
+[node name="Player" type="RigidBody3D" parent="." unique_id=698545354]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4913)
+linear_damp = 4.0
+angular_damp = 16.832
+script = ExtResource("1_yqjtg")
+
+[node name="Placeholder" type="Sprite3D" parent="Player" unique_id=52921020]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0)
 visible = false
+texture = ExtResource("1_uwrxv")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=808435658]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3236694, -1, 0)
+[node name="Camera" type="Camera3D" parent="Player" unique_id=1916892619]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 12)
+fov = 90.0
+far = 999999.0
+
+[node name="ship" parent="Player" unique_id=2080348093 instance=ExtResource("4_iywne")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=2050655082]
+shape = SubResource("SphereShape3D_uwrxv")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=1492795932]
+transform = Transform3D(64, 0, 0, 0, 64, 0, 0, 0, 64, 0, 0, 0)
 use_collision = true
-size = Vector3(3.6473389, 1, 1)
+radius = 64.0
+material = SubResource("StandardMaterial3D_lnu2h")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1392721533]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=798378190]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1474504860]
-transform = Transform3D(0.9296801, -0.29720894, 0.21762764, 0, 0.5907888, 0.8068263, -0.36836794, -0.75009036, 0.5492446, 0, 0, 0)
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=2120752570]
+material = SubResource("ShaderMaterial_iywne")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
