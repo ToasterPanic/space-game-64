@@ -8,6 +8,7 @@
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="4_lbhrr"]
 [ext_resource type="AudioStream" uid="uid://powqf1q618rs" path="res://sounds/boost.mp3" id="5_gee14"]
 [ext_resource type="AudioStream" uid="uid://bvo24lokvih1e" path="res://sounds/boost_finish.mp3" id="6_0tnpc"]
+[ext_resource type="AudioStream" uid="uid://garhxg0lsr5m" path="res://sounds/fire.mp3" id="6_dinhu"]
 [ext_resource type="AudioStream" uid="uid://cgde1dap3r4d2" path="res://sounds/collision.mp3" id="7_vtaks"]
 [ext_resource type="PackedScene" uid="uid://mp08hha7v1bs" path="res://scenes/enemy.tscn" id="9_vtaks"]
 [ext_resource type="PackedScene" uid="uid://cp43uhhcxh22n" path="res://scenes/laser.tscn" id="11_kvpfn"]
@@ -68,13 +69,16 @@ far = 1000000.0
 
 [node name="ship" parent="Player" unique_id=1506040916 instance=ExtResource("4_iywne")]
 
-[node name="Boost" type="AudioStreamPlayer" parent="Player" unique_id=1662083656]
+[node name="Fire" type="AudioStreamPlayer" parent="Player" unique_id=692660648]
+stream = ExtResource("6_dinhu")
+
+[node name="Boost" type="AudioStreamPlayer" parent="Player" unique_id=875580550]
 stream = ExtResource("5_gee14")
 
-[node name="BoostFinish" type="AudioStreamPlayer" parent="Player" unique_id=1213524032]
+[node name="BoostFinish" type="AudioStreamPlayer" parent="Player" unique_id=16436511]
 stream = ExtResource("6_0tnpc")
 
-[node name="Collision" type="AudioStreamPlayer" parent="Player" unique_id=733125420]
+[node name="Collision" type="AudioStreamPlayer" parent="Player" unique_id=410344739]
 stream = ExtResource("7_vtaks")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=2144228228]

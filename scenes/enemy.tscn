@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cpp6uk6cxnlcm" path="res://scripts/ship.gd" id="1_5uy6h"]
 [ext_resource type="PackedScene" uid="uid://bsgkqnjb6ic6h" path="res://models/ship.fbx" id="2_c4w8v"]
 [ext_resource type="AudioStream" uid="uid://powqf1q618rs" path="res://sounds/boost.mp3" id="3_xwavj"]
-[ext_resource type="AudioStream" uid="uid://cgde1dap3r4d2" path="res://sounds/collision.mp3" id="4_nenq2"]
+[ext_resource type="AudioStream" uid="uid://garhxg0lsr5m" path="res://sounds/fire.mp3" id="4_5uy6h"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5uy6h"]
 points = PackedVector3Array(0.7274066, 0.4133359, 0.6991368, -0.04386058, 0.23440585, -0.6885974, -0.08293572, 0.19794945, -0.5662031, -1.586991, 0.42155415, 0.51469165, -0.73667836, 0, 0.47760096, 1.586991, 0.17366934, 0.21696576, 0.03652037, 0.57912725, 0.15884866, 1.586991, 0.42155415, 0.36582872, 0.73667836, 0, 0.47760096, -1.586991, 0.17366934, 0.21696576, -0.049399287, 0.3224546, -0.7251305, -0.726173, 0.50397116, 0.697941, 0.04205014, 0.6179916, 0.43723533, 0.122511484, 0.03604312, -0.0672922, -1.586991, 0.42155415, 0.36582872, 1.586991, 0.3224546, 0.51469165, -0.70410675, 0.01425705, 0.1919311, 0.726173, 0.50397116, 0.697941, -0.1731617, 0.0625, 0.57879066, 0.049399287, 0.2729048, -0.7748016, 0.70410675, 0.01425705, 0.1919311, -1.586991, 0.3224546, 0.51469165, -0.7274066, 0.4133359, 0.6991368, 0.049399287, 0.3224546, -0.7251305, 1.586991, 0.42155415, 0.51469165, -1.586991, 0.17366934, 0.36582872, 1.586991, 0.17366934, 0.36582872, -1.537281, 0.22328708, 0.16744512, -0.03652037, 0.57912725, 0.15884866, 1.537281, 0.22328708, 0.16744512, -0.049399287, 0.2729048, -0.7748016, -1.537281, 0.17366934, 0.16744512)
@@ -15,11 +15,23 @@ script = ExtResource("1_5uy6h")
 
 [node name="ship" parent="." unique_id=1506040916 instance=ExtResource("2_c4w8v")]
 
-[node name="Boost" type="AudioStreamPlayer" parent="." unique_id=1924417130]
+[node name="Boost" type="AudioStreamPlayer3D" parent="." unique_id=475165973]
 stream = ExtResource("3_xwavj")
+unit_size = 64.0
+max_distance = 256.0
+doppler_tracking = 2
 
-[node name="Collision" type="AudioStreamPlayer" parent="." unique_id=611897558]
-stream = ExtResource("4_nenq2")
+[node name="Collision" type="AudioStreamPlayer3D" parent="." unique_id=676826152]
+stream = ExtResource("4_5uy6h")
+unit_size = 64.0
+max_distance = 256.0
+doppler_tracking = 2
+
+[node name="Fire" type="AudioStreamPlayer3D" parent="." unique_id=1126162]
+stream = ExtResource("4_5uy6h")
+unit_size = 64.0
+max_distance = 256.0
+doppler_tracking = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=387380016]
 transform = Transform3D(4, 0, 0, 0, 8, 0, 0, 0, 4, 0, -1, 0)

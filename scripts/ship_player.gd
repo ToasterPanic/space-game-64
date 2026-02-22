@@ -11,6 +11,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	boosting = Input.is_action_pressed("boost")
+	firing = Input.is_action_pressed("fire")
 	
 	if Input.is_action_just_released("boost"):
 		$BoostFinish.play()
@@ -19,7 +20,9 @@ func _physics_process(delta: float) -> void:
 	move_x = input_dir.x
 	move_y = input_dir.y
 	
-	var crosshair_screen_pos = Vector2(1280/2, 720/2)  # crosshair position on screen
+	var window_size = get_viewport().get_visible_rect().size
+	
+	var crosshair_screen_pos = Vector2(window_size.x/2, window_size.y/2)  # crosshair position on screen
 
 	var ray_origin = $Camera.project_ray_origin(crosshair_screen_pos)
 	var ray_direction = $Camera.project_ray_normal(crosshair_screen_pos)
