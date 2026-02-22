@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void:
 		firing_delay -= delta
 		
 		if firing_delay < 0:
-			firing_delay = 0.5
+			firing_delay = 0.25
 			
 			# Make sure that the firing target isn't behind the ship
 			if firing_target:

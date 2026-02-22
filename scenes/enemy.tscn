@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://mp08hha7v1bs"]
 
-[ext_resource type="Script" uid="uid://cpp6uk6cxnlcm" path="res://scripts/ship.gd" id="1_5uy6h"]
+[ext_resource type="Script" uid="uid://byd8bca1npbwr" path="res://scripts/ship_enemy.gd" id="1_5uy6h"]
 [ext_resource type="PackedScene" uid="uid://bsgkqnjb6ic6h" path="res://models/ship.fbx" id="2_c4w8v"]
 [ext_resource type="AudioStream" uid="uid://powqf1q618rs" path="res://sounds/boost.mp3" id="3_xwavj"]
 [ext_resource type="AudioStream" uid="uid://garhxg0lsr5m" path="res://sounds/fire.mp3" id="4_5uy6h"]

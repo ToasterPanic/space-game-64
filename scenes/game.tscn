@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dnpdbcx6yacie" path="res://textures/placeholder.png" id="1_uwrxv"]
 [ext_resource type="AudioStream" uid="uid://dmkoqkk5u124" path="res://sounds/music/ballad_of_the_cats.mp3" id="2_0tnpc"]
 [ext_resource type="Script" uid="uid://dyj3ggaq1yxa3" path="res://scripts/ship_player.gd" id="3_0tnpc"]
+[ext_resource type="AudioStream" uid="uid://niq81duekkf8" path="res://sounds/music/loneliness.mp3" id="3_kvuet"]
 [ext_resource type="PackedScene" uid="uid://bsgkqnjb6ic6h" path="res://models/ship.fbx" id="4_iywne"]
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="4_lbhrr"]
 [ext_resource type="AudioStream" uid="uid://powqf1q618rs" path="res://sounds/boost.mp3" id="5_gee14"]
@@ -44,6 +45,10 @@ script = ExtResource("1_lnu2h")
 
 [node name="BalladOfTheCats" type="AudioStreamPlayer" parent="." unique_id=1163087554]
 stream = ExtResource("2_0tnpc")
+
+[node name="Loneliness" type="AudioStreamPlayer" parent="." unique_id=91823489]
+stream = ExtResource("3_kvuet")
+volume_db = -4.0
 autoplay = true
 
 [node name="Sunlight" type="DirectionalLight3D" parent="." unique_id=2063979181]
@@ -63,7 +68,7 @@ visible = false
 texture = ExtResource("1_uwrxv")
 
 [node name="Camera" type="Camera3D" parent="Player" unique_id=1916892619]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 7, 8)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 5, 8)
 fov = 110.0
 far = 1000000.0
 
