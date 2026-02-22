@@ -7,7 +7,7 @@ func _handle_controller_rotation_input(delta):
 	rotate_object_local(Vector3.UP, -input_dir.x * controller_camera_sensitivity * delta)
 	
 func _ready() -> void:
-	pass
+	shield = 100
 
 func _physics_process(delta: float) -> void:
 	boosting = Input.is_action_pressed("boost")
@@ -19,6 +19,10 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("ship_left", "ship_right", "move_forward", "move_backwards")
 	move_x = input_dir.x
 	move_y = input_dir.y
+	
+	$Health.text = str(floori(health))
+	$Shield.text = str(floori(shield))
+	$BoostText.text = str(floori(boost))
 	
 	var window_size = get_viewport().get_visible_rect().size
 	

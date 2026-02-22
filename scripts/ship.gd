@@ -8,6 +8,14 @@ var controller_camera_sensitivity = 2.2
 var move_x = 0
 var move_y = 0
 
+var flares = 0
+var boost = 100
+var boost_cooldown = 0
+var health = 100
+var shield = 0
+var damage = 10
+var laser_color = Color(1, 1, 1)
+
 var boosting = false
 var boosting_last_process = false
 
@@ -19,9 +27,20 @@ var firing_delay = 0
 var firing_target = null
 
 func _physics_process(delta: float) -> void:
-	if boosting:
+	if boosting and (boost_cooldown <= 0):
 		move_y = -1
+		boost -= delta * (100/5)
 		
+		if boost < 0:
+			boost_cooldown = 2.5
+	else:
+		boosting = false
+		boost += delta * (100/5)
+		
+		if boost > 100:
+			boost = 100
+			
+		boost_cooldown -= delta
 	
 	if firing:
 		firing_delay -= delta
@@ -50,7 +69,19 @@ func _physics_process(delta: float) -> void:
 			laser.position = position + ((transform.basis * Vector3(0, 0, -1)).normalized() * 8)
 			var direction = (firing_target - position).normalized()
 			
+			var laser_mesh = laser.get_node("Mesh").mesh
+			
+			laser_mesh = laser_mesh.duplicate()
+			var new_material = StandardMaterial3D.new()
+			new_material.albedo_color = Color(0, 0, 0)
+			new_material.emission = laser_color
+			new_material.emission_enabled = true
+			
+			laser.get_node("Mesh").set_surface_override_material(0, new_material)
+			
 			laser.linear_velocity = direction * 256
+			
+			laser.damage = damage
 			
 			if has_node("Fire"):
 				$Fire.play()

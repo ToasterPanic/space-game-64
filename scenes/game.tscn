@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://cgde1dap3r4d2" path="res://sounds/collision.mp3" id="7_vtaks"]
 [ext_resource type="PackedScene" uid="uid://mp08hha7v1bs" path="res://scenes/enemy.tscn" id="9_vtaks"]
 [ext_resource type="PackedScene" uid="uid://cp43uhhcxh22n" path="res://scenes/laser.tscn" id="11_kvpfn"]
+[ext_resource type="AudioStream" uid="uid://73c46kxllki6" path="res://sounds/shield_break.mp3" id="11_trtic"]
 
 [sub_resource type="Environment" id="Environment_uwrxv"]
 background_mode = 1
@@ -86,9 +87,33 @@ stream = ExtResource("6_0tnpc")
 [node name="Collision" type="AudioStreamPlayer" parent="Player" unique_id=410344739]
 stream = ExtResource("7_vtaks")
 
+[node name="ShieldBreak" type="AudioStreamPlayer" parent="Player" unique_id=1768299023]
+stream = ExtResource("11_trtic")
+volume_db = 2.0
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=2144228228]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_dinhu")
+
+[node name="Health" type="Label3D" parent="Player" unique_id=1182880194]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+pixel_size = 0.04
+billboard = 1
+text = "320"
+
+[node name="Shield" type="Label3D" parent="Player" unique_id=628642544]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3, 0)
+pixel_size = 0.04
+billboard = 1
+modulate = Color(1, 0, 1, 1)
+text = "320"
+
+[node name="BoostText" type="Label3D" parent="Player" unique_id=913984668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 0)
+pixel_size = 0.04
+billboard = 1
+modulate = Color(0, 1, 1, 1)
+text = "320"
 
 [node name="Enemy" parent="." unique_id=1828576788 instance=ExtResource("9_vtaks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 23969)
