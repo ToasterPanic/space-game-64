@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dnpdbcx6yacie" path="res://textures/placeholder.png" id="1_uwrxv"]
 [ext_resource type="AudioStream" uid="uid://dmkoqkk5u124" path="res://sounds/music/ballad_of_the_cats.mp3" id="2_0tnpc"]
 [ext_resource type="Script" uid="uid://dyj3ggaq1yxa3" path="res://scripts/ship_player.gd" id="3_0tnpc"]
-[ext_resource type="AudioStream" uid="uid://niq81duekkf8" path="res://sounds/music/loneliness.mp3" id="3_kvuet"]
+[ext_resource type="AudioStream" uid="uid://cyv467m042n8x" path="res://sounds/music/clouds_full_of_tears.mp3" id="3_ssvqc"]
+[ext_resource type="Shader" uid="uid://bq6d3nyfjagl5" path="res://shaders/starry_sky.gdshader" id="4_ca42v"]
 [ext_resource type="PackedScene" uid="uid://bsgkqnjb6ic6h" path="res://models/ship.fbx" id="4_iywne"]
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="4_lbhrr"]
 [ext_resource type="AudioStream" uid="uid://powqf1q618rs" path="res://sounds/boost.mp3" id="5_gee14"]
@@ -14,9 +15,24 @@
 [ext_resource type="PackedScene" uid="uid://mp08hha7v1bs" path="res://scenes/enemy.tscn" id="9_vtaks"]
 [ext_resource type="PackedScene" uid="uid://cp43uhhcxh22n" path="res://scenes/laser.tscn" id="11_kvpfn"]
 [ext_resource type="AudioStream" uid="uid://73c46kxllki6" path="res://sounds/shield_break.mp3" id="11_trtic"]
+[ext_resource type="Texture2D" uid="uid://44a0qxsgqh5o" path="res://textures/arrow_pointer.png" id="13_rysoc"]
+[ext_resource type="Shader" uid="uid://huqb1yknqiut" path="res://shaders/crosshair.gdshader" id="14_ir15t"]
+[ext_resource type="Script" uid="uid://bn0y5eutrcr3a" path="res://scripts/ship_direction.gd" id="14_ssvqc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rysoc"]
+shader = ExtResource("4_ca42v")
+shader_parameter/vertical_sections = 12
+shader_parameter/star_size = 0.01
+shader_parameter/star_falloff = 4.0
+shader_parameter/margin = 0.01
+
+[sub_resource type="Sky" id="Sky_ssvqc"]
+sky_material = SubResource("ShaderMaterial_rysoc")
 
 [sub_resource type="Environment" id="Environment_uwrxv"]
-background_mode = 1
+background_mode = 2
+background_color = Color(1, 1, 1, 1)
+sky = SubResource("Sky_ssvqc")
 ambient_light_source = 2
 ambient_light_color = Color(0.37036446, 0.3703645, 0.37036443, 1)
 
@@ -24,15 +40,44 @@ ambient_light_color = Color(0.37036446, 0.3703645, 0.37036443, 1)
 points = PackedVector3Array(0.7274066, 0.4133359, 0.6991368, -0.04386058, 0.23440585, -0.6885974, -0.08293572, 0.19794945, -0.5662031, -1.586991, 0.42155415, 0.51469165, -0.73667836, 0, 0.47760096, 1.586991, 0.17366934, 0.21696576, 0.03652037, 0.57912725, 0.15884866, 1.586991, 0.42155415, 0.36582872, 0.73667836, 0, 0.47760096, -1.586991, 0.17366934, 0.21696576, -0.049399287, 0.3224546, -0.7251305, -0.726173, 0.50397116, 0.697941, 0.04205014, 0.6179916, 0.43723533, 0.122511484, 0.03604312, -0.0672922, -1.586991, 0.42155415, 0.36582872, 1.586991, 0.3224546, 0.51469165, -0.70410675, 0.01425705, 0.1919311, 0.726173, 0.50397116, 0.697941, -0.1731617, 0.0625, 0.57879066, 0.049399287, 0.2729048, -0.7748016, 0.70410675, 0.01425705, 0.1919311, -1.586991, 0.3224546, 0.51469165, -0.7274066, 0.4133359, 0.6991368, 0.049399287, 0.3224546, -0.7251305, 1.586991, 0.42155415, 0.51469165, -1.586991, 0.17366934, 0.36582872, 1.586991, 0.17366934, 0.36582872, -1.537281, 0.22328708, 0.16744512, -0.03652037, 0.57912725, 0.15884866, 1.537281, 0.22328708, 0.16744512, -0.049399287, 0.2729048, -0.7748016, -1.537281, 0.17366934, 0.16744512)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnu2h"]
+albedo_color = Color(0, 0, 0, 1)
 emission_enabled = true
-emission = Color(1, 0.7882353, 0, 1)
+emission = Color(1, 0.8666667, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ca42v"]
+shader = ExtResource("14_ir15t")
+shader_parameter/circle_radius = 0.25
+shader_parameter/circle_thickness = 0.02000000095
+shader_parameter/circle_gap_size = 0.05
+shader_parameter/circle_color_main = Color(1, 1, 1, 1)
+shader_parameter/circle_color_outline = Color(0, 0, 0, 1)
+shader_parameter/circle_outline_width = 0.005
+shader_parameter/circle_outline_flat = true
+shader_parameter/circle_rotation_speed = 0.0
+shader_parameter/circle_base_angle = 0.0
+shader_parameter/dot_radius = 0.030000001425
+shader_parameter/dot_color = Color(1, 1, 1, 1)
+shader_parameter/dot_outline_width = 0.05
+shader_parameter/dot_outline_color = Color(0, 0, 0, 1)
+shader_parameter/dot_outline_flat = true
+shader_parameter/cross_bar_width = 0.15
+shader_parameter/cross_thickness = 0.0400000019
+shader_parameter/cross_gap_size = 0.05
+shader_parameter/cross_color_main = Color(1, 1, 1, 1)
+shader_parameter/cross_color_outline = Color(0, 0, 0, 1)
+shader_parameter/cross_outline_width = 0.005
+shader_parameter/cross_outline_flat = true
+shader_parameter/cross_rotation_speed = 1.0000005225000006
+shader_parameter/cross_base_angle = 0.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ir15t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iywne"]
 shader = ExtResource("4_lbhrr")
 shader_parameter/shake = 0.015
 shader_parameter/noiseQuality = 250.0
 shader_parameter/noiseIntensity = 0.001
-shader_parameter/offsetIntensity = 0.0009999999747
+shader_parameter/offsetIntensity = 0.00049999998735
 shader_parameter/colorOffsetIntensity = 0.2
 shader_parameter/pixelSize = 640.0000303525
 shader_parameter/grainIntensity = 0.04
@@ -47,8 +92,11 @@ script = ExtResource("1_lnu2h")
 [node name="BalladOfTheCats" type="AudioStreamPlayer" parent="." unique_id=1163087554]
 stream = ExtResource("2_0tnpc")
 
+[node name="CloudsFullOfTears" type="AudioStreamPlayer" parent="." unique_id=912078189]
+stream = ExtResource("3_ssvqc")
+
 [node name="Loneliness" type="AudioStreamPlayer" parent="." unique_id=91823489]
-stream = ExtResource("3_kvuet")
+stream = ExtResource("3_ssvqc")
 volume_db = -4.0
 autoplay = true
 
@@ -115,6 +163,15 @@ billboard = 1
 modulate = Color(0, 1, 1, 1)
 text = "320"
 
+[node name="ShipDirection" type="Sprite3D" parent="Player" unique_id=749872103 node_paths=PackedStringArray("target")]
+pixel_size = 0.15
+axis = 1
+no_depth_test = true
+texture_filter = 0
+texture = ExtResource("13_rysoc")
+script = ExtResource("14_ssvqc")
+target = NodePath("../../Enemy")
+
 [node name="Enemy" parent="." unique_id=1828576788 instance=ExtResource("9_vtaks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 23969)
 
@@ -129,6 +186,21 @@ material = SubResource("StandardMaterial3D_lnu2h")
 [node name="Sprite3D" type="Sprite3D" parent="Sun" unique_id=253360212]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=798378190]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=41415973]
+material = SubResource("ShaderMaterial_ca42v")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_ir15t")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=2120752570]
 material = SubResource("ShaderMaterial_iywne")
@@ -152,19 +224,6 @@ text = "SHIT ASS UI
 boost: 100
 health: 100
 weapon: dingus"
-
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer" unique_id=673854783]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="Laser" parent="." unique_id=1703704797 instance=ExtResource("11_kvpfn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 24000)

@@ -13,7 +13,7 @@ var boost = 100
 var boost_cooldown = 0
 var health = 100
 var shield = 0
-var damage = 10
+var damage = 20
 var laser_color = Color(1, 1, 1)
 
 var boosting = false

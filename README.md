@@ -2,6 +2,10 @@
 
 # credits
 
+## Crosshair Custom Aim 2D Animated
+
+By Purga, dedicated to the public domain
+
 ## Pixabay
 
 Window break sfx by kave msri from Pixabay
