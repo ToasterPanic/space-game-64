@@ -13,7 +13,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	delta += time
+	time += delta
 	
 	if time > 10:
 		queue_free()
@@ -21,9 +21,6 @@ func _process(delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 	if "health" in body:
 		if ("shield" in body) and (body.shield > 0):
-			print(body.shield)
-			print((1.0 - (body.shield/100.0)))
-			
 			body.shield -= damage
 			
 			if body.shield <= 0:

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dsqt6ksi78uxs"]
+
+[ext_resource type="Script" uid="uid://ca1lnxjf7yv6c" path="res://scripts/missile.gd" id="1_6cx5e"]
+[ext_resource type="PackedScene" uid="uid://bgfi5d66av8mn" path="res://models/missile.fbx" id="2_6cx5e"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dinhu"]
+radius = 0.25
+height = 4.0
+
+[node name="Missile" type="RigidBody3D" unique_id=1703704797]
+gravity_scale = 0.0
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 4
+linear_damp = 4.0
+script = ExtResource("1_6cx5e")
+
+[node name="missile" parent="." unique_id=1835861291 instance=ExtResource("2_6cx5e")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=785670514]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_dinhu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

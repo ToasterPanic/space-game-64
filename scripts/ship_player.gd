@@ -1,7 +1,5 @@
 extends "res://scripts/ship.gd"
 
-var lock_on_target = null
-
 func _handle_controller_rotation_input(delta):
 	var input_dir = Input.get_vector("camera_left", "camera_right", "camera_down", "camera_up")
 	
@@ -46,6 +44,7 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	boosting = Input.is_action_pressed("boost")
 	firing = Input.is_action_pressed("fire")
+	alt_firing = Input.is_action_pressed("fire_alternate")
 	
 	if Input.is_action_just_released("boost"):
 		$BoostFinish.play()

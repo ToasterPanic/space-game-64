@@ -3,17 +3,17 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bsgkqnjb6ic6h"
-path="res://.godot/imported/ship.fbx-64ccf0b68feb0ceda541bbb671e26ddf.scn"
+uid="uid://bgfi5d66av8mn"
+path="res://.godot/imported/missile.fbx-3284dc3d124aad9d400f4b4ecf1b818b.scn"
 
 [deps]
 
-source_file="res://models/ship.fbx"
-dest_files=["res://.godot/imported/ship.fbx-64ccf0b68feb0ceda541bbb671e26ddf.scn"]
+source_file="res://models/missile.fbx"
+dest_files=["res://.godot/imported/missile.fbx-3284dc3d124aad9d400f4b4ecf1b818b.scn"]
 
 [params]
 
-nodes/root_type="MeshInstance3D"
+nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 nodes/apply_root_scale=true

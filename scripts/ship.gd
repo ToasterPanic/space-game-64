@@ -20,11 +20,16 @@ var boosting = false
 var boosting_last_process = false
 
 const laser_scene = preload("res://scenes/laser.tscn")
+const missile_scene = preload("res://scenes/missile.tscn")
 
 var firing = true
 var firing_delay = 0
 
+var alt_firing = false
+var alt_firing_delay = 0
+
 var firing_target = null
+var lock_on_target = null
 
 func _physics_process(delta: float) -> void:
 	if boosting and (boost_cooldown <= 0):
@@ -41,7 +46,37 @@ func _physics_process(delta: float) -> void:
 			boost = 100
 			
 		boost_cooldown -= delta
-	
+	if alt_firing:
+		alt_firing_delay -= delta
+		
+		if alt_firing_delay < 0:
+			alt_firing_delay = 1
+			
+			if lock_on_target:
+				var i = 0
+				while i < 2:
+					var missile = missile_scene.instantiate()
+				
+					missile.target = lock_on_target
+					missile.creator = self
+					
+					missile.rotation = rotation
+					missile.position = position + ((transform.basis * Vector3(0, 0, -1)).normalized() * 6) + ((transform.basis * Vector3(0, -1, 0)).normalized() * 3)
+					
+					if i == 0:
+						missile.position += ((transform.basis * Vector3(-1, 0, 0)).normalized() * 3)
+					else:
+						missile.position += ((transform.basis * Vector3(1, 0, 0)).normalized() * 3)
+					
+					var direction = (transform.basis * Vector3(0, 0, move_y)).normalized()
+					missile.linear_velocity = direction * 128
+					
+					get_tree().get_current_scene().add_child(missile)
+					
+					i += 1
+	else:
+		alt_firing_delay -= delta
+
 	if firing:
 		firing_delay -= delta
 		
@@ -101,15 +136,11 @@ func _physics_process(delta: float) -> void:
 			$Boost.stop()
 			
 	if move_y > 0:
-		move_y = move_y * 0.1
+		move_y = 0
 	
 	var direction := (transform.basis * Vector3(0, 0, move_y)).normalized()
 	if direction:
 		if boosting:
-			linear_velocity.x = direction.x * speed * boost_speed_multiplier
-			linear_velocity.y = direction.y * speed * boost_speed_multiplier
-			linear_velocity.z = direction.z * speed * boost_speed_multiplier
+			linear_velocity = direction * speed * boost_speed_multiplier
 		else:
-			linear_velocity.x = direction.x * speed
-			linear_velocity.y = direction.y * speed
-			linear_velocity.z = direction.z * speed
+			linear_velocity = direction * speed

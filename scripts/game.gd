@@ -11,10 +11,12 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	$Sunlight.look_at($Player/Camera.global_position)
+	$UILayer/FPS.text = "FPS: " + str(Engine.get_frames_per_second())
 	
 	if player.lock_on_target:
+		crosshair_size += (0.25 - crosshair_size) / 1.5
+		
 		if !player.get_node("Camera").is_position_behind(player.lock_on_target.global_position):
-			crosshair_size += (0.25 - crosshair_size) / 1.5
 			var screen_pos = player.get_node("Camera").unproject_position(player.lock_on_target.global_position)
 				
 			var window_size = get_viewport().get_visible_rect().size
@@ -27,8 +29,9 @@ func _process(delta: float) -> void:
 				crosshair_color = Color(1.0, 0.353, 0.0, 1.0)
 			else:
 				crosshair_color = Color(1, 1, 1)
+		else:
+			crosshair_color = Color(1, 1, 1)
 	else:
-		print(crosshair_size)
 		crosshair_size += (0.125 - crosshair_size) / 1.5
 		crosshair_color = Color(1, 1, 1)
 		
