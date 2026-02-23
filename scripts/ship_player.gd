@@ -40,6 +40,8 @@ func _process(delta: float) -> void:
 			lock_on_target.get_node("LockedOn").visible = false
 			
 			lock_on_target = null
+		else:
+			get_parent().crosshair_size = 0.2
 
 func _physics_process(delta: float) -> void:
 	boosting = Input.is_action_pressed("boost")
@@ -67,7 +69,7 @@ func _physics_process(delta: float) -> void:
 			
 			var distance_from_crosshair = (screen_pos - crosshair_pos).length()
 			
-			if distance_from_crosshair < 256:
+			if distance_from_crosshair < 128:
 				firing_target = lock_on_target.global_position + (lock_on_target.linear_velocity * 0.1)
 	else:
 		var window_size = get_viewport().get_visible_rect().size

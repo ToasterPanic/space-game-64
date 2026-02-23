@@ -177,7 +177,7 @@ target = NodePath("../../Enemies/Enemy")
 [node name="Enemies" type="Node3D" parent="." unique_id=1790491082]
 
 [node name="Enemy" parent="Enemies" unique_id=1828576788 instance=ExtResource("9_vtaks")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 23969)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 23269)
 
 [node name="Sun" type="CSGSphere3D" parent="." unique_id=1492795932]
 transform = Transform3D(256, 0, 0, 0, 256, 0, 0, 0, 256, 0, 0, 0)

@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 			
 			var distance_from_crosshair = (screen_pos - crosshair_pos).length()
 			
-			if distance_from_crosshair < 256:
+			if distance_from_crosshair < 128:
 				crosshair_color = Color(1.0, 0.353, 0.0, 1.0)
 			else:
 				crosshair_color = Color(1, 1, 1)
@@ -34,6 +34,20 @@ func _process(delta: float) -> void:
 	else:
 		crosshair_size += (0.125 - crosshair_size) / 1.5
 		crosshair_color = Color(1, 1, 1)
+		
+		for n in $Enemies.get_children():
+			var screen_pos = player.get_node("Camera").unproject_position(n.global_position)
+				
+			var window_size = get_viewport().get_visible_rect().size
+		
+			var crosshair_pos = window_size / 2
+			
+			var distance_from_crosshair = (screen_pos - crosshair_pos).length()
+			
+			if distance_from_crosshair < 64:
+				crosshair_color = Color(0.0, 0.684, 0.687, 1.0)
+		
+		
 		
 	$UILayer/Crosshair.material.set_shader_parameter("circle_radius", crosshair_size)
 	$UILayer/Crosshair.material.set_shader_parameter("circle_color_main", crosshair_color)
