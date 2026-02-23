@@ -79,14 +79,14 @@ func _physics_process(delta: float) -> void:
 			
 			laser.get_node("Mesh").set_surface_override_material(0, new_material)
 			
-			laser.linear_velocity = direction * 256
+			laser.linear_velocity = direction * 1024
 			
 			laser.damage = damage
 			
 			if has_node("Fire"):
 				$Fire.play()
 			
-			get_parent().add_child(laser)
+			get_tree().get_current_scene().add_child(laser)
 			
 			firing_target = null
 	else:
@@ -99,6 +99,9 @@ func _physics_process(delta: float) -> void:
 			$Boost.play()
 		else:
 			$Boost.stop()
+			
+	if move_y > 0:
+		move_y = move_y * 0.1
 	
 	var direction := (transform.basis * Vector3(0, 0, move_y)).normalized()
 	if direction:

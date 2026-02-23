@@ -1,13 +1,10 @@
 extends "res://scripts/ship.gd"
 
+@onready var player = get_parent().get_parent().get_node("Player")
 
-@onready var player = get_parent().get_node("Player")
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	laser_color = Color(1, 0, 0)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	if health <= 0:
 		queue_free()
@@ -15,7 +12,11 @@ func _physics_process(delta: float) -> void:
 	
 	$Health.text = str(floori(health))
 	
-	var target_direction = global_position.direction_to(player.global_position)
+	var target_position = player.global_position
+	if player.linear_velocity.length() < 32:
+		target_position += (player.linear_velocity * 0.1)
+	
+	var target_direction = global_position.direction_to(target_position)
 	
 	if (player.global_position - position).length() < 32:
 		target_direction *= -1
@@ -26,17 +27,19 @@ func _physics_process(delta: float) -> void:
 	var rotation_axis = current_dir.cross(target_dir)
 	var angle = acos(current_dir.dot(target_dir))
 	
-	var torque = rotation_axis.normalized() * angle * 100.0
+	var base_turn_speed = 100.0 + (clamp(32 - (player.global_position - position).length(), 0, 32) * 8)
+	
+	var torque = rotation_axis.normalized() * angle * base_turn_speed
 	
 	move_y = -0.5
 	
 	if (player.linear_velocity.length() < 32) and ((player.global_position - position).length() < 128):
-		print(delta)
-		torque = rotation_axis.normalized() * angle * 300.0
+		torque = rotation_axis.normalized() * angle * base_turn_speed
 		
 		move_y = 0
 	if (player.global_position - position).length() < 32:
-		torque = rotation_axis.normalized() * angle * 600.0
+		firing_target = player.global_position + (player.linear_velocity * 0.1)
+		torque = rotation_axis.normalized() * angle * base_turn_speed
 		
 		move_y = -0.25
 	elif (player.global_position - position).length() < 64:

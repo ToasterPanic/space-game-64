@@ -46,23 +46,23 @@ emission = Color(1, 0.8666667, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ca42v"]
 shader = ExtResource("14_ir15t")
-shader_parameter/circle_radius = 0.25
-shader_parameter/circle_thickness = 0.02000000095
-shader_parameter/circle_gap_size = 0.05
+shader_parameter/circle_radius = 0.1250000059375
+shader_parameter/circle_thickness = 0.010000000475
+shader_parameter/circle_gap_size = 0.0250000011875
 shader_parameter/circle_color_main = Color(1, 1, 1, 1)
 shader_parameter/circle_color_outline = Color(0, 0, 0, 1)
 shader_parameter/circle_outline_width = 0.005
 shader_parameter/circle_outline_flat = true
 shader_parameter/circle_rotation_speed = 0.0
 shader_parameter/circle_base_angle = 0.0
-shader_parameter/dot_radius = 0.030000001425
+shader_parameter/dot_radius = 0.015
 shader_parameter/dot_color = Color(1, 1, 1, 1)
 shader_parameter/dot_outline_width = 0.05
 shader_parameter/dot_outline_color = Color(0, 0, 0, 1)
 shader_parameter/dot_outline_flat = true
-shader_parameter/cross_bar_width = 0.15
-shader_parameter/cross_thickness = 0.0400000019
-shader_parameter/cross_gap_size = 0.05
+shader_parameter/cross_bar_width = 0.0750000035625
+shader_parameter/cross_thickness = 0.02
+shader_parameter/cross_gap_size = 0.0250000011875
 shader_parameter/cross_color_main = Color(1, 1, 1, 1)
 shader_parameter/cross_color_outline = Color(0, 0, 0, 1)
 shader_parameter/cross_outline_width = 0.005
@@ -144,24 +144,27 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_dinhu")
 
 [node name="Health" type="Label3D" parent="Player" unique_id=1182880194]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
 pixel_size = 0.04
 billboard = 1
-text = "320"
+texture_filter = 0
+text = "999"
 
 [node name="Shield" type="Label3D" parent="Player" unique_id=628642544]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -3, 0)
 pixel_size = 0.04
 billboard = 1
+texture_filter = 0
 modulate = Color(1, 0, 1, 1)
-text = "320"
+text = "999"
 
 [node name="BoostText" type="Label3D" parent="Player" unique_id=913984668]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -3, 0)
 pixel_size = 0.04
 billboard = 1
+texture_filter = 0
 modulate = Color(0, 1, 1, 1)
-text = "320"
+text = "999"
 
 [node name="ShipDirection" type="Sprite3D" parent="Player" unique_id=749872103 node_paths=PackedStringArray("target")]
 pixel_size = 0.15
@@ -170,9 +173,11 @@ no_depth_test = true
 texture_filter = 0
 texture = ExtResource("13_rysoc")
 script = ExtResource("14_ssvqc")
-target = NodePath("../../Enemy")
+target = NodePath("../../Enemies/Enemy")
 
-[node name="Enemy" parent="." unique_id=1828576788 instance=ExtResource("9_vtaks")]
+[node name="Enemies" type="Node3D" parent="." unique_id=1790491082]
+
+[node name="Enemy" parent="Enemies" unique_id=1828576788 instance=ExtResource("9_vtaks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 23969)
 
 [node name="Sun" type="CSGSphere3D" parent="." unique_id=1492795932]
@@ -185,24 +190,24 @@ material = SubResource("StandardMaterial3D_lnu2h")
 
 [node name="Sprite3D" type="Sprite3D" parent="Sun" unique_id=253360212]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=798378190]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=798378190]
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=41415973]
+[node name="Crosshair" type="TextureRect" parent="UILayer" unique_id=41415973]
 material = SubResource("ShaderMaterial_ca42v")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("PlaceholderTexture2D_ir15t")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=2120752570]
+[node name="ColorRect" type="ColorRect" parent="UILayer" unique_id=2120752570]
 material = SubResource("ShaderMaterial_iywne")
 anchors_preset = 15
 anchor_right = 1.0
@@ -211,7 +216,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" unique_id=1201290524]
+[node name="RichTextLabel" type="RichTextLabel" parent="UILayer" unique_id=1201290524]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
