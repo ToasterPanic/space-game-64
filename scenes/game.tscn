@@ -134,7 +134,7 @@ texture = ExtResource("1_uwrxv")
 
 [node name="Camera" type="Camera3D" parent="Player" unique_id=1916892619]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 5, 8)
-fov = 110.0
+fov = 100.0
 far = 1009999.0
 
 [node name="ship" parent="Player" unique_id=1630490036 instance=ExtResource("4_iywne")]
@@ -213,7 +213,6 @@ emitting = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
 emitting = true
 mesh = SubResource("BoxMesh_pl11u")
-emission_box_extents = Vector3(6, 1, 0.1)
 
 [node name="ShipDirection" type="Sprite3D" parent="Player" unique_id=749872103 node_paths=PackedStringArray("target")]
 pixel_size = 0.15

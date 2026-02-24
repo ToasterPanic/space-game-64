@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 		
 	if stage == 1:
 		if target:
-			var target_position = target.global_position + ((target.transform.basis * Vector3(0, 2, 0)).normalized() * 1.5)
+			var target_position = target.global_position + ((target.transform.basis * Vector3(0, 1, 0)).normalized())
 			
 			if ((target.global_position - global_position).length() < 10) or (time > 0.66):
 				look_at(target_position)

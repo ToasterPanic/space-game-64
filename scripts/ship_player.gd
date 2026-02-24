@@ -72,10 +72,7 @@ func _process(delta: float) -> void:
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		print(event.relative)
 		mouse_movement += event.relative
-		
-		
 
 func _physics_process(delta: float) -> void:
 	boosting = Input.is_action_pressed("boost")
@@ -128,5 +125,12 @@ func _physics_process(delta: float) -> void:
 		
 		if boosting == false:
 			$BoostFinish.play()
+	
+	if boosting:
+		$Camera.fov += (115 - $Camera.fov) / 1.35
+	elif move_y < 0:
+		$Camera.fov += ((110 + (move_y * -1)) - $Camera.fov) / 1.5
+	else:
+		$Camera.fov += (110 - $Camera.fov) / 1.5
 	
 	_handle_controller_rotation_input(delta)
