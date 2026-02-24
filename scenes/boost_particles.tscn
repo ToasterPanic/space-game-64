@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dbrfkyriiaw2i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bt5mj"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_md484"]
+material = SubResource("StandardMaterial3D_bt5mj")
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="Curve" id="Curve_ipns3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.92134833), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="BoostParticles" type="CPUParticles3D" unique_id=426772115]
+emitting = false
+amount = 128
+lifetime = 0.25
+mesh = SubResource("BoxMesh_md484")
+emission_shape = 3
+emission_box_extents = Vector3(5, 1.5, 0.1)
+direction = Vector3(0, 0, 1)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 24.0
+initial_velocity_max = 24.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.0
+scale_amount_curve = SubResource("Curve_ipns3")
+color = Color(0.40784314, 1, 1, 1)

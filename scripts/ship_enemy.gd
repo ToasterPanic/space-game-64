@@ -12,6 +12,10 @@ func _physics_process(delta: float) -> void:
 		if is_dead: return
 		
 		is_dead = true
+		
+		$Thrusters.visible = false
+		$BoostParticles.visible = false
+		
 		$Mesh.visible = false
 		$LockedOn.visible = false
 		$Health.queue_free()

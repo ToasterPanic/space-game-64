@@ -51,6 +51,8 @@ func _physics_process(delta: float) -> void:
 			var direction := (transform.basis * Vector3(0, 0, -1)).normalized()
 		
 			linear_velocity = direction * 192
+		else:
+			queue_free()
 	
 	if time > 4:
 		queue_free()

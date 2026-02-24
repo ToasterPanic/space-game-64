@@ -1,5 +1,7 @@
 extends "res://scripts/ship.gd"
 
+var player_was_boosting = false
+
 func _handle_controller_rotation_input(delta):
 	var input_dir = Input.get_vector("camera_left", "camera_right", "camera_down", "camera_up")
 	
@@ -63,9 +65,6 @@ func _physics_process(delta: float) -> void:
 	firing = Input.is_action_pressed("fire")
 	alt_firing = Input.is_action_pressed("fire_alternate")
 	
-	if Input.is_action_just_released("boost"):
-		$BoostFinish.play()
-	
 	var input_dir := Input.get_vector("ship_left", "ship_right", "move_forward", "move_backwards")
 	move_x = input_dir.x
 	move_y = input_dir.y
@@ -106,5 +105,11 @@ func _physics_process(delta: float) -> void:
 			firing_target = result.position
 	
 	super(delta)
+	
+	if player_was_boosting != boosting:
+		player_was_boosting = boosting
+		
+		if boosting == false:
+			$BoostFinish.play()
 	
 	_handle_controller_rotation_input(delta)

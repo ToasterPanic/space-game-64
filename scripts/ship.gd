@@ -36,11 +36,15 @@ func _physics_process(delta: float) -> void:
 		move_y = -1
 		boost -= delta * (100/5)
 		
+		$BoostParticles.emitting = true
+		
 		if boost < 0:
 			boost_cooldown = 2.5
 	else:
 		boosting = false
 		boost += delta * (100/5)
+		
+		$BoostParticles.emitting = false
 		
 		if boost > 100:
 			boost = 100
@@ -139,6 +143,15 @@ func _physics_process(delta: float) -> void:
 			
 	if move_y > 0:
 		move_y = 0
+		
+	if (move_y != 0) and !boosting:
+		$Thrusters.emitting = true
+		
+		#$Thrusters.amount = 64 + (move_y * -64)
+		$Thrusters.initial_velocity_min = move_y * -24
+		$Thrusters.initial_velocity_max = $Thrusters.initial_velocity_min 
+	else:
+		$Thrusters.emitting = false
 	
 	var direction := (transform.basis * Vector3(0, 0, move_y)).normalized()
 	if direction:

@@ -16,13 +16,15 @@
 [ext_resource type="PackedScene" uid="uid://mp08hha7v1bs" path="res://scenes/enemy.tscn" id="9_vtaks"]
 [ext_resource type="AudioStream" uid="uid://73c46kxllki6" path="res://sounds/shield_break.mp3" id="11_trtic"]
 [ext_resource type="AudioStream" uid="uid://b5t5su8sgx0uy" path="res://sounds/lock_on.mp3" id="13_1kice"]
-[ext_resource type="Texture2D" uid="uid://44a0qxsgqh5o" path="res://textures/arrow_pointer.png" id="13_rysoc"]
 [ext_resource type="AudioStream" uid="uid://3m45nyq3x5kh" path="res://sounds/lock_off.mp3" id="14_5newe"]
 [ext_resource type="Shader" uid="uid://huqb1yknqiut" path="res://shaders/crosshair.gdshader" id="14_ir15t"]
 [ext_resource type="Script" uid="uid://bn0y5eutrcr3a" path="res://scripts/ship_direction.gd" id="14_ssvqc"]
 [ext_resource type="AudioStream" uid="uid://bp033asewrmto" path="res://sounds/lock_on_fail.mp3" id="15_37s47"]
 [ext_resource type="AudioStream" uid="uid://dcym0336nk88v" path="res://sounds/kill_confirmed.mp3" id="16_5newe"]
 [ext_resource type="AudioStream" uid="uid://bodcmrhwbdlg4" path="res://sounds/explode.mp3" id="17_37s47"]
+[ext_resource type="Texture2D" uid="uid://knhdbp0bqy7k" path="res://textures/direction_enemy.png" id="19_bt5mj"]
+[ext_resource type="PackedScene" uid="uid://1egy8sr624dw" path="res://scenes/thrusters.tscn" id="19_pl11u"]
+[ext_resource type="PackedScene" uid="uid://dbrfkyriiaw2i" path="res://scenes/boost_particles.tscn" id="20_bhx41"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rysoc"]
 shader = ExtResource("4_ca42v")
@@ -43,6 +45,14 @@ ambient_light_color = Color(0.37036446, 0.3703645, 0.37036443, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dinhu"]
 points = PackedVector3Array(0.7274066, 0.4133359, 0.6991368, -0.04386058, 0.23440585, -0.6885974, -0.08293572, 0.19794945, -0.5662031, -1.586991, 0.42155415, 0.51469165, -0.73667836, 0, 0.47760096, 1.586991, 0.17366934, 0.21696576, 0.03652037, 0.57912725, 0.15884866, 1.586991, 0.42155415, 0.36582872, 0.73667836, 0, 0.47760096, -1.586991, 0.17366934, 0.21696576, -0.049399287, 0.3224546, -0.7251305, -0.726173, 0.50397116, 0.697941, 0.04205014, 0.6179916, 0.43723533, 0.122511484, 0.03604312, -0.0672922, -1.586991, 0.42155415, 0.36582872, 1.586991, 0.3224546, 0.51469165, -0.70410675, 0.01425705, 0.1919311, 0.726173, 0.50397116, 0.697941, -0.1731617, 0.0625, 0.57879066, 0.049399287, 0.2729048, -0.7748016, 0.70410675, 0.01425705, 0.1919311, -1.586991, 0.3224546, 0.51469165, -0.7274066, 0.4133359, 0.6991368, 0.049399287, 0.3224546, -0.7251305, 1.586991, 0.42155415, 0.51469165, -1.586991, 0.17366934, 0.36582872, 1.586991, 0.17366934, 0.36582872, -1.537281, 0.22328708, 0.16744512, -0.03652037, 0.57912725, 0.15884866, 1.537281, 0.22328708, 0.16744512, -0.049399287, 0.2729048, -0.7748016, -1.537281, 0.17366934, 0.16744512)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bt5mj"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_pl11u"]
+material = SubResource("StandardMaterial3D_bt5mj")
+size = Vector3(0.4, 0.4, 3)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnu2h"]
 albedo_color = Color(0, 0, 0, 1)
@@ -99,11 +109,11 @@ stream = ExtResource("2_0tnpc")
 
 [node name="CloudsFullOfTears" type="AudioStreamPlayer" parent="." unique_id=912078189]
 stream = ExtResource("3_ssvqc")
-volume_db = -8.0
+volume_db = -10.0
 
 [node name="Loneliness" type="AudioStreamPlayer" parent="." unique_id=91823489]
 stream = ExtResource("4_bt5mj")
-volume_db = -4.0
+volume_db = -6.0
 autoplay = true
 
 [node name="Sunlight" type="DirectionalLight3D" parent="." unique_id=2063979181]
@@ -173,6 +183,7 @@ shape = SubResource("ConvexPolygonShape3D_dinhu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
 pixel_size = 0.04
 billboard = 1
+no_depth_test = true
 texture_filter = 0
 text = "999"
 
@@ -180,6 +191,7 @@ text = "999"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -3, 0)
 pixel_size = 0.04
 billboard = 1
+no_depth_test = true
 texture_filter = 0
 modulate = Color(1, 0, 1, 1)
 text = "999"
@@ -188,18 +200,37 @@ text = "999"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -3, 0)
 pixel_size = 0.04
 billboard = 1
+no_depth_test = true
 texture_filter = 0
 modulate = Color(0, 1, 1, 1)
 text = "999"
+
+[node name="Thrusters" parent="Player" unique_id=103662660 instance=ExtResource("19_pl11u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
+emitting = false
+
+[node name="BoostParticles" parent="Player" unique_id=426772115 instance=ExtResource("20_bhx41")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
+emitting = true
+mesh = SubResource("BoxMesh_pl11u")
+emission_box_extents = Vector3(6, 1, 0.1)
 
 [node name="ShipDirection" type="Sprite3D" parent="Player" unique_id=749872103 node_paths=PackedStringArray("target")]
 pixel_size = 0.15
 axis = 1
 no_depth_test = true
 texture_filter = 0
-texture = ExtResource("13_rysoc")
+texture = ExtResource("19_bt5mj")
 script = ExtResource("14_ssvqc")
 target = NodePath("../../Enemies/Enemy")
+
+[node name="Distance" type="Label3D" parent="Player/ShipDirection" unique_id=1052864604]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.0214844)
+pixel_size = 0.03
+billboard = 1
+no_depth_test = true
+modulate = Color(1, 0, 0, 1)
+text = "99"
 
 [node name="Enemies" type="Node3D" parent="." unique_id=1790491082]
 

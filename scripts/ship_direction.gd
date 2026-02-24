@@ -18,10 +18,16 @@ func _process(delta: float) -> void:
 		
 		var distance = (global_position - target.global_position).length()
 		
+		$Distance.text = str(floori(distance))
+		
 		if scale_size_with_distance:
 			scale.x = 1 - (distance / 256)
+			$Distance.scale.x = 1 + (distance / 256)
+		
 			
-			if scale.x < 0.25: scale.x = 0.25
+			if scale.x < 0.25: 
+				scale.x = 0.25
+				$Distance.scale.x = 1.75
 		else:
 			scale.x = 1
 			
