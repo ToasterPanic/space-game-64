@@ -20,7 +20,6 @@ func _input(event):
 func _handle_controller_camera_input(delta):
 	var input_dir = Input.get_vector("camera_left", "camera_right", "camera_down", "camera_up")
 	
-	
 	rotate_y(-input_dir.x * controller_camera_sensitivity * delta)
 	
 	camera.rotation.x = clamp((camera.rotation.x - (-input_dir.y * controller_camera_sensitivity * delta)), -PI/2, PI/2)

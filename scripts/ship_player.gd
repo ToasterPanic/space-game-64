@@ -1,14 +1,24 @@
 extends "res://scripts/ship.gd"
 
 var player_was_boosting = false
+var mouse_sensitivity = 0.004
+var mouse_movement = Vector2()
 
 func _handle_controller_rotation_input(delta):
+	rotate_object_local(Vector3.RIGHT, -mouse_movement.y * mouse_sensitivity)
+	rotate_object_local(Vector3.UP, -mouse_movement.x  * mouse_sensitivity)
+	
+	mouse_movement = Vector2()
+		
 	var input_dir = Input.get_vector("camera_left", "camera_right", "camera_down", "camera_up")
+	
+	if input_dir.length() == 0: return
 	
 	rotate_object_local(Vector3.RIGHT, input_dir.y * controller_camera_sensitivity * delta)
 	rotate_object_local(Vector3.UP, -input_dir.x * controller_camera_sensitivity * delta)
 	
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	shield = 100
 	
 func confirm_kill(victim) -> void:
@@ -24,7 +34,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("lock_on"):
 		var target = null
-		var target_distance = 99999
+		var target_distance = 1024
 		
 		var enemies = get_parent().get_node("Enemies")
 		
@@ -59,6 +69,13 @@ func _process(delta: float) -> void:
 		else:
 			get_parent().crosshair_size = 0.2
 			$LockOnFail.play()
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		print(event.relative)
+		mouse_movement += event.relative
+		
+		
 
 func _physics_process(delta: float) -> void:
 	boosting = Input.is_action_pressed("boost")
