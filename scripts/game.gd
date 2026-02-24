@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 	$Sunlight.look_at($Player/Camera.global_position)
 	$UILayer/FPS.text = "FPS: " + str(Engine.get_frames_per_second())
 	
-	if player.lock_on_target:
+	if player.lock_on_target != null:
 		crosshair_size += (0.25 - crosshair_size) / 1.5
 		
 		if !player.get_node("Camera").is_position_behind(player.lock_on_target.global_position):
@@ -36,7 +36,7 @@ func _process(delta: float) -> void:
 		crosshair_color = Color(1, 1, 1)
 		
 		for n in $Enemies.get_children():
-			if n.health <= 0: return
+			if n.health <= 0: continue
 			
 			var screen_pos = player.get_node("Camera").unproject_position(n.global_position)
 				
@@ -48,6 +48,7 @@ func _process(delta: float) -> void:
 			
 			if distance_from_crosshair < 64:
 				crosshair_color = Color(0.0, 0.684, 0.687, 1.0)
+				continue
 		
 		
 		

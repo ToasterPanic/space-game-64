@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://dsqt6ksi78uxs"]
 
 [ext_resource type="Script" uid="uid://ca1lnxjf7yv6c" path="res://scripts/missile.gd" id="1_6cx5e"]
+[ext_resource type="AudioStream" uid="uid://b7c3hnw24lq12" path="res://sounds/rocket_explosion.mp3" id="2_2swxv"]
 [ext_resource type="PackedScene" uid="uid://bgfi5d66av8mn" path="res://models/missile.fbx" id="2_6cx5e"]
+[ext_resource type="AudioStream" uid="uid://dyjeekkcw5xi6" path="res://sounds/rocket_thrust_small.mp3" id="2_35udt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dinhu"]
 radius = 0.25
@@ -15,9 +17,21 @@ max_contacts_reported = 4
 linear_damp = 4.0
 script = ExtResource("1_6cx5e")
 
-[node name="missile" parent="." unique_id=1835861291 instance=ExtResource("2_6cx5e")]
+[node name="RocketExplosion" type="AudioStreamPlayer3D" parent="." unique_id=84867472]
+stream = ExtResource("2_2swxv")
+unit_size = 32.0
+pitch_scale = 2.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=785670514]
+[node name="RocketThrustSmall" type="AudioStreamPlayer3D" parent="." unique_id=1917197335]
+stream = ExtResource("2_35udt")
+volume_db = -4.0
+unit_size = 24.0
+autoplay = true
+parameters/looping = true
+
+[node name="Mesh" parent="." unique_id=1835861291 instance=ExtResource("2_6cx5e")]
+
+[node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=785670514]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_dinhu")
 

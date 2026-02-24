@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://powqf1q618rs" path="res://sounds/boost.mp3" id="3_xwavj"]
 [ext_resource type="AudioStream" uid="uid://garhxg0lsr5m" path="res://sounds/fire.mp3" id="4_5uy6h"]
 [ext_resource type="Texture2D" uid="uid://bvauy2ck8e0vh" path="res://textures/locked_on.png" id="5_c4w8v"]
+[ext_resource type="AudioStream" uid="uid://dc7mptruhhtal" path="res://sounds/ship_explode.mp3" id="5_md484"]
 [ext_resource type="AudioStream" uid="uid://bodcmrhwbdlg4" path="res://sounds/explode.mp3" id="5_xwavj"]
 [ext_resource type="PackedScene" uid="uid://5mw8i3xtlh1t" path="res://scenes/big_space_explosion.tscn" id="7_nenq2"]
 
@@ -31,8 +32,7 @@ max_distance = 256.0
 doppler_tracking = 2
 
 [node name="Explode" type="AudioStreamPlayer" parent="." unique_id=345910248]
-stream = ExtResource("5_xwavj")
-volume_db = 4.0
+stream = ExtResource("5_md484")
 pitch_scale = 1.2
 
 [node name="Fire" type="AudioStreamPlayer3D" parent="." unique_id=1126162]

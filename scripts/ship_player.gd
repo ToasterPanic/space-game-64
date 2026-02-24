@@ -18,6 +18,7 @@ func _process(delta: float) -> void:
 	if lock_on_target:
 		if lock_on_target.health <= 0:
 			lock_on_target = null
+			
 	
 	if Input.is_action_just_pressed("lock_on"):
 		var target = null

@@ -73,4 +73,13 @@ func _on_body_entered(body: Node) -> void:
 				if creator.name == "Player":
 					creator.confirm_kill(self)
 	
+	$CollisionShape.queue_free()
+	$Mesh.queue_free()
+	linear_velocity = Vector3()
+	
+	$RocketExplosion.play()
+	$RocketThrustSmall.stop()
+	
+	await get_tree().create_timer(1.5).timeout
+	
 	queue_free()
