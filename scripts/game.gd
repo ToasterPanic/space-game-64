@@ -36,6 +36,8 @@ func _process(delta: float) -> void:
 		crosshair_color = Color(1, 1, 1)
 		
 		for n in $Enemies.get_children():
+			if n.health <= 0: return
+			
 			var screen_pos = player.get_node("Camera").unproject_position(n.global_position)
 				
 			var window_size = get_viewport().get_visible_rect().size

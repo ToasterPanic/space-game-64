@@ -99,6 +99,8 @@ func _physics_process(delta: float) -> void:
 			
 			var laser = laser_scene.instantiate()
 			
+			laser.creator = self
+			
 			laser.rotation = rotation
 			
 			laser.position = position + ((transform.basis * Vector3(0, 0, -1)).normalized() * 8)

@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://5mw8i3xtlh1t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xwavj"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_nenq2"]
+material = SubResource("StandardMaterial3D_xwavj")
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="Curve" id="Curve_md484"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.925532, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b8we3"]
+albedo_color = Color(0.76240367, 0.76240367, 0.76240367, 1)
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="BoxMesh" id="BoxMesh_b8we3"]
+material = SubResource("StandardMaterial3D_b8we3")
+size = Vector3(0.2, 1, 1)
+
+[sub_resource type="Curve" id="Curve_b8we3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0212766, 1), 0.0, 0.0, 0, 0, Vector2(0.925532, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_w4pt5"]
+material = SubResource("StandardMaterial3D_b8we3")
+size = Vector3(0.2, 0.5, 0.5)
+
+[node name="BigSpaceExplosion" type="Node3D" unique_id=2043334155]
+
+[node name="Yellow" type="CPUParticles3D" parent="." unique_id=110238921]
+emitting = false
+amount = 64
+lifetime = 15.0
+one_shot = true
+preprocess = 0.15
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_nenq2")
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 24.0
+initial_velocity_max = 48.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.0
+scale_amount_curve = SubResource("Curve_md484")
+color = Color(1, 1, 0, 1)
+
+[node name="Red" type="CPUParticles3D" parent="." unique_id=226441600]
+emitting = false
+amount = 32
+lifetime = 15.0
+one_shot = true
+preprocess = 0.15
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_nenq2")
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 24.0
+initial_velocity_max = 48.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.0
+scale_amount_curve = SubResource("Curve_md484")
+color = Color(1, 0, 0, 1)
+
+[node name="White" type="CPUParticles3D" parent="." unique_id=1851596012]
+emitting = false
+amount = 128
+lifetime = 15.0
+one_shot = true
+preprocess = 0.15
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_nenq2")
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 24.0
+initial_velocity_max = 48.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.0
+scale_amount_curve = SubResource("Curve_md484")
+
+[node name="Metal2" type="CPUParticles3D" parent="." unique_id=109523041]
+emitting = false
+amount = 16
+lifetime = 15.0
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_b8we3")
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 24.0
+initial_velocity_max = 48.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.0
+scale_amount_curve = SubResource("Curve_b8we3")
+
+[node name="Metal" type="CPUParticles3D" parent="." unique_id=1153879192]
+emitting = false
+amount = 32
+lifetime = 15.0
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_w4pt5")
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 24.0
+initial_velocity_max = 48.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.0
+scale_amount_curve = SubResource("Curve_md484")

@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://dmkoqkk5u124" path="res://sounds/music/ballad_of_the_cats.mp3" id="2_0tnpc"]
 [ext_resource type="Script" uid="uid://dyj3ggaq1yxa3" path="res://scripts/ship_player.gd" id="3_0tnpc"]
 [ext_resource type="AudioStream" uid="uid://cyv467m042n8x" path="res://sounds/music/clouds_full_of_tears.mp3" id="3_ssvqc"]
+[ext_resource type="AudioStream" uid="uid://niq81duekkf8" path="res://sounds/music/loneliness.mp3" id="4_bt5mj"]
 [ext_resource type="Shader" uid="uid://bq6d3nyfjagl5" path="res://shaders/starry_sky.gdshader" id="4_ca42v"]
 [ext_resource type="PackedScene" uid="uid://bsgkqnjb6ic6h" path="res://models/ship.fbx" id="4_iywne"]
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="4_lbhrr"]
@@ -14,9 +15,14 @@
 [ext_resource type="AudioStream" uid="uid://cgde1dap3r4d2" path="res://sounds/collision.mp3" id="7_vtaks"]
 [ext_resource type="PackedScene" uid="uid://mp08hha7v1bs" path="res://scenes/enemy.tscn" id="9_vtaks"]
 [ext_resource type="AudioStream" uid="uid://73c46kxllki6" path="res://sounds/shield_break.mp3" id="11_trtic"]
+[ext_resource type="AudioStream" uid="uid://b5t5su8sgx0uy" path="res://sounds/lock_on.mp3" id="13_1kice"]
 [ext_resource type="Texture2D" uid="uid://44a0qxsgqh5o" path="res://textures/arrow_pointer.png" id="13_rysoc"]
+[ext_resource type="AudioStream" uid="uid://3m45nyq3x5kh" path="res://sounds/lock_off.mp3" id="14_5newe"]
 [ext_resource type="Shader" uid="uid://huqb1yknqiut" path="res://shaders/crosshair.gdshader" id="14_ir15t"]
 [ext_resource type="Script" uid="uid://bn0y5eutrcr3a" path="res://scripts/ship_direction.gd" id="14_ssvqc"]
+[ext_resource type="AudioStream" uid="uid://bp033asewrmto" path="res://sounds/lock_on_fail.mp3" id="15_37s47"]
+[ext_resource type="AudioStream" uid="uid://dcym0336nk88v" path="res://sounds/kill_confirmed.mp3" id="16_5newe"]
+[ext_resource type="AudioStream" uid="uid://bodcmrhwbdlg4" path="res://sounds/explode.mp3" id="17_37s47"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rysoc"]
 shader = ExtResource("4_ca42v")
@@ -93,9 +99,10 @@ stream = ExtResource("2_0tnpc")
 
 [node name="CloudsFullOfTears" type="AudioStreamPlayer" parent="." unique_id=912078189]
 stream = ExtResource("3_ssvqc")
+volume_db = -8.0
 
 [node name="Loneliness" type="AudioStreamPlayer" parent="." unique_id=91823489]
-stream = ExtResource("3_ssvqc")
+stream = ExtResource("4_bt5mj")
 volume_db = -4.0
 autoplay = true
 
@@ -130,6 +137,7 @@ stream = ExtResource("5_gee14")
 
 [node name="BoostFinish" type="AudioStreamPlayer" parent="Player" unique_id=16436511]
 stream = ExtResource("6_0tnpc")
+volume_db = -4.0
 
 [node name="Collision" type="AudioStreamPlayer" parent="Player" unique_id=410344739]
 stream = ExtResource("7_vtaks")
@@ -137,6 +145,25 @@ stream = ExtResource("7_vtaks")
 [node name="ShieldBreak" type="AudioStreamPlayer" parent="Player" unique_id=1768299023]
 stream = ExtResource("11_trtic")
 volume_db = 2.0
+
+[node name="LockOn" type="AudioStreamPlayer" parent="Player" unique_id=1481812586]
+stream = ExtResource("13_1kice")
+volume_db = 12.0
+
+[node name="LockOff" type="AudioStreamPlayer" parent="Player" unique_id=904748323]
+stream = ExtResource("14_5newe")
+volume_db = 12.0
+
+[node name="LockOnFail" type="AudioStreamPlayer" parent="Player" unique_id=1659827613]
+stream = ExtResource("15_37s47")
+volume_db = 12.0
+
+[node name="KillConfirmed" type="AudioStreamPlayer" parent="Player" unique_id=881925878]
+stream = ExtResource("16_5newe")
+volume_db = 12.0
+
+[node name="Explode" type="AudioStreamPlayer" parent="Player" unique_id=1563436748]
+stream = ExtResource("17_37s47")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=2144228228]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
@@ -177,7 +204,7 @@ target = NodePath("../../Enemies/Enemy")
 [node name="Enemies" type="Node3D" parent="." unique_id=1790491082]
 
 [node name="Enemy" parent="Enemies" unique_id=1828576788 instance=ExtResource("9_vtaks")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 23269)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 23769)
 
 [node name="Sun" type="CSGSphere3D" parent="." unique_id=1492795932]
 transform = Transform3D(256, 0, 0, 0, 256, 0, 0, 0, 256, 0, 0, 0)

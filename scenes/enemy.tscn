@@ -5,6 +5,8 @@
 [ext_resource type="AudioStream" uid="uid://powqf1q618rs" path="res://sounds/boost.mp3" id="3_xwavj"]
 [ext_resource type="AudioStream" uid="uid://garhxg0lsr5m" path="res://sounds/fire.mp3" id="4_5uy6h"]
 [ext_resource type="Texture2D" uid="uid://bvauy2ck8e0vh" path="res://textures/locked_on.png" id="5_c4w8v"]
+[ext_resource type="AudioStream" uid="uid://bodcmrhwbdlg4" path="res://sounds/explode.mp3" id="5_xwavj"]
+[ext_resource type="PackedScene" uid="uid://5mw8i3xtlh1t" path="res://scenes/big_space_explosion.tscn" id="7_nenq2"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5uy6h"]
 points = PackedVector3Array(0.7274066, 0.4133359, 0.6991368, -0.04386058, 0.23440585, -0.6885974, -0.08293572, 0.19794945, -0.5662031, -1.586991, 0.42155415, 0.51469165, -0.73667836, 0, 0.47760096, 1.586991, 0.17366934, 0.21696576, 0.03652037, 0.57912725, 0.15884866, 1.586991, 0.42155415, 0.36582872, 0.73667836, 0, 0.47760096, -1.586991, 0.17366934, 0.21696576, -0.049399287, 0.3224546, -0.7251305, -0.726173, 0.50397116, 0.697941, 0.04205014, 0.6179916, 0.43723533, 0.122511484, 0.03604312, -0.0672922, -1.586991, 0.42155415, 0.36582872, 1.586991, 0.3224546, 0.51469165, -0.70410675, 0.01425705, 0.1919311, 0.726173, 0.50397116, 0.697941, -0.1731617, 0.0625, 0.57879066, 0.049399287, 0.2729048, -0.7748016, 0.70410675, 0.01425705, 0.1919311, -1.586991, 0.3224546, 0.51469165, -0.7274066, 0.4133359, 0.6991368, 0.049399287, 0.3224546, -0.7251305, 1.586991, 0.42155415, 0.51469165, -1.586991, 0.17366934, 0.36582872, 1.586991, 0.17366934, 0.36582872, -1.537281, 0.22328708, 0.16744512, -0.03652037, 0.57912725, 0.15884866, 1.537281, 0.22328708, 0.16744512, -0.049399287, 0.2729048, -0.7748016, -1.537281, 0.17366934, 0.16744512)
@@ -14,7 +16,7 @@ linear_damp = 8.0
 angular_damp = 16.832
 script = ExtResource("1_5uy6h")
 
-[node name="ship" parent="." unique_id=1630490036 instance=ExtResource("2_c4w8v")]
+[node name="Mesh" parent="." unique_id=1630490036 instance=ExtResource("2_c4w8v")]
 
 [node name="Boost" type="AudioStreamPlayer3D" parent="." unique_id=475165973]
 stream = ExtResource("3_xwavj")
@@ -28,13 +30,18 @@ unit_size = 64.0
 max_distance = 256.0
 doppler_tracking = 2
 
+[node name="Explode" type="AudioStreamPlayer" parent="." unique_id=345910248]
+stream = ExtResource("5_xwavj")
+volume_db = 4.0
+pitch_scale = 1.2
+
 [node name="Fire" type="AudioStreamPlayer3D" parent="." unique_id=1126162]
-stream = ExtResource("4_5uy6h")
+stream = ExtResource("5_xwavj")
 unit_size = 64.0
 max_distance = 256.0
 doppler_tracking = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=387380016]
+[node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=387380016]
 transform = Transform3D(4, 0, 0, 0, 8, 0, 0, 0, 4, 0, -1, 0)
 shape = SubResource("ConvexPolygonShape3D_5uy6h")
 
@@ -55,3 +62,5 @@ no_depth_test = true
 fixed_size = true
 texture_filter = 0
 texture = ExtResource("5_c4w8v")
+
+[node name="ExplosionEffect" parent="." unique_id=2043334155 instance=ExtResource("7_nenq2")]

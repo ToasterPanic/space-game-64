@@ -29,5 +29,8 @@ func _on_body_entered(body: Node) -> void:
 				if body.has_node("ShieldBreak"): body.get_node("ShieldBreak").play()
 		else:
 			body.health -= damage
+			if body.health <= 0:
+				if creator.name == "Player":
+					creator.confirm_kill(self)
 	
 	queue_free()

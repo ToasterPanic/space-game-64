@@ -8,8 +8,17 @@ func _handle_controller_rotation_input(delta):
 	
 func _ready() -> void:
 	shield = 100
+	
+func confirm_kill(victim) -> void:
+	await get_tree().create_timer(0.5).timeout
+	
+	$KillConfirmed.play()
 
 func _process(delta: float) -> void:
+	if lock_on_target:
+		if lock_on_target.health <= 0:
+			lock_on_target = null
+	
 	if Input.is_action_just_pressed("lock_on"):
 		var target = null
 		var target_distance = 99999
@@ -18,6 +27,7 @@ func _process(delta: float) -> void:
 		
 		for n in enemies.get_children():
 			if $Camera.is_position_behind(n.global_position): continue
+			if n.health <= 0: continue
 			
 			var screen_pos = $Camera.unproject_position(n.global_position)
 			
@@ -30,18 +40,22 @@ func _process(delta: float) -> void:
 				target = n
 				target_distance = distance_from_crosshair
 			
-		if target != null:
+		if (target != null) and (!lock_on_target):
 			if lock_on_target:
 				lock_on_target.get_node("LockedOn").visible = false
 				
 			lock_on_target = target
 			target.get_node("LockedOn").visible = true
+			
+			$LockOn.play()
 		elif lock_on_target:
 			lock_on_target.get_node("LockedOn").visible = false
 			
 			lock_on_target = null
+			$LockOff.play()
 		else:
 			get_parent().crosshair_size = 0.2
+			$LockOnFail.play()
 
 func _physics_process(delta: float) -> void:
 	boosting = Input.is_action_pressed("boost")

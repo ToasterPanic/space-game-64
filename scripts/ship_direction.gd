@@ -24,6 +24,10 @@ func _process(delta: float) -> void:
 			if scale.x < 0.25: scale.x = 0.25
 		else:
 			scale.x = 1
+			
+		if "health" in target:
+			if target.health <= 0:
+				queue_free()
 	else:
 		visible = false
 		

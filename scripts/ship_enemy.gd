@@ -2,11 +2,28 @@ extends "res://scripts/ship.gd"
 
 @onready var player = get_parent().get_parent().get_node("Player")
 
+var is_dead = false
+
 func _ready() -> void:
 	laser_color = Color(1, 0, 0)
 
 func _physics_process(delta: float) -> void:
-	if health <= 0:
+	if (health <= 0):
+		if is_dead: return
+		
+		is_dead = true
+		$Mesh.visible = false
+		$LockedOn.visible = false
+		$Health.queue_free()
+		
+		$CollisionShape.queue_free()
+		
+		$Explode.play()
+		for n in $ExplosionEffect.get_children():
+			n.emitting = true
+		
+		await get_tree().create_timer(16).timeout
+		
 		queue_free()
 		return
 	

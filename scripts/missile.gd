@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 			
 			var direction := (transform.basis * Vector3(0, 0, -1)).normalized()
 		
-			linear_velocity = direction * 128
+			linear_velocity = direction * 192
 	
 	if time > 4:
 		queue_free()
@@ -69,5 +69,8 @@ func _on_body_entered(body: Node) -> void:
 				if body.has_node("ShieldBreak"): body.get_node("ShieldBreak").play()
 		else:
 			body.health -= damage
+			if body.health <= 0:
+				if creator.name == "Player":
+					creator.confirm_kill(self)
 	
 	queue_free()
