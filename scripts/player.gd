@@ -33,7 +33,7 @@ func _handle_controller_camera_input(delta):
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-	elif Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump"):
 		velocity.y = 4
 		
 	_handle_controller_camera_input(delta)
