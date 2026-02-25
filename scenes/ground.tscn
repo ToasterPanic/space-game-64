@@ -17,6 +17,24 @@ height = 2.4
 radius = 0.6
 height = 2.4
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6ra5r"]
+animation = &"pistol_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hokwi"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_5vwr8"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_hokwi"]
+graph_offset = Vector2(-486.12543, -184.95456)
+nodes/idle/node = SubResource("AnimationNodeAnimation_hokwi")
+nodes/idle/position = Vector2(-420, 0)
+nodes/pistol_idle/node = SubResource("AnimationNodeOneShot_5vwr8")
+nodes/pistol_idle/position = Vector2(20, 200)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_6ra5r")
+nodes/Animation/position = Vector2(-380, 280)
+node_connections = [&"output", 0, &"pistol_idle", &"pistol_idle", 0, &"idle", &"pistol_idle", 1, &"Animation"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mi8v4"]
 albedo_color = Color(0, 0, 0, 1)
 
@@ -108,7 +126,30 @@ max_polyphony = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("CapsuleShape3D_vjnaj")
 
-[node name="Mesh" parent="Enemy" unique_id=946955357 instance=ExtResource("5_hokwi")]
+[node name="Animator" type="AnimationTree" parent="Enemy" unique_id=1983111867]
+root_node = NodePath("../Mesh")
+tree_root = SubResource("AnimationNodeBlendTree_hokwi")
+anim_player = NodePath("../Mesh/AnimationPlayer")
+parameters/pistol_idle/active = false
+parameters/pistol_idle/internal_active = false
+parameters/pistol_idle/request = 0
+
+[node name="Mesh" parent="Enemy" unique_id=850591038 instance=ExtResource("5_hokwi")]
+
+[node name="torso2" parent="Enemy/Mesh" index="0" unique_id=1368496119]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7899616, 0)
+
+[node name="right_arm2" parent="Enemy/Mesh/torso2" index="2" unique_id=308771586]
+transform = Transform3D(1, 0, 0, 0, 0.99997705, 0.0067759226, 0, -0.0067759226, 0.99997705, 0, -0.0625, 0.375)
+
+[node name="left_arm2" parent="Enemy/Mesh/torso2" index="3" unique_id=444940385]
+transform = Transform3D(1, 0, 0, 0, 0.9999941, -0.0034276799, 0, 0.0034276799, 0.9999941, 0, -0.0625, -0.375)
+
+[node name="left_leg2" parent="Enemy/Mesh/torso2" index="4" unique_id=384241640]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.91496164, -0.125)
+
+[node name="right_leg2" parent="Enemy/Mesh/torso2" index="5" unique_id=1899947368]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.91496164, 0.125)
 
 [node name="CharacterHitboxSetup" parent="Enemy/Mesh" unique_id=1733301025 instance=ExtResource("6_6ra5r")]
 
@@ -178,3 +219,5 @@ color = Color(1, 1, 1, 0)
 offset_right = 254.0
 offset_bottom = 23.0
 text = "FPS:"
+
+[editable path="Enemy/Mesh"]

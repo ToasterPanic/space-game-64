@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bvauy2ck8e0vh"
-path.s3tc="res://.godot/imported/locked_on.png-95e8d0f166cf261d3cbfb7adcdba5859.s3tc.ctex"
+path="res://.godot/imported/locked_on.png-95e8d0f166cf261d3cbfb7adcdba5859.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://textures/locked_on.png"
-dest_files=["res://.godot/imported/locked_on.png-95e8d0f166cf261d3cbfb7adcdba5859.s3tc.ctex"]
+dest_files=["res://.godot/imported/locked_on.png-95e8d0f166cf261d3cbfb7adcdba5859.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
