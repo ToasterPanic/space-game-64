@@ -6,9 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://e4mnpy1bopej" path="res://models/viewmodels/example.fbx" id="2_w5yvf"]
 [ext_resource type="Shader" uid="uid://huqb1yknqiut" path="res://shaders/crosshair.gdshader" id="4_1ywih"]
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="5_ct7o8"]
+[ext_resource type="Script" uid="uid://bcayn6xb3psee" path="res://scripts/enemy.gd" id="5_vjnaj"]
+[ext_resource type="PackedScene" uid="uid://327edkfun0y3" path="res://scenes/character_hitbox_setup.tscn" id="6_hokwi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yqjtg"]
 radius = 0.3
+height = 2.4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vjnaj"]
+radius = 0.6
 height = 2.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mi8v4"]
@@ -84,10 +90,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 [node name="Raycast" type="RayCast3D" parent="Player/Camera" unique_id=2120080855]
 target_position = Vector3(0, 0, -1024)
 collision_mask = 2
+collide_with_areas = true
 debug_shape_thickness = 1
 
-[node name="character-test" parent="Player" unique_id=1398574842 instance=ExtResource("2_lmksl")]
+[node name="character-test" parent="Player" unique_id=465723295 instance=ExtResource("2_lmksl")]
 visible = false
+
+[node name="Enemy" type="CharacterBody3D" parent="." unique_id=2017316921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
+script = ExtResource("5_vjnaj")
+
+[node name="Gunshot1" type="AudioStreamPlayer" parent="Enemy" unique_id=1970728437]
+stream = ExtResource("2_ct7o8")
+max_polyphony = 4
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Enemy" unique_id=1574421897]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("CapsuleShape3D_vjnaj")
+
+[node name="Mesh" parent="Enemy" unique_id=1999573453 instance=ExtResource("2_lmksl")]
+
+[node name="CharacterHitboxSetup" parent="Enemy/Mesh" unique_id=1733301025 instance=ExtResource("6_hokwi")]
 
 [node name="THE FUCKING FLOOR" type="CSGBox3D" parent="." unique_id=808435658]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)

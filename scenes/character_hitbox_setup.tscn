@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://327edkfun0y3"]
+
+[ext_resource type="Script" uid="uid://j4btq11jm2e" path="res://scripts/character_hitbox_setup.gd" id="1_tcb8x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hokwi"]
+size = Vector3(0.25, 1, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6ra5r"]
+size = Vector3(0.25, 0.875, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5vwr8"]
+size = Vector3(0.25, 0.875, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8gbjj"]
+size = Vector3(0.4, 0.45, 0.4)
+
+[node name="CharacterHitboxSetup" type="Node3D" unique_id=1733301025]
+script = ExtResource("1_tcb8x")
+
+[node name="left_leg" type="Area3D" parent="." unique_id=1384205949]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="left_leg" unique_id=1339576994]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.125)
+shape = SubResource("BoxShape3D_hokwi")
+
+[node name="left_arm" type="Area3D" parent="." unique_id=1200476439]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0.25)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="left_arm" unique_id=406004889]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.125)
+shape = SubResource("BoxShape3D_6ra5r")
+
+[node name="right_arm" type="Area3D" parent="." unique_id=1106879679]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, -0.5)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="right_arm" unique_id=699128273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.125)
+shape = SubResource("BoxShape3D_6ra5r")
+
+[node name="right_leg" type="Area3D" parent="." unique_id=806553380]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="right_leg" unique_id=1945880066]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.125)
+shape = SubResource("BoxShape3D_hokwi")
+
+[node name="torso" type="Area3D" parent="." unique_id=825058706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.25)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="torso" unique_id=347222972]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.438, 0.25)
+shape = SubResource("BoxShape3D_5vwr8")
+
+[node name="head" type="Area3D" parent="." unique_id=1711972560]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0958834, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="head" unique_id=1913250074]
+shape = SubResource("BoxShape3D_8gbjj")
