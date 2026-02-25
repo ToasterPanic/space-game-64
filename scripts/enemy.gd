@@ -1,7 +1,8 @@
 extends CharacterBody3D
 
-var health = 100
-var texture = load("res://textures/character_test.png")
+@export var health = 100
+@export var texture: Texture2D = load("res://textures/character_test.png")
+@export var sight_distance: int = 256
 
 @onready var mesh = $Mesh
 @onready var animator = $Animator
@@ -28,6 +29,8 @@ func _ready() -> void:
 	material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 		
 	_apply_texture(mesh, material)
+	
+	$Sight.target_position *= sight_distance
 
 func _physics_process(delta: float) -> void:
 	velocity -= Vector3(0, 9.8 * delta, 0)
@@ -44,14 +47,10 @@ func _process(delta: float) -> void:
 		ai_tick_timer = 1/20
 		
 		$Sight.look_at(player.get_node("Camera").global_position)
-		
 		$Sight.force_raycast_update()
+		
 		spotted = false
 		
-		print($Sight.rotation)
-		
 		var angle_difference = rad_to_deg(abs($Sight.rotation.x) + abs($Sight.rotation.y))
-		print(rad_to_deg($Sight.rotation.x))
-		print(rad_to_deg($Sight.rotation.y))
 		if (abs(rad_to_deg($Sight.rotation.y)) < 75) and (abs(rad_to_deg($Sight.rotation.x)) < 35) and ($Sight.get_collider() == player):
 			spotted = true

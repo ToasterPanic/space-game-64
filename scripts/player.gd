@@ -44,10 +44,23 @@ func _physics_process(delta):
 
 	velocity.x = direction.x * walk_speed
 	velocity.z = direction.z * walk_speed
+	
+	if Input.is_action_pressed("crouch"):
+		velocity.x /= 2
+		velocity.z /= 2
 
 	move_and_slide()
 
 func _process(delta: float) -> void:
+	$Stand.disabled = Input.is_action_pressed("crouch")
+	
+	print(1/delta)
+	
+	if Input.is_action_pressed("crouch"):
+		camera.position.y += (1.15 - camera.position.y) / (5 - ((1/delta)/60))
+	else:
+		camera.position.y += (2.15 - camera.position.y) / (5 - delta)
+		
 	if Input.is_action_just_pressed("fire"):
 		var bullet_trail = bullet_trail_scene.instantiate()
 		
@@ -60,9 +73,7 @@ func _process(delta: float) -> void:
 		
 		var collider = raycast.get_collider()
 		
-		if collider: 
-			print(collider)
-			
+		if collider:
 			if "health" in collider:
 				collider.health -= damage
 			elif collider.has_meta("owner"):

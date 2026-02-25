@@ -9,9 +9,13 @@
 [ext_resource type="Script" uid="uid://bcayn6xb3psee" path="res://scripts/enemy.gd" id="5_vjnaj"]
 [ext_resource type="PackedScene" uid="uid://327edkfun0y3" path="res://scenes/character_hitbox_setup.tscn" id="6_6ra5r"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yqjtg"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hokwi"]
 radius = 0.3
-height = 2.4
+height = 2.3
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ra5r"]
+radius = 0.3
+height = 1.2222656
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vjnaj"]
 radius = 0.6
@@ -94,9 +98,13 @@ script = ExtResource("1_mi8v4")
 stream = ExtResource("2_ct7o8")
 max_polyphony = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=442795404]
+[node name="Stand" type="CollisionShape3D" parent="Player" unique_id=442795404]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
-shape = SubResource("CapsuleShape3D_yqjtg")
+shape = SubResource("CapsuleShape3D_hokwi")
+
+[node name="Sit" type="CollisionShape3D" parent="Player" unique_id=606414709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6611329, 0)
+shape = SubResource("CapsuleShape3D_6ra5r")
 
 [node name="Camera" type="Camera3D" parent="Player" unique_id=1839118399]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 2.15, 0)
@@ -142,19 +150,19 @@ parameters/pistol_idle/request = 0
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="torso2" parent="Enemies/Enemy/Mesh" index="0" unique_id=1368496119]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7877736, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8033444, 0)
 
 [node name="right_arm2" parent="Enemies/Enemy/Mesh/torso2" index="2" unique_id=308771586]
-transform = Transform3D(1, 0, 0, 0, 0.99999976, 0.00066753174, 0, -0.00066753174, 0.99999976, 0, -0.0625, 0.375)
+transform = Transform3D(1, 0, 0, 0, 0.9990128, 0.04442318, 0, -0.04442318, 0.9990128, 0, -0.0625, 0.375)
 
 [node name="left_arm2" parent="Enemies/Enemy/Mesh/torso2" index="3" unique_id=444940385]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, -0.00044888517, 0, 0.00044888517, 0.9999999, 0, -0.0625, -0.375)
+transform = Transform3D(1, 0, 0, 0, 0.9997533, -0.022211438, 0, 0.022211438, 0.9997533, 0, -0.0625, -0.375)
 
 [node name="left_leg2" parent="Enemies/Enemy/Mesh/torso2" index="4" unique_id=384241640]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.91277355, -0.125)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9283445, -0.125)
 
 [node name="right_leg2" parent="Enemies/Enemy/Mesh/torso2" index="5" unique_id=1899947368]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.91277355, 0.125)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9283445, 0.125)
 
 [node name="CharacterHitboxSetup" parent="Enemies/Enemy/Mesh" unique_id=1733301025 instance=ExtResource("6_6ra5r")]
 
@@ -166,7 +174,7 @@ text = "health:"
 [node name="Sight" type="RayCast3D" parent="Enemies/Enemy" unique_id=209229913]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 enabled = false
-target_position = Vector3(0, 0, -256)
+target_position = Vector3(0, 0, -1)
 collision_mask = 4
 
 [node name="THE FUCKING FLOOR" type="CSGBox3D" parent="." unique_id=808435658]
