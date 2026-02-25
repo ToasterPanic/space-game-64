@@ -110,11 +110,11 @@ stream = ExtResource("2_0tnpc")
 [node name="CloudsFullOfTears" type="AudioStreamPlayer" parent="." unique_id=912078189]
 stream = ExtResource("3_ssvqc")
 volume_db = -10.0
+autoplay = true
 
 [node name="Loneliness" type="AudioStreamPlayer" parent="." unique_id=91823489]
 stream = ExtResource("4_bt5mj")
 volume_db = -6.0
-autoplay = true
 
 [node name="Sunlight" type="DirectionalLight3D" parent="." unique_id=2063979181]
 
@@ -135,6 +135,7 @@ texture = ExtResource("1_uwrxv")
 [node name="Camera" type="Camera3D" parent="Player" unique_id=1916892619]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 5, 8)
 fov = 100.0
+size = 0.15
 far = 1009999.0
 
 [node name="ship" parent="Player" unique_id=1630490036 instance=ExtResource("4_iywne")]
@@ -231,10 +232,50 @@ no_depth_test = true
 modulate = Color(1, 0, 0, 1)
 text = "99"
 
+[node name="ShipDirection2" type="Sprite3D" parent="Player" unique_id=743878264 node_paths=PackedStringArray("target")]
+pixel_size = 0.15
+axis = 1
+no_depth_test = true
+texture_filter = 0
+texture = ExtResource("19_bt5mj")
+script = ExtResource("14_ssvqc")
+target = NodePath("../../Enemies/Enemy2")
+
+[node name="Distance" type="Label3D" parent="Player/ShipDirection2" unique_id=927598213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.0214844)
+pixel_size = 0.03
+billboard = 1
+no_depth_test = true
+modulate = Color(1, 0, 0, 1)
+text = "99"
+
+[node name="ShipDirection3" type="Sprite3D" parent="Player" unique_id=1794276671 node_paths=PackedStringArray("target")]
+pixel_size = 0.15
+axis = 1
+no_depth_test = true
+texture_filter = 0
+texture = ExtResource("19_bt5mj")
+script = ExtResource("14_ssvqc")
+target = NodePath("../../Enemies/Enemy3")
+
+[node name="Distance" type="Label3D" parent="Player/ShipDirection3" unique_id=1395310279]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.0214844)
+pixel_size = 0.03
+billboard = 1
+no_depth_test = true
+modulate = Color(1, 0, 0, 1)
+text = "99"
+
 [node name="Enemies" type="Node3D" parent="." unique_id=1790491082]
 
 [node name="Enemy" parent="Enemies" unique_id=1828576788 instance=ExtResource("9_vtaks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 23769)
+
+[node name="Enemy2" parent="Enemies" unique_id=1352278814 instance=ExtResource("9_vtaks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140, 0, 23769)
+
+[node name="Enemy3" parent="Enemies" unique_id=141642422 instance=ExtResource("9_vtaks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140, 108, 23769)
 
 [node name="Sun" type="CSGSphere3D" parent="." unique_id=1492795932]
 transform = Transform3D(256, 0, 0, 0, 256, 0, 0, 0, 256, 0, 0, 0)

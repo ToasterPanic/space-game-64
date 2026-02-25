@@ -1,13 +1,62 @@
 [gd_scene format=3 uid="uid://dxsmvpbrprx5b"]
 
 [ext_resource type="Script" uid="uid://s3qjrm61nwpw" path="res://scripts/player.gd" id="1_mi8v4"]
+[ext_resource type="AudioStream" uid="uid://bcf4vtlmsviap" path="res://sounds/gunshot_1.mp3" id="2_ct7o8"]
 [ext_resource type="PackedScene" uid="uid://cnen6trnllcqy" path="res://models/character-test.fbx" id="2_lmksl"]
+[ext_resource type="PackedScene" uid="uid://e4mnpy1bopej" path="res://models/viewmodels/example.fbx" id="2_w5yvf"]
+[ext_resource type="Shader" uid="uid://huqb1yknqiut" path="res://shaders/crosshair.gdshader" id="4_1ywih"]
+[ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="5_ct7o8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yqjtg"]
 radius = 0.3
 height = 2.4
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mi8v4"]
+albedo_color = Color(0, 0, 0, 1)
+
 [sub_resource type="Environment" id="Environment_mi8v4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vjnaj"]
+shader = ExtResource("4_1ywih")
+shader_parameter/circle_radius = 0.1250000059375
+shader_parameter/circle_thickness = 0.010000000475
+shader_parameter/circle_gap_size = 0.0250000011875
+shader_parameter/circle_color_main = Color(1, 1, 1, 1)
+shader_parameter/circle_color_outline = Color(0, 0, 0, 1)
+shader_parameter/circle_outline_width = 0.005
+shader_parameter/circle_outline_flat = true
+shader_parameter/circle_rotation_speed = 0.0
+shader_parameter/circle_base_angle = 0.0
+shader_parameter/dot_radius = 0.015
+shader_parameter/dot_color = Color(1, 1, 1, 1)
+shader_parameter/dot_outline_width = 0.05
+shader_parameter/dot_outline_color = Color(0, 0, 0, 1)
+shader_parameter/dot_outline_flat = true
+shader_parameter/cross_bar_width = 0.0750000035625
+shader_parameter/cross_thickness = 0.02
+shader_parameter/cross_gap_size = 0.0250000011875
+shader_parameter/cross_color_main = Color(1, 1, 1, 1)
+shader_parameter/cross_color_outline = Color(0, 0, 0, 1)
+shader_parameter/cross_outline_width = 0.005
+shader_parameter/cross_outline_flat = true
+shader_parameter/cross_rotation_speed = 1.0000005225000006
+shader_parameter/cross_base_angle = 0.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hokwi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ra5r"]
+shader = ExtResource("5_ct7o8")
+shader_parameter/shake = 0.015
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.001
+shader_parameter/offsetIntensity = 0.00049999998735
+shader_parameter/colorOffsetIntensity = 0.2
+shader_parameter/pixelSize = 640.0000303525
+shader_parameter/grainIntensity = 0.04
+shader_parameter/use_overlay = true
+shader_parameter/use_lens_distortion = false
+shader_parameter/overlay_color = Color(1, 1, 1, 10)
+shader_parameter/lens_distortion_strength = 0.05
 
 [node name="Ground" type="Node3D" unique_id=1916199610]
 
@@ -15,14 +64,27 @@ height = 2.4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 script = ExtResource("1_mi8v4")
 
+[node name="Gunshot1" type="AudioStreamPlayer" parent="Player" unique_id=1645430119]
+stream = ExtResource("2_ct7o8")
+max_polyphony = 4
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=442795404]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("CapsuleShape3D_yqjtg")
 
-[node name="Camera3D" type="Camera3D" parent="Player" unique_id=1839118399]
+[node name="Camera" type="Camera3D" parent="Player" unique_id=1839118399]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 2.15, 0)
+current = true
 fov = 90.0
 size = 10.0
+
+[node name="example" parent="Player/Camera" unique_id=960332752 instance=ExtResource("2_w5yvf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="Raycast" type="RayCast3D" parent="Player/Camera" unique_id=2120080855]
+target_position = Vector3(0, 0, -1024)
+collision_mask = 2
+debug_shape_thickness = 1
 
 [node name="character-test" parent="Player" unique_id=1398574842 instance=ExtResource("2_lmksl")]
 visible = false
@@ -30,7 +92,26 @@ visible = false
 [node name="THE FUCKING FLOOR" type="CSGBox3D" parent="." unique_id=808435658]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 use_collision = true
+collision_layer = 3
+collision_mask = 3
 size = Vector3(12, 1, 12)
+material = SubResource("StandardMaterial3D_mi8v4")
+
+[node name="THE FUCKING FLOOR2" type="CSGBox3D" parent="." unique_id=651579090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 1, 0)
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(1, 3, 12)
+material = SubResource("StandardMaterial3D_mi8v4")
+
+[node name="THE FUCKING FLOOR3" type="CSGBox3D" parent="." unique_id=128131484]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1, 0)
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(1, 3, 12)
+material = SubResource("StandardMaterial3D_mi8v4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1392721533]
 environment = SubResource("Environment_mi8v4")
@@ -38,3 +119,34 @@ environment = SubResource("Environment_mi8v4")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1474504860]
 transform = Transform3D(0.9296801, -0.29720894, 0.21762764, 0, 0.5907888, 0.8068263, -0.36836794, -0.75009036, 0.5492446, 0, 0, 0)
 shadow_enabled = true
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=597139997]
+
+[node name="Crosshair" type="TextureRect" parent="UILayer" unique_id=906905936]
+material = SubResource("ShaderMaterial_vjnaj")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_hokwi")
+
+[node name="ColorRect" type="ColorRect" parent="UILayer" unique_id=927231073]
+material = SubResource("ShaderMaterial_6ra5r")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="FPS" type="Label" parent="UILayer" unique_id=293732158]
+offset_right = 254.0
+offset_bottom = 23.0
+text = "FPS:"

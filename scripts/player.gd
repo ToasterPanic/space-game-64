@@ -4,9 +4,12 @@ extends CharacterBody3D
 @export var gravity = 9.8
 
 @export var mouse_sensitivity = 0.002
-@export var controller_camera_sensitivity = 1.6
+@export var controller_camera_sensitivity = 2.2
 
-@onready var camera = $Camera3D
+@onready var camera = $Camera
+@onready var raycast = $Camera/Raycast
+
+var bullet_trail_scene = preload("res://scenes/bullet_fire_line.tscn")
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -28,6 +31,8 @@ func _handle_controller_camera_input(delta):
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+	elif Input.is_action_just_pressed("jump"):
+		velocity.y = 4
 		
 	_handle_controller_camera_input(delta)
 
@@ -37,5 +42,24 @@ func _physics_process(delta):
 
 	velocity.x = direction.x * walk_speed
 	velocity.z = direction.z * walk_speed
+	
+	if Input.is_action_just_pressed("fire"):
+		var effect_offset = (camera.transform.basis * Vector3(1,-1, 0)).normalized() * 0.5
+		var bullet_trail = bullet_trail_scene.instantiate()
+		
+		bullet_trail.origin = camera.global_position + effect_offset
+		bullet_trail.target = raycast.get_collision_point()
+		
+		get_parent().add_child(bullet_trail)
+		
+		$Gunshot1.play()
+		
+		var collider = raycast.get_collider()
+		
+		print(collider)
+		
+		if "health" in collider:
+			collider.health -= 10
+		
 
 	move_and_slide()
