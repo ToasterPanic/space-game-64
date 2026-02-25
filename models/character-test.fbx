@@ -12,10 +12,10 @@ FBXHeaderExtension:  {
 		Year: 2026
 		Month: 2
 		Day: 25
-		Hour: 13
-		Minute: 30
-		Second: 42
-		Millisecond: 397
+		Hour: 14
+		Minute: 59
+		Second: 9
+		Millisecond: 410
 	}
 	Creator: "Blockbench 5.0.7"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -49,7 +49,7 @@ FBXHeaderExtension:  {
 	}
 }
 FileId: "iVFoobar"
-CreationTime: "2026-02-25 18:30:42:397"
+CreationTime: "2026-02-25 19:59:09:410"
 Creator: "Made with Blockbench"
 GlobalSettings:  {
 	Version: 1000
@@ -78,7 +78,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 20248952 {
+	Document: 1776230467 {
 		Scene: "Scene"
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
@@ -268,7 +268,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Model: 71965661, "Model::neck", "Null" {
+	Model: 76456028, "Model::neck", "Null" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -282,7 +282,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Model: 74404681, "Model::head", "Null" {
+	Model: 75476603, "Model::head", "Null" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -296,7 +296,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Model: 71310831, "Model::torso", "Null" {
+	Model: 75582803, "Model::torso", "Null" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -310,7 +310,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Model: 73842933, "Model::right_arm", "Null" {
+	Model: 76515016, "Model::right_arm", "Null" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -324,7 +324,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Model: 71960008, "Model::left_arm", "Null" {
+	Model: 78172436, "Model::left_arm", "Null" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -338,7 +338,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Model: 74218847, "Model::left_leg", "Null" {
+	Model: 71596303, "Model::left_leg", "Null" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -352,7 +352,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Model: 78228187, "Model::right_leg", "Null" {
+	Model: 71216260, "Model::right_leg", "Null" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -366,7 +366,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Model: 79776667, "Model::right_leg_1", "Mesh" {
+	Model: 77601390, "Model::right_leg_1", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -381,7 +381,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Geometry: 79701122, "Geometry::right_leg_1", "Mesh" {
+	Geometry: 79439792, "Geometry::right_leg_1", "Mesh" {
 		Vertices: *24 {
 			a: 12.5,75,12.5,12.5,75,-12.5,12.5,-25,12.5,12.5,-25,-12.5,-12.5,75,12.5,-12.5,75,-12.5,-12.5,-25,12.5,-12.5,-25,-12.5
 		}
@@ -432,7 +432,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 78613305, "Model::left_leg_1", "Mesh" {
+	Model: 71416807, "Model::left_leg_1", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -447,7 +447,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Geometry: 71333927, "Geometry::left_leg_1", "Mesh" {
+	Geometry: 71353875, "Geometry::left_leg_1", "Mesh" {
 		Vertices: *24 {
 			a: 12.5,75,12.5,12.5,75,-12.5,12.5,-25,12.5,12.5,-25,-12.5,-12.5,75,12.5,-12.5,75,-12.5,-12.5,-25,12.5,-12.5,-25,-12.5
 		}
@@ -498,7 +498,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 77555235, "Model::torso_1", "Mesh" {
+	Model: 78515615, "Model::torso_1", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -513,7 +513,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Geometry: 75251859, "Geometry::torso_1", "Mesh" {
+	Geometry: 74437522, "Geometry::torso_1", "Mesh" {
 		Vertices: *36 {
 			a: -12.5,68.75,25,-12.5,68.75,-25,-12.5,-18.75,25,-12.5,-18.75,-25,12.5,68.75,25,12.5,68.75,-25,12.5,-18.75,25,12.5,-18.75,-25,-10.9375,25,-21.875,-10.9375,25,21.875,10.9375,25,21.875,10.9375,25,-21.875
 		}
@@ -564,7 +564,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 71945312, "Model::left_arm_1", "Mesh" {
+	Model: 78852439, "Model::left_arm_1", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -579,7 +579,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Geometry: 72011678, "Geometry::left_arm_1", "Mesh" {
+	Geometry: 72601192, "Geometry::left_arm_1", "Mesh" {
 		Vertices: *24 {
 			a: 12.5,68.75,12.5,12.5,63.28125,-12.5,12.5,-18.75,12.5,12.5,-18.75,-12.5,-12.5,68.75,12.5,-12.5,63.28125,-12.5,-12.5,-18.75,12.5,-12.5,-18.75,-12.5
 		}
@@ -630,7 +630,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 72879059, "Model::right_arm_1", "Mesh" {
+	Model: 77011594, "Model::right_arm_1", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -645,7 +645,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Geometry: 76705059, "Geometry::right_arm_1", "Mesh" {
+	Geometry: 76162216, "Geometry::right_arm_1", "Mesh" {
 		Vertices: *24 {
 			a: 12.5,63.28125,12.5,12.5,68.75,-12.5,12.5,-18.75,12.5,12.5,-18.75,-12.5,-12.5,63.28125,12.5,-12.5,68.75,-12.5,-12.5,-18.75,12.5,-12.5,-18.75,-12.5
 		}
@@ -696,7 +696,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 74856498, "Model::head_1", "Mesh" {
+	Model: 79318258, "Model::head_1", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -711,7 +711,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Geometry: 74616983, "Geometry::head_1", "Mesh" {
+	Geometry: 71526439, "Geometry::head_1", "Mesh" {
 		Vertices: *24 {
 			a: 18.75,43.75,18.75,18.75,43.75,-18.75,18.75,6.25,18.75,18.75,6.25,-18.75,-18.75,43.75,18.75,-18.75,43.75,-18.75,-18.75,6.25,18.75,-18.75,6.25,-18.75
 		}
@@ -762,7 +762,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 70743685, "Model::neck_1", "Mesh" {
+	Model: 74336449, "Model::neck_1", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -777,7 +777,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Geometry: 70209418, "Geometry::neck_1", "Mesh" {
+	Geometry: 75103969, "Geometry::neck_1", "Mesh" {
 		Vertices: *24 {
 			a: 6.25,43.75,6.25,6.25,43.75,-6.25,6.25,6.25,6.25,6.25,6.25,-6.25,-6.25,43.75,6.25,-6.25,43.75,-6.25,-6.25,6.25,6.25,-6.25,6.25,-6.25
 		}
@@ -828,7 +828,7 @@ Objects:  {
 			}
 		}
 	}
-	Material: 74306708, "Material::character_texture.png", "" {
+	Material: 71651292, "Material::character_test.png", "" {
 		Version: 102
 		ShadingModel: "lambert"
 		MultiLayer: 0
@@ -839,26 +839,26 @@ Objects:  {
 			P: "Opacity", "double", "Number", "",1
 		}
 	}
-	Texture: 74004745, "Texture::character_texture.png", "" {
+	Texture: 74727980, "Texture::character_test.png", "" {
 		Type: "TextureVideoClip"
 		Version: 202
-		TextureName: "Texture::character_texture.png"
-		Media: "Video::character_texture.png"
-		FileName: "/home/lukas/Pictures/character_texture.png"
-		RelativeFilename: "character_texture.png"
+		TextureName: "Texture::character_test.png"
+		Media: "Video::character_test.png"
+		FileName: "/run/user/1000/doc/ebeda757/character_test.png"
+		RelativeFilename: "character_test.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"
 		Cropping: 0,0,0,0
 	}
-	Video: 75228601, "Video::character_texture.png", "Clip" {
+	Video: 77416338, "Video::character_test.png", "Clip" {
 		Type: "Clip"
 		Properties70:  {
-			P: "Path", "KString", "XRefUrl", "", "/home/lukas/Pictures/character_texture.png"
+			P: "Path", "KString", "XRefUrl", "", "/run/user/1000/doc/ebeda757/character_test.png"
 		}
 		UseMipMap: 0
-		Filename: "/home/lukas/Pictures/character_texture.png"
-		RelativeFilename: "character_texture.png"
+		Filename: "/run/user/1000/doc/ebeda757/character_test.png"
+		RelativeFilename: "character_test.png"
 	}
 }
 
@@ -868,94 +868,94 @@ Objects:  {
 Connections:  {
 
 	;Model::neck, Model::torso
-	C: "OO",71965661,71310831
+	C: "OO",76456028,75582803
 
 	;Model::head, Model::neck
-	C: "OO",74404681,71965661
+	C: "OO",75476603,76456028
 
 	;Model::torso, Model::RootNode
-	C: "OO",71310831,0
+	C: "OO",75582803,0
 
 	;Model::right_arm, Model::torso
-	C: "OO",73842933,71310831
+	C: "OO",76515016,75582803
 
 	;Model::left_arm, Model::torso
-	C: "OO",71960008,71310831
+	C: "OO",78172436,75582803
 
 	;Model::left_leg, Model::torso
-	C: "OO",74218847,71310831
+	C: "OO",71596303,75582803
 
 	;Model::right_leg, Model::torso
-	C: "OO",78228187,71310831
+	C: "OO",71216260,75582803
 
 	;Model::right_leg_1, Model::right_leg
-	C: "OO",79776667,78228187
+	C: "OO",77601390,71216260
 
 	;Geometry::right_leg_1, Model::right_leg_1
-	C: "OO",79701122,79776667
+	C: "OO",79439792,77601390
 
-	;Material::character_texture.png, Model::right_leg_1
-	C: "OO",74306708,79776667
+	;Material::character_test.png, Model::right_leg_1
+	C: "OO",71651292,77601390
 
 	;Model::left_leg_1, Model::left_leg
-	C: "OO",78613305,74218847
+	C: "OO",71416807,71596303
 
 	;Geometry::left_leg_1, Model::left_leg_1
-	C: "OO",71333927,78613305
+	C: "OO",71353875,71416807
 
-	;Material::character_texture.png, Model::left_leg_1
-	C: "OO",74306708,78613305
+	;Material::character_test.png, Model::left_leg_1
+	C: "OO",71651292,71416807
 
 	;Model::torso_1, Model::torso
-	C: "OO",77555235,71310831
+	C: "OO",78515615,75582803
 
 	;Geometry::torso_1, Model::torso_1
-	C: "OO",75251859,77555235
+	C: "OO",74437522,78515615
 
-	;Material::character_texture.png, Model::torso_1
-	C: "OO",74306708,77555235
+	;Material::character_test.png, Model::torso_1
+	C: "OO",71651292,78515615
 
 	;Model::left_arm_1, Model::left_arm
-	C: "OO",71945312,71960008
+	C: "OO",78852439,78172436
 
 	;Geometry::left_arm_1, Model::left_arm_1
-	C: "OO",72011678,71945312
+	C: "OO",72601192,78852439
 
-	;Material::character_texture.png, Model::left_arm_1
-	C: "OO",74306708,71945312
+	;Material::character_test.png, Model::left_arm_1
+	C: "OO",71651292,78852439
 
 	;Model::right_arm_1, Model::right_arm
-	C: "OO",72879059,73842933
+	C: "OO",77011594,76515016
 
 	;Geometry::right_arm_1, Model::right_arm_1
-	C: "OO",76705059,72879059
+	C: "OO",76162216,77011594
 
-	;Material::character_texture.png, Model::right_arm_1
-	C: "OO",74306708,72879059
+	;Material::character_test.png, Model::right_arm_1
+	C: "OO",71651292,77011594
 
 	;Model::head_1, Model::head
-	C: "OO",74856498,74404681
+	C: "OO",79318258,75476603
 
 	;Geometry::head_1, Model::head_1
-	C: "OO",74616983,74856498
+	C: "OO",71526439,79318258
 
-	;Material::character_texture.png, Model::head_1
-	C: "OO",74306708,74856498
+	;Material::character_test.png, Model::head_1
+	C: "OO",71651292,79318258
 
 	;Model::neck_1, Model::neck
-	C: "OO",70743685,71965661
+	C: "OO",74336449,76456028
 
 	;Geometry::neck_1, Model::neck_1
-	C: "OO",70209418,70743685
+	C: "OO",75103969,74336449
 
-	;Material::character_texture.png, Model::neck_1
-	C: "OO",74306708,70743685
+	;Material::character_test.png, Model::neck_1
+	C: "OO",71651292,74336449
 
-	;Texture::character_texture.png, Material::character_texture.png
-	C: "OP",74004745,74306708, "DiffuseColor"
+	;Texture::character_test.png, Material::character_test.png
+	C: "OP",74727980,71651292, "DiffuseColor"
 
-	;Video::character_texture.png, Texture::character_texture.png
-	C: "OO",75228601,74004745
+	;Video::character_test.png, Texture::character_test.png
+	C: "OO",77416338,74727980
 }
 
 ; Takes section

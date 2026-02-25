@@ -5,7 +5,7 @@ extends Node3D
 func _ready() -> void:
 	for n in get_children():
 		n.set_meta("owner", get_parent().get_parent())
-		get_parent().find_child(n.name + "_1").add_child(n)
+		get_parent().find_child(n.name + "2").add_child(n)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

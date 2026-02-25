@@ -9,7 +9,7 @@ extends CharacterBody3D
 @onready var camera = $Camera
 @onready var raycast = $Camera/Raycast
 
-var damage = 10
+var damage = 25
 
 var bullet_trail_scene = preload("res://scenes/bullet_fire_line.tscn")
 
@@ -44,12 +44,14 @@ func _physics_process(delta):
 
 	velocity.x = direction.x * walk_speed
 	velocity.z = direction.z * walk_speed
-	
+
+	move_and_slide()
+
+func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("fire"):
-		var effect_offset = (camera.transform.basis * Vector3(1,-1, 0)).normalized() * 0.5
 		var bullet_trail = bullet_trail_scene.instantiate()
 		
-		bullet_trail.origin = camera.global_position + effect_offset
+		bullet_trail.origin = $Camera/TrailOrigin.global_position
 		bullet_trail.target = raycast.get_collision_point()
 		
 		get_parent().add_child(bullet_trail)
@@ -71,5 +73,3 @@ func _physics_process(delta):
 				else:
 					collider.get_meta("owner").health -= damage * 0.66
 			
-
-	move_and_slide()

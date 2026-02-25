@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://s3qjrm61nwpw" path="res://scripts/player.gd" id="1_mi8v4"]
 [ext_resource type="AudioStream" uid="uid://bcf4vtlmsviap" path="res://sounds/gunshot_1.mp3" id="2_ct7o8"]
-[ext_resource type="PackedScene" uid="uid://cnen6trnllcqy" path="res://models/character-test.fbx" id="2_lmksl"]
 [ext_resource type="PackedScene" uid="uid://e4mnpy1bopej" path="res://models/viewmodels/example.fbx" id="2_w5yvf"]
 [ext_resource type="Shader" uid="uid://huqb1yknqiut" path="res://shaders/crosshair.gdshader" id="4_1ywih"]
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="5_ct7o8"]
+[ext_resource type="PackedScene" uid="uid://cc7dgw66nbshf" path="res://models/character.gltf" id="5_hokwi"]
 [ext_resource type="Script" uid="uid://bcayn6xb3psee" path="res://scripts/enemy.gd" id="5_vjnaj"]
-[ext_resource type="PackedScene" uid="uid://327edkfun0y3" path="res://scenes/character_hitbox_setup.tscn" id="6_hokwi"]
+[ext_resource type="PackedScene" uid="uid://327edkfun0y3" path="res://scenes/character_hitbox_setup.tscn" id="6_6ra5r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yqjtg"]
 radius = 0.3
@@ -93,8 +93,8 @@ collision_mask = 2
 collide_with_areas = true
 debug_shape_thickness = 1
 
-[node name="character-test" parent="Player" unique_id=465723295 instance=ExtResource("2_lmksl")]
-visible = false
+[node name="TrailOrigin" type="Node3D" parent="Player/Camera" unique_id=1529778346]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.5, -0.5, 0)
 
 [node name="Enemy" type="CharacterBody3D" parent="." unique_id=2017316921]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
@@ -108,11 +108,11 @@ max_polyphony = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("CapsuleShape3D_vjnaj")
 
-[node name="Mesh" parent="Enemy" unique_id=1999573453 instance=ExtResource("2_lmksl")]
+[node name="Mesh" parent="Enemy" unique_id=946955357 instance=ExtResource("5_hokwi")]
 
-[node name="CharacterHitboxSetup" parent="Enemy/Mesh" unique_id=1733301025 instance=ExtResource("6_hokwi")]
+[node name="CharacterHitboxSetup" parent="Enemy/Mesh" unique_id=1733301025 instance=ExtResource("6_6ra5r")]
 
-[node name="Label3D" type="Label3D" parent="Enemy" unique_id=159485113]
+[node name="Label" type="Label3D" parent="Enemy" unique_id=159485113]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.500328, 0)
 billboard = 2
 text = "health:"

@@ -1,9 +1,29 @@
 extends CharacterBody3D
 
 var health = 100
+var texture = load("res://textures/character_test.png")
+
+@onready var mesh = $Mesh
+
+func _apply_texture(node: Node3D, material: StandardMaterial3D):
+	for n in node.get_children():
+		if n.is_class("MeshInstance3D"):
+			n.material_override = material
+		else:
+			_apply_texture(n, material)
+
+func _ready() -> void:
+	var material = StandardMaterial3D.new()
+	material.albedo_texture = texture
+		
+	_apply_texture(mesh, material)
+		
 
 func _physics_process(delta: float) -> void:
 	velocity -= Vector3(0, 9.8 * delta, 0)
-	$Label3D.text = "Health: " + str(health)
 	
 	move_and_slide()
+
+func _process(delta: float) -> void:
+	if $Label:
+		$Label.text = "Health: " + str(health)
