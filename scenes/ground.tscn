@@ -112,6 +112,11 @@ shape = SubResource("CapsuleShape3D_vjnaj")
 
 [node name="CharacterHitboxSetup" parent="Enemy/Mesh" unique_id=1733301025 instance=ExtResource("6_hokwi")]
 
+[node name="Label3D" type="Label3D" parent="Enemy" unique_id=159485113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.500328, 0)
+billboard = 2
+text = "health:"
+
 [node name="THE FUCKING FLOOR" type="CSGBox3D" parent="." unique_id=808435658]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 use_collision = true

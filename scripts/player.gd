@@ -9,6 +9,8 @@ extends CharacterBody3D
 @onready var camera = $Camera
 @onready var raycast = $Camera/Raycast
 
+var damage = 10
+
 var bullet_trail_scene = preload("res://scenes/bullet_fire_line.tscn")
 
 func _ready():
@@ -56,10 +58,18 @@ func _physics_process(delta):
 		
 		var collider = raycast.get_collider()
 		
-		print(collider)
-		
-		if "health" in collider:
-			collider.health -= 10
-		
+		if collider: 
+			print(collider)
+			
+			if "health" in collider:
+				collider.health -= damage
+			elif collider.has_meta("owner"):
+				if collider.name == "head":
+					collider.get_meta("owner").health -= damage * 2
+				elif collider.name == "torso":
+					collider.get_meta("owner").health -= damage
+				else:
+					collider.get_meta("owner").health -= damage * 0.66
+			
 
 	move_and_slide()
