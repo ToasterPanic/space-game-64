@@ -9,7 +9,8 @@ extends CharacterBody3D
 
 @onready var game = get_parent().get_parent()
 @onready var player = game.get_node("Player")
-@onready var fire_point = $Mesh/torso2/right_arm2/FirePoint
+@onready var fire_point = $Mesh/Skeleton3D/right_arm_2
+@onready var rotation_target = $Rotator
 
 var spotted = false
 
@@ -23,6 +24,7 @@ var concentration = 0
 var memory_location = null
 var search_timer = 5
 var pursuing = false
+var dead = false
 
 @export var max_spread = 15
 @export var min_spread = 3
@@ -44,19 +46,38 @@ func _ready() -> void:
 	_apply_texture(mesh, material)
 	
 	$Sight.target_position *= sight_distance
+	
+	for n in $Mesh/Skeleton3D.get_children():
+		var body = n.find_child(n.name).get_node("StaticBody3D")
+		
+		body.name = n.name.get_slice("_2", 0)
+		body.set_meta("owner", self)
 
 func _physics_process(delta: float) -> void:
 	velocity -= Vector3(0, 9.8 * delta, 0)
 	
 	move_and_slide()
+	
 
 func _process(delta: float) -> void:
 	if $Label:
 		$Label.text = "Health: " + str(health) + "\nSpotted: " + str(spotted)
 		
+	if (health <= 0) and !dead:
+		dead = true
+		firing = false
+		spotted = false
+		memory_location = false
+		
+		$CollisionShape.disabled = true
+		
+		velocity = Vector3()
+		
+		animator.set("parameters/dead/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		
 	ai_tick_timer -= delta
 		
-	if ai_tick_timer < 0:
+	if (ai_tick_timer < 0) and !dead:
 		$Sight.look_at(player.get_node("Camera").global_position)
 		$Sight.force_raycast_update()
 		
@@ -70,7 +91,6 @@ func _process(delta: float) -> void:
 			concentration += (-ai_tick_timer + 0.05) / 2
 			memory_location = player.global_position
 			
-			
 			pursuing = true
 			search_timer = 5
 		else:
@@ -81,8 +101,8 @@ func _process(delta: float) -> void:
 			$Navigator.get_next_path_position()
 			
 			var direction = global_position.direction_to($Navigator.get_next_path_position())
-			velocity.x = direction.x * 4.0
-			velocity.z = direction.z * 4.0
+			velocity.x = direction.x * 3.0
+			velocity.z = direction.z * 3.0
 			
 		ai_tick_timer = 0.05
 		
@@ -95,13 +115,15 @@ func _process(delta: float) -> void:
 				memory_location = null
 				
 	if memory_location:
-		look_at($Navigator.get_next_path_position(),Vector3.UP)
-		
 		if spotted:
-			look_at(player.global_position)
+			rotation_target.look_at(player.global_position)
+		elif $Navigator.get_next_path_position():
+			rotation_target.look_at($Navigator.get_next_path_position())
+		else:
+			rotation_target.look_at(memory_location)
 		
-		rotation.x = 0
-		rotation.z = 0 
+	if !dead:
+		global_rotation.y = lerp_angle(global_rotation.y, rotation_target.global_rotation.y, 6.0 * delta)
 			
 	firing = spotted
 	
@@ -111,7 +133,7 @@ func _process(delta: float) -> void:
 		else:
 			animator.set("parameters/pistol_idle/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 	
-	if firing:
+	if firing and !dead:
 		fire_timer -= delta
 		if fire_timer < 0:
 			fire_timer = 0.5
@@ -121,19 +143,20 @@ func _process(delta: float) -> void:
 			if concentration < 0: concentration = 0
 			if concentration > 1: concentration = 1
 			
-			var spread = min_spread + ((max_spread - min_spread) * (1 - concentration))
+			if concentration > 0.2:
+				var spread = min_spread + ((max_spread - min_spread) * (1 - concentration))
 			
-			$Raycast.rotation += Vector3(deg_to_rad(randi_range(-spread, spread)), deg_to_rad(randi_range(-spread, spread)), 0)
-			$Raycast.force_raycast_update()
-			
-			var bullet_trail = bullet_trail_scene.instantiate() 
-			
-			bullet_trail.origin = fire_point.global_position
-			bullet_trail.target = $Raycast.get_collision_point()
-			
-			get_parent().get_parent().add_child(bullet_trail)
-			
-			if $Raycast.get_collider() == player:
-				print("HIT" + str(delta))
+				$Raycast.rotation += Vector3(deg_to_rad(randi_range(-spread, spread)), deg_to_rad(randi_range(-spread, spread)), 0)
+				$Raycast.force_raycast_update()
+				
+				var bullet_trail = bullet_trail_scene.instantiate() 
+				
+				bullet_trail.origin = fire_point.global_position
+				bullet_trail.target = $Raycast.get_collision_point()
+				
+				get_parent().get_parent().add_child(bullet_trail)
+				
+				if $Raycast.get_collider() == player:
+					print("HIT" + str(delta))
 	else:
 		fire_timer = 0.2

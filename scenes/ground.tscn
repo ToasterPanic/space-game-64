@@ -2,12 +2,11 @@
 
 [ext_resource type="Script" uid="uid://s3qjrm61nwpw" path="res://scripts/player.gd" id="1_mi8v4"]
 [ext_resource type="AudioStream" uid="uid://bcf4vtlmsviap" path="res://sounds/gunshot_1.mp3" id="2_ct7o8"]
-[ext_resource type="PackedScene" uid="uid://e4mnpy1bopej" path="res://models/viewmodels/example.fbx" id="2_w5yvf"]
+[ext_resource type="PackedScene" uid="uid://b86kjs4qf05m7" path="res://models/viewmodels/example.gltf" id="3_vjnaj"]
 [ext_resource type="Shader" uid="uid://huqb1yknqiut" path="res://shaders/crosshair.gdshader" id="4_1ywih"]
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="5_ct7o8"]
 [ext_resource type="PackedScene" uid="uid://cc7dgw66nbshf" path="res://models/character.gltf" id="5_hokwi"]
 [ext_resource type="Script" uid="uid://bcayn6xb3psee" path="res://scripts/enemy.gd" id="5_vjnaj"]
-[ext_resource type="PackedScene" uid="uid://327edkfun0y3" path="res://scenes/character_hitbox_setup.tscn" id="6_6ra5r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hokwi"]
 radius = 0.3
@@ -21,8 +20,16 @@ height = 1.2222656
 radius = 0.6
 height = 2.4
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_hokwi"]
+radius = 0.05
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5vwr8"]
+animation = &"dead"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6ra5r"]
 animation = &"pistol_idle"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_8gbjj"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hokwi"]
 animation = &"idle"
@@ -30,14 +37,19 @@ animation = &"idle"
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_5vwr8"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_hokwi"]
-graph_offset = Vector2(-380.7727, 2.6712189)
+graph_offset = Vector2(-802.7451, -94.48968)
+nodes/output/position = Vector2(960, 220)
 nodes/idle/node = SubResource("AnimationNodeAnimation_hokwi")
 nodes/idle/position = Vector2(-420, 0)
 nodes/pistol_idle/node = SubResource("AnimationNodeOneShot_5vwr8")
 nodes/pistol_idle/position = Vector2(20, 200)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_6ra5r")
 nodes/Animation/position = Vector2(-380, 280)
-node_connections = [&"output", 0, &"pistol_idle", &"pistol_idle", 0, &"idle", &"pistol_idle", 1, &"Animation"]
+nodes/dead/node = SubResource("AnimationNodeOneShot_8gbjj")
+nodes/dead/position = Vector2(500, 180)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_5vwr8")
+"nodes/Animation 2/position" = Vector2(220, 420)
+node_connections = [&"output", 0, &"dead", &"pistol_idle", 0, &"idle", &"pistol_idle", 1, &"Animation", &"dead", 0, &"pistol_idle", &"dead", 1, &"Animation 2"]
 
 [sub_resource type="Environment" id="Environment_mi8v4"]
 
@@ -117,9 +129,6 @@ current = true
 fov = 90.0
 size = 10.0
 
-[node name="example" parent="Player/Camera" unique_id=960332752 instance=ExtResource("2_w5yvf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-
 [node name="Raycast" type="RayCast3D" parent="Player/Camera" unique_id=2120080855]
 target_position = Vector3(0, 0, -1024)
 collision_mask = 2
@@ -128,6 +137,12 @@ debug_shape_thickness = 1
 
 [node name="TrailOrigin" type="Node3D" parent="Player/Camera" unique_id=1529778346]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.5, -0.5, 0)
+
+[node name="Viewmodel" parent="Player/Camera" unique_id=2036289309 instance=ExtResource("3_vjnaj")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -1, 0)
+
+[node name="FirePoint" type="Node3D" parent="." unique_id=1693997578]
+transform = Transform3D(1, -4.440892e-16, -3.5527137e-15, 0, 0.9999684, 0.00794927, 0, -0.00794927, 0.9999684, 0, -0.8180943, 0.016034365)
 
 [node name="Enemies" type="Node3D" parent="." unique_id=794891135]
 
@@ -143,6 +158,10 @@ max_polyphony = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("CapsuleShape3D_vjnaj")
 
+[node name="Dead" type="CollisionShape3D" parent="Enemies/Enemy" unique_id=1050055038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04656133, 0)
+shape = SubResource("SphereShape3D_hokwi")
+
 [node name="Animator" type="AnimationTree" parent="Enemies/Enemy" unique_id=1983111867]
 root_node = NodePath("../Mesh")
 tree_root = SubResource("AnimationNodeBlendTree_hokwi")
@@ -150,29 +169,34 @@ anim_player = NodePath("../Mesh/AnimationPlayer")
 parameters/pistol_idle/active = false
 parameters/pistol_idle/internal_active = false
 parameters/pistol_idle/request = 0
+parameters/dead/active = false
+parameters/dead/internal_active = false
+parameters/dead/request = 0
 
-[node name="Mesh" parent="Enemies/Enemy" unique_id=850591038 instance=ExtResource("5_hokwi")]
+[node name="Mesh" parent="Enemies/Enemy" unique_id=877089179 instance=ExtResource("5_hokwi")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="torso2" parent="Enemies/Enemy/Mesh" index="0" unique_id=1634250723]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.796346, 0)
+[node name="Skeleton3D" parent="Enemies/Enemy/Mesh" index="0" unique_id=1863610059]
+bones/0/position = Vector3(0, 1.811728, 0)
+bones/6/rotation = Quaternion(-0.03393127, 0, 0, 0.9994242)
+bones/8/rotation = Quaternion(0.016857518, 0, 0, 0.9998579)
+bones/10/position = Vector3(0, -0.936728, -0.125)
+bones/12/position = Vector3(0, -0.936728, 0.125)
 
-[node name="right_arm2" parent="Enemies/Enemy/Mesh/torso2" index="2" unique_id=1453485041]
-transform = Transform3D(1, 0, 0, 0, 0.9997025, 0.024390707, 0, -0.024390707, 0.9997025, 0, -0.0625, 0.375)
+[node name="torso_2" parent="Enemies/Enemy/Mesh/Skeleton3D" index="0" unique_id=1093725508]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.186728, 0)
 
-[node name="FirePoint" type="Node3D" parent="Enemies/Enemy/Mesh/torso2/right_arm2" index="1" unique_id=1693997578]
-transform = Transform3D(1, -4.440892e-16, -3.5527137e-15, 0, 0.9999684, 0.00794927, 0, -0.00794927, 0.9999684, 0, -0.8180943, 0.016034365)
+[node name="neck_2" parent="Enemies/Enemy/Mesh/Skeleton3D" index="1" unique_id=1300701757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.749228, 0)
 
-[node name="left_arm2" parent="Enemies/Enemy/Mesh/torso2" index="3" unique_id=319773068]
-transform = Transform3D(1, 0, 0, 0, 0.9999255, -0.01220407, 0, 0.01220407, 0.9999255, 0, -0.0625, -0.375)
+[node name="head_2" parent="Enemies/Enemy/Mesh/Skeleton3D" index="2" unique_id=2064600347]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.874228, 0)
 
-[node name="left_leg2" parent="Enemies/Enemy/Mesh/torso2" index="4" unique_id=529520192]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.92134607, -0.125)
+[node name="right_arm_2" parent="Enemies/Enemy/Mesh/Skeleton3D" index="3" unique_id=1554036582]
+transform = Transform3D(1, 0, 0, 0, 0.99769735, 0.06782346, 0, -0.06782346, 0.99769735, 0, 1.1256671, 0.41738966)
 
-[node name="right_leg2" parent="Enemies/Enemy/Mesh/torso2" index="5" unique_id=313995523]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.92134607, 0.125)
-
-[node name="CharacterHitboxSetup" parent="Enemies/Enemy/Mesh" unique_id=1733301025 instance=ExtResource("6_6ra5r")]
+[node name="left_arm_2" parent="Enemies/Enemy/Mesh/Skeleton3D" index="4" unique_id=1526880874]
+transform = Transform3D(1, 0, 0, 0, 0.99943167, -0.033710245, 0, 0.033710245, 0.99943167, 0, 1.1245832, -0.3960689)
 
 [node name="Label" type="Label3D" parent="Enemies/Enemy" unique_id=159485113]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.500328, 0)
@@ -193,6 +217,8 @@ collision_mask = 4
 
 [node name="Navigator" type="NavigationAgent3D" parent="Enemies/Enemy" unique_id=1107796901]
 path_postprocessing = 1
+
+[node name="Rotator" type="Node3D" parent="Enemies/Enemy" unique_id=409798074]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1392721533]
 environment = SubResource("Environment_mi8v4")

@@ -13,8 +13,12 @@ var damage = 25
 
 var bullet_trail_scene = preload("res://scenes/bullet_fire_line.tscn")
 
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	var viewmodel_offset = $Camera/Viewmodel.global_position - $Camera/Viewmodel/camera.global_position
+	
+	$Camera/Viewmodel.position = viewmodel_offset
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -75,10 +79,18 @@ func _process(delta: float) -> void:
 			if "health" in collider:
 				collider.health -= damage
 			elif collider.has_meta("owner"):
+				var owner = collider.get_meta("owner")
+				
+				owner.spotted = true
+				owner.memory_location = global_position
+				owner.pursuing = true
+				owner.search_timer = 5
+				
 				if collider.name == "head":
-					collider.get_meta("owner").health -= damage * 2
+					owner.health -= damage * 2
 				elif collider.name == "torso":
-					collider.get_meta("owner").health -= damage
+					owner.health -= damage
 				else:
-					collider.get_meta("owner").health -= damage * 0.66
+					owner.health -= damage * 0.66
+			
 			
