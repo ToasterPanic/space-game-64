@@ -30,7 +30,7 @@ animation = &"idle"
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_5vwr8"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_hokwi"]
-graph_offset = Vector2(-486.12543, -184.95456)
+graph_offset = Vector2(-380.7727, 2.6712189)
 nodes/idle/node = SubResource("AnimationNodeAnimation_hokwi")
 nodes/idle/position = Vector2(-420, 0)
 nodes/pistol_idle/node = SubResource("AnimationNodeOneShot_5vwr8")
@@ -38,9 +38,6 @@ nodes/pistol_idle/position = Vector2(20, 200)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_6ra5r")
 nodes/Animation/position = Vector2(-380, 280)
 node_connections = [&"output", 0, &"pistol_idle", &"pistol_idle", 0, &"idle", &"pistol_idle", 1, &"Animation"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mi8v4"]
-albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Environment" id="Environment_mi8v4"]
 
@@ -86,10 +83,18 @@ shader_parameter/use_lens_distortion = false
 shader_parameter/overlay_color = Color(1, 1, 1, 10)
 shader_parameter/lens_distortion_strength = 0.05
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_hokwi"]
+vertices = PackedVector3Array(-5.5, 3, -6.5, -5.5, 3, -6.1, -5.1, 3, -6.4, 5.1000004, 3, -6.5, 5.5, 3, -6.1, 5.5, 3, -6.5, -1.0999999, 0, -4.5, -0.4000001, 0, -4.5, -0.4000001, 0, -5.4, -1.5, 0, -4.1, -4.4, 0, -5.4, -4.4, 0, 0.7000003, -1.5, 0, 0.5999999, 0.20000029, 0, -4.5, 0.5999999, 0, -4.1, 4.5, 0, -5.4, 0.5999999, 0, 0.5, 4.5, 0, 0.5999999, 0.5999999, 0, 1.1000004, 0.3000002, 0, 1.5, -0.5, 0, 1.6000004, -0.5, 0, 5.5, 4.5, 0, 5.5, -1.4000001, 0, 1.4000006, -1.0999999, 0, 1.6000004, -4.4, 0, 5.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(6, 9, 8), PackedInt32Array(8, 9, 10), PackedInt32Array(12, 11, 9), PackedInt32Array(9, 11, 10), PackedInt32Array(13, 7, 8), PackedInt32Array(13, 8, 14), PackedInt32Array(14, 8, 15), PackedInt32Array(16, 14, 17), PackedInt32Array(17, 14, 15), PackedInt32Array(17, 18, 16), PackedInt32Array(19, 21, 20), PackedInt32Array(18, 17, 19), PackedInt32Array(19, 17, 22), PackedInt32Array(19, 22, 21), PackedInt32Array(11, 12, 23), PackedInt32Array(23, 24, 11), PackedInt32Array(11, 24, 25), PackedInt32Array(25, 24, 21), PackedInt32Array(24, 20, 21)]
+cell_size = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mi8v4"]
+albedo_color = Color(0, 0, 0, 1)
+
 [node name="Ground" type="Node3D" unique_id=1916199610]
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=1510734023]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_mi8v4")
@@ -149,20 +154,23 @@ parameters/pistol_idle/request = 0
 [node name="Mesh" parent="Enemies/Enemy" unique_id=850591038 instance=ExtResource("5_hokwi")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="torso2" parent="Enemies/Enemy/Mesh" index="0" unique_id=1368496119]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8033444, 0)
+[node name="torso2" parent="Enemies/Enemy/Mesh" index="0" unique_id=1634250723]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.796346, 0)
 
-[node name="right_arm2" parent="Enemies/Enemy/Mesh/torso2" index="2" unique_id=308771586]
-transform = Transform3D(1, 0, 0, 0, 0.9990128, 0.04442318, 0, -0.04442318, 0.9990128, 0, -0.0625, 0.375)
+[node name="right_arm2" parent="Enemies/Enemy/Mesh/torso2" index="2" unique_id=1453485041]
+transform = Transform3D(1, 0, 0, 0, 0.9997025, 0.024390707, 0, -0.024390707, 0.9997025, 0, -0.0625, 0.375)
 
-[node name="left_arm2" parent="Enemies/Enemy/Mesh/torso2" index="3" unique_id=444940385]
-transform = Transform3D(1, 0, 0, 0, 0.9997533, -0.022211438, 0, 0.022211438, 0.9997533, 0, -0.0625, -0.375)
+[node name="FirePoint" type="Node3D" parent="Enemies/Enemy/Mesh/torso2/right_arm2" index="1" unique_id=1693997578]
+transform = Transform3D(1, -4.440892e-16, -3.5527137e-15, 0, 0.9999684, 0.00794927, 0, -0.00794927, 0.9999684, 0, -0.8180943, 0.016034365)
 
-[node name="left_leg2" parent="Enemies/Enemy/Mesh/torso2" index="4" unique_id=384241640]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9283445, -0.125)
+[node name="left_arm2" parent="Enemies/Enemy/Mesh/torso2" index="3" unique_id=319773068]
+transform = Transform3D(1, 0, 0, 0, 0.9999255, -0.01220407, 0, 0.01220407, 0.9999255, 0, -0.0625, -0.375)
 
-[node name="right_leg2" parent="Enemies/Enemy/Mesh/torso2" index="5" unique_id=1899947368]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9283445, 0.125)
+[node name="left_leg2" parent="Enemies/Enemy/Mesh/torso2" index="4" unique_id=529520192]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.92134607, -0.125)
+
+[node name="right_leg2" parent="Enemies/Enemy/Mesh/torso2" index="5" unique_id=313995523]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.92134607, 0.125)
 
 [node name="CharacterHitboxSetup" parent="Enemies/Enemy/Mesh" unique_id=1733301025 instance=ExtResource("6_6ra5r")]
 
@@ -177,37 +185,14 @@ enabled = false
 target_position = Vector3(0, 0, -1)
 collision_mask = 4
 
-[node name="THE FUCKING FLOOR" type="CSGBox3D" parent="." unique_id=808435658]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-use_collision = true
-collision_layer = 7
-collision_mask = 7
-size = Vector3(12, 1, 12)
-material = SubResource("StandardMaterial3D_mi8v4")
+[node name="Raycast" type="RayCast3D" parent="Enemies/Enemy" unique_id=34577202]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+enabled = false
+target_position = Vector3(0, 0, -1024)
+collision_mask = 4
 
-[node name="THE FUCKING FLOOR2" type="CSGBox3D" parent="." unique_id=651579090]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 1, 0)
-use_collision = true
-collision_layer = 7
-collision_mask = 7
-size = Vector3(1, 3, 12)
-material = SubResource("StandardMaterial3D_mi8v4")
-
-[node name="THE FUCKING FLOOR3" type="CSGBox3D" parent="." unique_id=128131484]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1, 0)
-use_collision = true
-collision_layer = 7
-collision_mask = 7
-size = Vector3(1, 3, 12)
-material = SubResource("StandardMaterial3D_mi8v4")
-
-[node name="THE FUCKING FLOOR4" type="CSGBox3D" parent="." unique_id=910066713]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -2.5)
-use_collision = true
-collision_layer = 7
-collision_mask = 7
-size = Vector3(1, 2, 3)
-material = SubResource("StandardMaterial3D_mi8v4")
+[node name="Navigator" type="NavigationAgent3D" parent="Enemies/Enemy" unique_id=1107796901]
+path_postprocessing = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1392721533]
 environment = SubResource("Environment_mi8v4")
@@ -246,5 +231,72 @@ color = Color(1, 1, 1, 0)
 offset_right = 254.0
 offset_bottom = 23.0
 text = "FPS:"
+
+[node name="Navigation" type="NavigationRegion3D" parent="." unique_id=1081360645]
+navigation_mesh = SubResource("NavigationMesh_hokwi")
+
+[node name="THE FUCKING FLOOR" type="CSGBox3D" parent="Navigation" unique_id=808435658]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+use_collision = true
+collision_layer = 7
+collision_mask = 7
+size = Vector3(12, 1, 12)
+material = SubResource("StandardMaterial3D_mi8v4")
+
+[node name="THE FUCKING FLOOR2" type="CSGBox3D" parent="Navigation" unique_id=651579090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 1, 0)
+use_collision = true
+collision_layer = 7
+collision_mask = 7
+size = Vector3(1, 3, 12)
+material = SubResource("StandardMaterial3D_mi8v4")
+
+[node name="THE FUCKING FLOOR8" type="CSGBox3D" parent="Navigation" unique_id=1788338381]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -6.5)
+use_collision = true
+collision_layer = 7
+collision_mask = 7
+size = Vector3(12, 3, 1)
+material = SubResource("StandardMaterial3D_mi8v4")
+
+[node name="THE FUCKING FLOOR3" type="CSGBox3D" parent="Navigation" unique_id=128131484]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1, 0)
+use_collision = true
+collision_layer = 7
+collision_mask = 7
+size = Vector3(1, 3, 12)
+material = SubResource("StandardMaterial3D_mi8v4")
+
+[node name="THE FUCKING FLOOR4" type="CSGBox3D" parent="Navigation" unique_id=910066713]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -2.5)
+use_collision = true
+collision_layer = 7
+collision_mask = 7
+size = Vector3(1, 2, 3)
+material = SubResource("StandardMaterial3D_mi8v4")
+
+[node name="THE FUCKING FLOOR6" type="CSGBox3D" parent="Navigation" unique_id=1053778902]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 0.5)
+use_collision = true
+collision_layer = 7
+collision_mask = 7
+size = Vector3(1, 2, 1)
+material = SubResource("StandardMaterial3D_mi8v4")
+
+[node name="THE FUCKING FLOOR7" type="CSGBox3D" parent="Navigation" unique_id=1723539594]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2, 0)
+use_collision = true
+collision_layer = 7
+collision_mask = 7
+size = Vector3(1, 1, 2)
+material = SubResource("StandardMaterial3D_mi8v4")
+
+[node name="THE FUCKING FLOOR5" type="CSGBox3D" parent="Navigation" unique_id=1691921074]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.1403809, -0.5)
+use_collision = true
+collision_layer = 7
+collision_mask = 7
+size = Vector3(1, 0.7192383, 1)
+material = SubResource("StandardMaterial3D_mi8v4")
 
 [editable path="Enemies/Enemy/Mesh"]

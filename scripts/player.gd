@@ -54,8 +54,6 @@ func _physics_process(delta):
 func _process(delta: float) -> void:
 	$Stand.disabled = Input.is_action_pressed("crouch")
 	
-	print(1/delta)
-	
 	if Input.is_action_pressed("crouch"):
 		camera.position.y += (1.15 - camera.position.y) / (5 - ((1/delta)/60))
 	else:
