@@ -127,8 +127,12 @@ func _process(delta: float) -> void:
 			
 	firing = spotted
 	
+	animator.set("parameters/walk/blend_amount", clampf(velocity.length() / 4, 0, 1))
+	
 	if pursuing != animator.get("parameters/pistol_idle/active"):
 		if pursuing:
+			if !animator.get("parameters/pistol_equip/active"):
+				animator.set("parameters/pistol_equip/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 			animator.set("parameters/pistol_idle/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		else:
 			animator.set("parameters/pistol_idle/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)

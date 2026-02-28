@@ -56,6 +56,9 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _process(delta: float) -> void:
+	if !$Camera/Viewmodel/AnimationPlayer.current_animation:
+		$Camera/Viewmodel/AnimationPlayer.play("idle")
+		
 	$Stand.disabled = Input.is_action_pressed("crouch")
 	
 	if Input.is_action_pressed("crouch"):
@@ -72,6 +75,9 @@ func _process(delta: float) -> void:
 		get_parent().add_child(bullet_trail)
 		
 		$Gunshot1.play()
+		
+		$Camera/Viewmodel/AnimationPlayer.stop()
+		$Camera/Viewmodel/AnimationPlayer.play("fire")
 		
 		var collider = raycast.get_collider()
 		
