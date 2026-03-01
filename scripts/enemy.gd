@@ -12,6 +12,13 @@ extends CharacterBody3D
 @onready var fire_point = $Mesh/Skeleton3D/right_arm_2
 @onready var rotation_target = $Rotator
 
+@export var points: Array[Node3D] = []
+@export var wait_time_between_points: int = 5
+
+var current_point = 0
+var point_waiting_time = 0
+var point_reached = false
+
 var spotted = false
 
 var weapon_equipped = false
@@ -63,7 +70,7 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	if $Label:
-		$Label.text = "Health: " + str(health) + "\nSpotted: " + str(spotted) + "\nSus: " + str(suspicion)
+		$Label.text = "Health: " + str(health) + "\nSpotted: " + str(spotted) + "\nSus: " + str(suspicion) + "\npwt: " + str(point_waiting_time)
 		
 	if (health <= 0) and !dead:
 		dead = true
@@ -118,13 +125,38 @@ func _process(delta: float) -> void:
 			
 		ai_tick_timer = 0.05
 		
-		
 		if pursuing:
 			search_timer -= 0.05 
 			
 			if search_timer <= 0:
 				pursuing = false
 				memory_location = null
+		elif points.size() > 0:
+			var point = points[current_point]
+			
+			if !point_reached and ($Navigator.target_position != point.global_position):
+				$Navigator.target_position = point.global_position
+				
+			var direction = global_position.direction_to($Navigator.get_next_path_position())
+			velocity.x = direction.x * 2.0
+			velocity.z = direction.z * 2.0
+			
+			$Rotator.look_at($Navigator.get_next_path_position())
+			
+			if $Navigator.is_navigation_finished():
+				point_reached = true
+				
+			if point_reached:
+				point_waiting_time -= 0.05
+				
+				if point_waiting_time <= 0:
+					point_reached = false
+					current_point += 1
+					
+					if current_point >= points.size():
+						current_point = 0
+			else:
+				point_waiting_time = wait_time_between_points
 				
 	if memory_location:
 		if spotted:

@@ -5,9 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://b86kjs4qf05m7" path="res://models/viewmodels/example.gltf" id="3_vjnaj"]
 [ext_resource type="Shader" uid="uid://huqb1yknqiut" path="res://shaders/crosshair.gdshader" id="4_1ywih"]
 [ext_resource type="Material" uid="uid://sdhxmad0t6jc" path="res://materials/pistol.tres" id="4_hokwi"]
+[ext_resource type="Texture2D" uid="uid://d0brv24gh7p4i" path="res://textures/navigation_ring.png" id="5_6ra5r"]
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="5_ct7o8"]
 [ext_resource type="PackedScene" uid="uid://cc7dgw66nbshf" path="res://models/character.gltf" id="5_hokwi"]
 [ext_resource type="Script" uid="uid://bcayn6xb3psee" path="res://scripts/enemy.gd" id="5_vjnaj"]
+[ext_resource type="Texture2D" uid="uid://knhdbp0bqy7k" path="res://textures/direction_enemy.png" id="6_5vwr8"]
+[ext_resource type="Script" uid="uid://dqo5stsh13ac7" path="res://scripts/ground_direction.gd" id="7_8gbjj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ra5r"]
 radius = 0.3
@@ -117,9 +120,10 @@ shader_parameter/overlay_color = Color(1, 1, 1, 10)
 shader_parameter/lens_distortion_strength = 0.05
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_hokwi"]
-vertices = PackedVector3Array(-5.5, 3, -6.5, -5.5, 3, -6.1, -5.1, 3, -6.4, 5.1000004, 3, -6.5, 5.5, 3, -6.1, 5.5, 3, -6.5, -1.0999999, 0, -4.5, -0.4000001, 0, -4.5, -0.4000001, 0, -5.4, -1.5, 0, -4.1, -4.4, 0, -5.4, -4.4, 0, 0.7000003, -1.5, 0, 0.5999999, 0.20000029, 0, -4.5, 0.5999999, 0, -4.1, 4.5, 0, -5.4, 0.5999999, 0, 0.5, 4.5, 0, 0.5999999, 0.5999999, 0, 1.1000004, 0.3000002, 0, 1.5, -0.5, 0, 1.6000004, -0.5, 0, 5.5, 4.5, 0, 5.5, -1.4000001, 0, 1.4000006, -1.0999999, 0, 1.6000004, -4.4, 0, 5.5)
-polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(6, 9, 8), PackedInt32Array(8, 9, 10), PackedInt32Array(12, 11, 9), PackedInt32Array(9, 11, 10), PackedInt32Array(13, 7, 8), PackedInt32Array(13, 8, 14), PackedInt32Array(14, 8, 15), PackedInt32Array(16, 14, 17), PackedInt32Array(17, 14, 15), PackedInt32Array(17, 18, 16), PackedInt32Array(19, 21, 20), PackedInt32Array(18, 17, 19), PackedInt32Array(19, 17, 22), PackedInt32Array(19, 22, 21), PackedInt32Array(11, 12, 23), PackedInt32Array(23, 24, 11), PackedInt32Array(11, 24, 25), PackedInt32Array(25, 24, 21), PackedInt32Array(24, 20, 21)]
+vertices = PackedVector3Array(-1.0999999, 0, -4.8, 0, 0, -4.8, 0, 0, -5.1, -4.1, 0, -5.1, -4.1, 0, 0.7000003, -1.7999997, 0, 0.5999999, -1.7999997, 0, -4.1, -1.5999999, 0, -4.5, 0.5999999, 0, -4.6, 4.2, 0, -5.1, 0.9000001, 0, -4.1, 0.9000001, 0, 0.5, 4.2, 0, 0.5999999, 0.9000001, 0, 1.1000004, 0.5, 0, 1.6999998, -0.5, 0, 1.9000006, -0.5, 0, 5.2, 4.2, 0, 5.2, -1.5999999, 0, 1.6000004, -1.0999999, 0, 1.9000006, -4.1, 0, 5.2)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 3), PackedInt32Array(3, 0, 7), PackedInt32Array(3, 7, 6), PackedInt32Array(1, 2, 8), PackedInt32Array(8, 2, 9), PackedInt32Array(11, 10, 12), PackedInt32Array(12, 10, 9), PackedInt32Array(10, 8, 9), PackedInt32Array(13, 11, 12), PackedInt32Array(16, 15, 14), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 17), PackedInt32Array(14, 17, 16), PackedInt32Array(4, 5, 18), PackedInt32Array(18, 19, 4), PackedInt32Array(4, 19, 20), PackedInt32Array(20, 19, 16), PackedInt32Array(19, 15, 16)]
 cell_size = 0.1
+agent_radius = 0.8
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mi8v4"]
 albedo_color = Color(0, 0, 0, 1)
@@ -178,14 +182,35 @@ transform = Transform3D(0.8923989, 0.23911761, -0.38268346, -0.25881898, 0.96592
 [node name="CSGMesh3D" type="CSGMesh3D" parent="Player/Camera/Viewmodel/Node" unique_id=756235434]
 material = ExtResource("4_hokwi")
 
+[node name="StealthIndicator" type="Sprite3D" parent="Player" unique_id=1538791899]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+modulate = Color(1, 1, 1, 0.53333336)
+axis = 1
+double_sided = false
+alpha_cut = 3
+texture_filter = 0
+texture = ExtResource("5_6ra5r")
+
+[node name="GroundDirection" type="Sprite3D" parent="Player/StealthIndicator" unique_id=1782247845 node_paths=PackedStringArray("target")]
+pixel_size = 0.05
+axis = 1
+alpha_cut = 3
+texture_filter = 0
+texture = ExtResource("6_5vwr8")
+script = ExtResource("7_8gbjj")
+target = NodePath("../../../Enemies/Enemy")
+scale_size_with_distance = false
+stealth_suspicion = false
+
 [node name="FirePoint" type="Node3D" parent="." unique_id=1693997578]
 transform = Transform3D(1, -4.440892e-16, -3.5527137e-15, 0, 0.9999684, 0.00794927, 0, -0.00794927, 0.9999684, 0, -0.8180943, 0.016034365)
 
 [node name="Enemies" type="Node3D" parent="." unique_id=794891135]
 
-[node name="Enemy" type="CharacterBody3D" parent="Enemies" unique_id=2017316921]
+[node name="Enemy" type="CharacterBody3D" parent="Enemies" unique_id=2017316921 node_paths=PackedStringArray("points")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
 script = ExtResource("5_vjnaj")
+points = [NodePath("../../AInode1"), NodePath("../../AInode2")]
 
 [node name="Gunshot1" type="AudioStreamPlayer" parent="Enemies/Enemy" unique_id=1970728437]
 stream = ExtResource("2_ct7o8")
@@ -218,34 +243,34 @@ parameters/walk/blend_amount = 0.0
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Enemies/Enemy/Mesh" index="0" unique_id=920161782]
-bones/0/position = Vector3(0, 1.8105772, 0)
+bones/0/position = Vector3(0, 1.8112087, 0)
 bones/6/position = Vector3(0.0125, -0.0625, 0.28125)
-bones/6/rotation = Quaternion(-0.028453723, 0.028453723, 0.7065341, 0.7065341)
+bones/6/rotation = Quaternion(-0.027711254, 0.027711254, 0.7065636, 0.7065636)
 bones/8/position = Vector3(0.0625, -0.0625, -0.125)
 bones/8/rotation = Quaternion(-0.27059805, -3.155809e-13, 0.6532815, 0.70710677)
-bones/10/position = Vector3(0, -0.9355772, -0.125)
-bones/12/position = Vector3(0, -0.9355772, 0.125)
+bones/10/position = Vector3(0, -0.93620867, -0.125)
+bones/12/position = Vector3(0, -0.93620867, 0.125)
 
 [node name="torso_2" parent="Enemies/Enemy/Mesh/Skeleton3D" index="0" unique_id=654106401]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1855772, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1862087, 0)
 
 [node name="neck_2" parent="Enemies/Enemy/Mesh/Skeleton3D" index="1" unique_id=196503317]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7480772, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7487087, 0)
 
 [node name="head_2" parent="Enemies/Enemy/Mesh/Skeleton3D" index="2" unique_id=1728743399]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8730772, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8737087, 0)
 
 [node name="right_arm_2" parent="Enemies/Enemy/Mesh/Skeleton3D" index="3" unique_id=1355245548]
-transform = Transform3D(5.9604645e-08, -0.99999994, -3.7252903e-09, 0.9967615, 5.9604645e-08, 0.08041409, -0.08041409, 3.7252903e-09, 0.99676156, 0.6374999, 1.7480772, 0.28125)
+transform = Transform3D(0, -1, 0, 0.9969284, 0, 0.07831905, -0.07831905, 0, 0.99692833, 0.6375, 1.7487087, 0.28125)
 
 [node name="left_arm_2" parent="Enemies/Enemy/Mesh/Skeleton3D" index="4" unique_id=996451703]
-transform = Transform3D(0.14644653, -0.92387956, -0.3535534, 0.92387956, -1.1920929e-07, 0.38268343, -0.3535534, -0.38268343, 0.8535534, 0.6399247, 1.7480773, 0.11417714)
+transform = Transform3D(0.14644653, -0.92387956, -0.3535534, 0.92387956, -1.1920929e-07, 0.38268343, -0.3535534, -0.38268343, 0.8535534, 0.6399247, 1.7487088, 0.11417714)
 
 [node name="left_leg_2" parent="Enemies/Enemy/Mesh/Skeleton3D" index="5" unique_id=985145667]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24999994, -0.125)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25000006, -0.125)
 
 [node name="right_leg_2" parent="Enemies/Enemy/Mesh/Skeleton3D" index="6" unique_id=2061210947]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24999994, 0.125)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25000006, 0.125)
 
 [node name="Label" type="Label3D" parent="Enemies/Enemy" unique_id=159485113]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.500328, 0)
@@ -266,7 +291,7 @@ target_position = Vector3(0, 0, -1024)
 collision_mask = 4
 
 [node name="Navigator" type="NavigationAgent3D" parent="Enemies/Enemy" unique_id=1107796901]
-path_postprocessing = 1
+debug_enabled = true
 
 [node name="Rotator" type="Node3D" parent="Enemies/Enemy" unique_id=409798074]
 
@@ -335,6 +360,14 @@ collision_mask = 7
 size = Vector3(12, 3, 1)
 material = SubResource("StandardMaterial3D_mi8v4")
 
+[node name="THE FUCKING FLOOR9" type="CSGBox3D" parent="Navigation" unique_id=1489070268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 6.5)
+use_collision = true
+collision_layer = 7
+collision_mask = 7
+size = Vector3(12, 3, 1)
+material = SubResource("StandardMaterial3D_mi8v4")
+
 [node name="THE FUCKING FLOOR3" type="CSGBox3D" parent="Navigation" unique_id=128131484]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1, 0)
 use_collision = true
@@ -374,6 +407,12 @@ collision_layer = 7
 collision_mask = 7
 size = Vector3(1, 0.7192383, 1)
 material = SubResource("StandardMaterial3D_mi8v4")
+
+[node name="AInode2" type="Node3D" parent="." unique_id=1340381224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.43940896, 0.56509835)
+
+[node name="AInode1" type="Node3D" parent="." unique_id=1596278971]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.43940896, -3.5185375)
 
 [editable path="Player/Camera/Viewmodel"]
 [editable path="Enemies/Enemy/Mesh"]
