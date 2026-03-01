@@ -73,7 +73,7 @@ func _process(delta: float) -> void:
 	else:
 		camera.position.y += (2.15 - camera.position.y) / (5 - delta)
 		
-	if Input.is_action_just_pressed("melee"):
+	if Input.is_action_just_pressed("melee") and !busy:
 		$Camera/Viewmodel/AnimationPlayer.stop()
 		$Camera/Viewmodel/AnimationPlayer.play("melee")
 		
@@ -103,6 +103,10 @@ func _process(delta: float) -> void:
 				owner.memory_location = global_position
 				owner.pursuing = true
 				owner.search_timer = 5
+		
+		await get_tree().create_timer(0.15).timeout
+		
+		busy = false
 		
 	if Input.is_action_just_pressed("fire") and !busy:
 		var bullet_trail = bullet_trail_scene.instantiate()
