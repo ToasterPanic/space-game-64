@@ -10,6 +10,7 @@ extends CharacterBody3D
 @onready var raycast = $Camera/Raycast
 
 var damage = 25
+var crouching = false
 
 var bullet_trail_scene = preload("res://scenes/bullet_fire_line.tscn")
 
@@ -49,7 +50,7 @@ func _physics_process(delta):
 	velocity.x = direction.x * walk_speed
 	velocity.z = direction.z * walk_speed
 	
-	if Input.is_action_pressed("crouch"):
+	if crouching:
 		velocity.x /= 2
 		velocity.z /= 2
 
@@ -59,9 +60,14 @@ func _process(delta: float) -> void:
 	if !$Camera/Viewmodel/AnimationPlayer.current_animation:
 		$Camera/Viewmodel/AnimationPlayer.play("idle")
 		
-	$Stand.disabled = Input.is_action_pressed("crouch")
+	$Stand.disabled = crouching
 	
 	if Input.is_action_pressed("crouch"):
+		crouching = true
+	elif !$CrouchCheck.is_colliding():
+		crouching = false
+		
+	if crouching:
 		camera.position.y += (1.15 - camera.position.y) / (5 - ((1/delta)/60))
 	else:
 		camera.position.y += (2.15 - camera.position.y) / (5 - delta)
