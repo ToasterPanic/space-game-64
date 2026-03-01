@@ -11,6 +11,7 @@ extends CharacterBody3D
 
 var damage = 25
 var crouching = false
+var busy = false
 
 var bullet_trail_scene = preload("res://scenes/bullet_fire_line.tscn")
 
@@ -72,7 +73,38 @@ func _process(delta: float) -> void:
 	else:
 		camera.position.y += (2.15 - camera.position.y) / (5 - delta)
 		
-	if Input.is_action_just_pressed("fire"):
+	if Input.is_action_just_pressed("melee"):
+		$Camera/Viewmodel/AnimationPlayer.stop()
+		$Camera/Viewmodel/AnimationPlayer.play("melee")
+		
+		busy = true
+		
+		await get_tree().create_timer(0.25).timeout
+		
+		var collider = raycast.get_collider()
+		
+		if collider and (($Camera.global_position - raycast.get_collision_point()).length() < 2):
+			if "health" in collider:
+				collider.health -= damage
+			elif collider.has_meta("owner"):
+				var owner = collider.get_meta("owner")
+				
+				if collider.name == "head":
+					if owner.spotted:
+						owner.health -= damage * 2
+					else:
+						owner.health -= damage * 60000
+				elif collider.name == "torso":
+					owner.health -= damage
+				else:
+					owner.health -= damage * 0.66
+				
+				owner.spotted = true
+				owner.memory_location = global_position
+				owner.pursuing = true
+				owner.search_timer = 5
+		
+	if Input.is_action_just_pressed("fire") and !busy:
 		var bullet_trail = bullet_trail_scene.instantiate()
 		
 		bullet_trail.origin = $Camera/TrailOrigin.global_position
