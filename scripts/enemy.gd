@@ -26,6 +26,8 @@ var search_timer = 5
 var pursuing = false
 var dead = false
 
+var suspicion = 0
+
 @export var max_spread = 15
 @export var min_spread = 3
 
@@ -61,7 +63,7 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	if $Label:
-		$Label.text = "Health: " + str(health) + "\nSpotted: " + str(spotted)
+		$Label.text = "Health: " + str(health) + "\nSpotted: " + str(spotted) + "\nSus: " + str(suspicion)
 		
 	if (health <= 0) and !dead:
 		dead = true
@@ -85,16 +87,26 @@ func _process(delta: float) -> void:
 		
 		var angle_difference = rad_to_deg(abs($Sight.rotation.x) + abs($Sight.rotation.y))
 		if (abs(rad_to_deg($Sight.rotation.y)) < 75) and (abs(rad_to_deg($Sight.rotation.x)) < 35) and ($Sight.get_collider() == player):
+			suspicion += delta * 6
+			
+			if pursuing:
+				suspicion += delta * 4
+			
 			spotted = true
 			
-		if spotted:
+		if spotted and (suspicion > 1):
 			concentration += (-ai_tick_timer + 0.05) / 2
 			memory_location = player.global_position
 			
 			pursuing = true
 			search_timer = 5
+			suspicion = 1
 		else:
 			concentration -= (-ai_tick_timer + 0.05) / 2.5
+			
+			suspicion -= delta
+			if suspicion < 0:
+				suspicion = 0
 			
 		if memory_location:
 			$Navigator.target_position = memory_location
