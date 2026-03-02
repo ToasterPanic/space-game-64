@@ -57,10 +57,9 @@ enum AI_STATE {
 var bullet_trail_scene = preload("res://scenes/bullet_fire_line.tscn")
 
 # Functions
-func _set_look_target(value: Vector3):
+func _set_look_target(value: Vector3) -> void:
 	if rotation_target.global_position != value:
 		rotation_target.look_at(value)
-		
 		
 func _is_player_in_fov() -> bool:
 	return (abs(rad_to_deg(sight.rotation.y)) < 75) and (abs(rad_to_deg(sight.rotation.x)) < 50)
@@ -95,6 +94,15 @@ func _ready() -> void:
 		body.name = n.name.get_slice("_2", 0)
 		body.set_meta("owner", self)
 
+func interact(action_id: String) -> void:
+	if (action_id == "drag") and (phase == AI_PHASE.DEAD_AS_FUCK):
+		if state == AI_STATE.DEAD_AS_FUCK_IDLE:
+			state = AI_STATE.DEAD_AS_FUCK_DRAGGED
+			player.crouching = true
+			
+		else:
+			state = AI_STATE.DEAD_AS_FUCK_IDLE
+
 func _physics_process(delta: float) -> void:
 	velocity.y -= 9.8 * delta
 	
@@ -115,6 +123,7 @@ func _physics_process(delta: float) -> void:
 		if (health <= 0) and (phase != AI_PHASE.DEAD_AS_FUCK):
 			phase = AI_PHASE.DEAD_AS_FUCK
 			state = AI_STATE.DEAD_AS_FUCK_IDLE
+			player.busy = true
 		
 		if (phase != AI_PHASE.ATTACK) and (phase != AI_PHASE.DEAD_AS_FUCK):
 			# Hearing
@@ -266,9 +275,21 @@ func _physics_process(delta: float) -> void:
 	if phase == AI_PHASE.DEAD_AS_FUCK:
 		animator.set("parameters/dead/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		$CollisionShape.disabled = true
-	else:
-		# If the enemy is not dead, rotate the player towards its rotation target
-		global_rotation.y = lerp_angle(global_rotation.y, rotation_target.global_rotation.y, 6.0 * delta)
+		
+		if state == AI_STATE.DEAD_AS_FUCK_DRAGGED:
+			_set_look_target(player.global_position)
+			
+			var distance = (global_position - player.global_position).length()
+			
+			if distance > 1.5:
+				var direction = global_position.direction_to(player.global_position)
+				velocity.x = direction.x * (player.velocity.length())
+				velocity.z = direction.z * (player.velocity.length())
+				
+			if !player.crouching:
+				state = AI_STATE.DEAD_AS_FUCK_IDLE
+	
+	global_rotation.y = lerp_angle(global_rotation.y, rotation_target.global_rotation.y, 6.0 * delta)
 		
 	move_and_slide()
 	
