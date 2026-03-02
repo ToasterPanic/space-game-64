@@ -29,8 +29,10 @@ var can_see_player := false
 
 var ai_tick_timer = randf_range(0.0, 0.05)
 
+var rotation_target := Vector3(0.0, 0.0, 0.0)
+
 # Nodes for quick use
-@onready var rotation_target := $RotationTarget
+#@onready var rotation_target := $RotationTarget
 @onready var mesh := $Mesh
 @onready var animator := $Animator
 @onready var fire_point := $Mesh/Skeleton3D/right_arm_2
@@ -58,8 +60,11 @@ var bullet_trail_scene = preload("res://scenes/bullet_fire_line.tscn")
 
 # Functions
 func _set_look_target(value: Vector3) -> void:
-	if rotation_target.global_position != value:
-		rotation_target.look_at(value)
+	var new_transform = global_transform.looking_at(value)
+	
+	rotation_target = new_transform.basis.get_euler()
+	#if rotation_target.global_position != value:
+	#	rotation_target.look_at(value)
 		
 func _is_player_in_fov() -> bool:
 	return (abs(rad_to_deg(sight.rotation.y)) < 75) and (abs(rad_to_deg(sight.rotation.x)) < 50)
@@ -123,7 +128,6 @@ func _physics_process(delta: float) -> void:
 		if (health <= 0) and (phase != AI_PHASE.DEAD_AS_FUCK):
 			phase = AI_PHASE.DEAD_AS_FUCK
 			state = AI_STATE.DEAD_AS_FUCK_IDLE
-			player.busy = true
 		
 		if (phase != AI_PHASE.ATTACK) and (phase != AI_PHASE.DEAD_AS_FUCK):
 			# Hearing
@@ -289,7 +293,7 @@ func _physics_process(delta: float) -> void:
 			if !player.crouching:
 				state = AI_STATE.DEAD_AS_FUCK_IDLE
 	
-	global_rotation.y = lerp_angle(global_rotation.y, rotation_target.global_rotation.y, 6.0 * delta)
+	global_rotation.y = lerp_angle(global_rotation.y, rotation_target.y, 6.0 * delta)
 		
 	move_and_slide()
 	

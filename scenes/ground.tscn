@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://knhdbp0bqy7k" path="res://textures/direction_enemy.png" id="6_5vwr8"]
 [ext_resource type="Script" uid="uid://dqo5stsh13ac7" path="res://scripts/ground_direction.gd" id="7_8gbjj"]
 [ext_resource type="PackedScene" uid="uid://c0ay3ek232fxh" path="res://scenes/ground_enemy.tscn" id="8_5vwr8"]
+[ext_resource type="FontFile" uid="uid://n1nd5m2kwexu" path="res://fonts/Michroma.ttf" id="11_2c1ag"]
+[ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="11_8gbjj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ra5r"]
 radius = 0.3
@@ -49,6 +51,10 @@ shader_parameter/cross_base_angle = 0.0
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hokwi"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_modao"]
+font = ExtResource("11_2c1ag")
+font_size = 24
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6ra5r"]
 shader = ExtResource("5_ct7o8")
 shader_parameter/shake = 0.015
@@ -81,8 +87,24 @@ collision_mask = 5
 script = ExtResource("1_mi8v4")
 
 [node name="Gunshot1" type="AudioStreamPlayer" parent="Player" unique_id=1645430119]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 stream = ExtResource("2_ct7o8")
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+stream_paused = false
+mix_target = 0
 max_polyphony = 4
+bus = &"Master"
+playback_type = 0
+script = null
 
 [node name="CrouchCheck" type="RayCast3D" parent="Player" unique_id=1810000700]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.8968747, 0)
@@ -185,6 +207,35 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("PlaceholderTexture2D_hokwi")
 
+[node name="FPS" type="Label" parent="UILayer" unique_id=293732158]
+offset_right = 254.0
+offset_bottom = 23.0
+text = "FPS:"
+
+[node name="InteractFlow" type="HFlowContainer" parent="UILayer" unique_id=1285735225]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UILayer/InteractFlow" unique_id=619622975]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("11_8gbjj")
+action_name = "interact"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="Label" type="Label" parent="UILayer/InteractFlow" unique_id=737783149]
+layout_mode = 2
+text = "TO INTERACT"
+label_settings = SubResource("LabelSettings_modao")
+
 [node name="ColorRect" type="ColorRect" parent="UILayer" unique_id=927231073]
 material = SubResource("ShaderMaterial_6ra5r")
 anchors_preset = 15
@@ -193,11 +244,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
-
-[node name="FPS" type="Label" parent="UILayer" unique_id=293732158]
-offset_right = 254.0
-offset_bottom = 23.0
-text = "FPS:"
 
 [node name="Navigation" type="NavigationRegion3D" parent="." unique_id=1081360645]
 navigation_mesh = SubResource("NavigationMesh_hokwi")
