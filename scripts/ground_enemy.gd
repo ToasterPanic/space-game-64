@@ -64,7 +64,7 @@ func _set_look_target(value: Vector3):
 		
 func _is_player_in_fov() -> bool:
 	var angle_difference = rad_to_deg(abs(sight.rotation.x) + abs(sight.rotation.y))
-	return (abs(rad_to_deg(sight.rotation.y)) < 75) and (abs(rad_to_deg(sight.rotation.x)) < 35)
+	return (abs(rad_to_deg(sight.rotation.y)) < 75) and (abs(rad_to_deg(sight.rotation.x)) < 50)
 		
 func _can_shoot_player() -> bool:
 	raycast.look_at(player.get_node("Camera").global_position)
