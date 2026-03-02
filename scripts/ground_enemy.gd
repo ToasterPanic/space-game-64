@@ -19,6 +19,8 @@ var state_timer := 0.0
 
 var current_point := 0
 
+var suspicion := 0.0
+
 var memory_point = null # Are nullable typed vars a thing? If they are I couldn't figure it out
 var can_see_player := false
 
@@ -61,6 +63,24 @@ func _ready() -> void:
 func _set_look_target(value: Vector3):
 	if rotation_target.global_position != value:
 		rotation_target.look_at(value)
+		
+		
+func _is_player_in_fov() -> bool:
+	var angle_difference = rad_to_deg(abs(sight.rotation.x) + abs(sight.rotation.y))
+	return (abs(rad_to_deg(sight.rotation.y)) < 75) and (abs(rad_to_deg(sight.rotation.x)) < 35)
+		
+func _can_shoot_player() -> bool:
+	raycast.look_at(player.get_node("Camera").global_position)
+	raycast.force_raycast_update()
+	
+	return _is_player_in_fov() and (raycast.get_collider() == player)
+		
+func _can_see_player() -> bool:
+	sight.look_at(player.get_node("Camera").global_position)
+	sight.force_raycast_update()
+			
+	var angle_difference = rad_to_deg(abs(sight.rotation.x) + abs(sight.rotation.y))
+	return _is_player_in_fov() and (sight.get_collider() == player)
 
 func _physics_process(delta: float) -> void:
 	velocity.y -= 9.8 * delta
@@ -79,16 +99,32 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 		velocity.z = 0
 		
-		# Hearing
 		if phase != AI_PHASE.ATTACK:
+			# Hearing
 			for n in $Hearing.get_overlapping_areas():
 				if n.attract_enemies:
-					phase = AI_PHASE.INVESTIGATE
-					state = AI_STATE.INVESTIGATE_APPROACH
+					if phase == AI_PHASE.PURSUE:
+						state = AI_STATE.PURSUE_CHASE
+						state_timer = 2
+						
+						memory_point = n.global_position
+					else:
+						phase = AI_PHASE.INVESTIGATE
+						state = AI_STATE.INVESTIGATE_APPROACH
+						
+						state_timer = 2
+						
+						memory_point = n.global_position
 					
-					state_timer = 2
+			# Sight
+			if _can_see_player():
+				suspicion += delta * 6
+				
+				if suspicion > 1:
+					suspicion = 1
 					
-					memory_point = n.global_position
+					phase = AI_PHASE.ATTACK
+					state = AI_STATE.ATTACK
 		
 		if phase == AI_PHASE.IDLE:
 			if state == AI_STATE.IDLE_WALK_TO_POINT:
@@ -118,6 +154,7 @@ func _physics_process(delta: float) -> void:
 					# DO NOT TRY AND GO TO A POINT THAT DOESN'T EXIST FUCKER
 					if current_point >= points.size():
 						current_point = 0
+						
 		elif phase == AI_PHASE.INVESTIGATE:
 			if state == AI_STATE.INVESTIGATE_APPROACH:
 				if navigator.target_position != memory_point:
@@ -133,6 +170,45 @@ func _physics_process(delta: float) -> void:
 					state = AI_STATE.INVESTIGATE_WAIT
 					
 			elif state == AI_STATE.INVESTIGATE_WAIT:
+				state_timer -= tick_delta
+				
+				if state_timer <= 0:
+					phase = AI_PHASE.IDLE
+					state = AI_STATE.IDLE_WALK_TO_POINT
+					
+		elif phase == AI_PHASE.ATTACK:
+			_set_look_target(player.global_position)
+			
+			memory_point = player.global_position
+			
+			if ((player.global_position - global_position).length() > 3.5) or (!_can_shoot_player()):
+				if navigator.target_position != player.global_position:
+					navigator.target_position = player.global_position
+					
+				var direction = global_position.direction_to(navigator.get_next_path_position())
+				velocity.x = direction.x * 3.0
+				velocity.z = direction.z * 3.0
+				
+			if !_can_see_player():
+				phase = AI_PHASE.PURSUE
+				state = AI_STATE.PURSUE_CHASE
+				
+		elif phase == AI_PHASE.PURSUE:
+			if state == AI_STATE.PURSUE_CHASE:
+				if navigator.target_position != memory_point:
+					navigator.target_position = memory_point
+					
+				var direction = global_position.direction_to(navigator.get_next_path_position())
+				velocity.x = direction.x * 3.0
+				velocity.z = direction.z * 3.0
+				
+				state_timer = 2
+				
+				_set_look_target(navigator.get_next_path_position())
+				
+				if navigator.is_navigation_finished():
+					state = AI_STATE.PURSUE_SEARCH
+			elif state == AI_STATE.PURSUE_SEARCH:
 				state_timer -= tick_delta
 				
 				if state_timer <= 0:
