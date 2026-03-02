@@ -42,7 +42,7 @@ enum AI_PHASE { IDLE, INVESTIGATE, ATTACK, PURSUE, DEAD_AS_FUCK }
 
 enum AI_STATE { 
 	IDLE_WALK_TO_POINT, IDLE_WAIT_AT_POINT,
-	INVESTIGATE_SOUND, INVESTIGATE_BODY, INVESTIGATE_DISTRACTION,
+	INVESTIGATE_APPROACH, INVESTIGATE_SOLVE_DISTRACTION, INVESTIGATE_WAIT,
 	ATTACK,
 	PURSUE_CHASE, PURSUE_SEARCH,
 	DEAD_AS_FUCK_IDLE, DEAD_AS_FUCK_DRAGGED
@@ -79,6 +79,17 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 		velocity.z = 0
 		
+		# Hearing
+		if phase != AI_PHASE.ATTACK:
+			for n in $Hearing.get_overlapping_areas():
+				if n.attract_enemies:
+					phase = AI_PHASE.INVESTIGATE
+					state = AI_STATE.INVESTIGATE_APPROACH
+					
+					state_timer = 2
+					
+					memory_point = n.global_position
+		
 		if phase == AI_PHASE.IDLE:
 			if state == AI_STATE.IDLE_WALK_TO_POINT:
 				var point = points[current_point]
@@ -107,7 +118,27 @@ func _physics_process(delta: float) -> void:
 					# DO NOT TRY AND GO TO A POINT THAT DOESN'T EXIST FUCKER
 					if current_point >= points.size():
 						current_point = 0
-	
+		elif phase == AI_PHASE.INVESTIGATE:
+			if state == AI_STATE.INVESTIGATE_APPROACH:
+				if navigator.target_position != memory_point:
+					navigator.target_position = memory_point
+					
+				var direction = global_position.direction_to(navigator.get_next_path_position())
+				velocity.x = direction.x * 2.0
+				velocity.z = direction.z * 2.0
+				
+				_set_look_target(navigator.get_next_path_position())
+				
+				if navigator.is_navigation_finished():
+					state = AI_STATE.INVESTIGATE_WAIT
+					
+			elif state == AI_STATE.INVESTIGATE_WAIT:
+				state_timer -= tick_delta
+				
+				if state_timer <= 0:
+					phase = AI_PHASE.IDLE
+					state = AI_STATE.IDLE_WALK_TO_POINT
+
 	# If the enemy is not dead, rotate the player towards its rotation target
 	if !dead:
 		global_rotation.y = lerp_angle(global_rotation.y, rotation_target.global_rotation.y, 6.0 * delta)
