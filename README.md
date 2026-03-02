@@ -1,5 +1,9 @@
 # space game 64
 
+## THINGS TO NOTE FOR SCRAPS REVIEWERS
+
+- A lot of things have really scrappy textures, models and/or animations. This is mostly because I couldn't track my time working on those (I use Blockbench).
+
 # credits
 
 ## Crosshair Custom Aim 2D Animated

@@ -1,28 +1,41 @@
 extends CharacterBody3D
 
+@export var health := 100
+@export var body_texture: Texture2D = load("res://textures/character_test.png")
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+@export var sight_max_distance: int = 256
+
+var dead := false
+
+var phase: AI_PHASE = AI_PHASE.IDLE
+var state: AI_STATE = AI_STATE.IDLE_WALK_TO_POINT
+
+# Nodes for quick use
+@onready var rotation_target := $RotationTarget
+@onready var mesh := $Mesh
+@onready var animator := $Animator
+@onready var fire_point := $Mesh/Skeleton3D/right_arm_2
+@onready var sight := $Sight
+@onready var raycast := $Raycast
+@onready var navigator := $Navigator
+@onready var hearing := $Hearing
+
+@onready var game = get_parent().get_parent()
+@onready var player = game.get_node("Player")
+
+# Enums!!!
+enum AI_PHASE { IDLE, INVESTIGATE, ATTACK, PURSUE, DEAD_AS_FUCK }
+
+enum AI_STATE { 
+	IDLE_WALK_TO_POINT, IDLE_WAIT_AT_POINT,
+	INVESTIGATE_SOUND, INVESTIGATE_BODY, INVESTIGATE_DISTRACTION,
+	ATTACK,
+	PURSUE_CHASE, PURSUE_SEARCH
+}
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-
-	move_and_slide()
+	
+	# If the enemy is not dead, rotate the player towards its rotation target.
+	if !dead:
+		global_rotation.y = lerp_angle(global_rotation.y, rotation_target.global_rotation.y, 6.0 * delta)
