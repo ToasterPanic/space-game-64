@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dxsmvpbrprx5b"]
 
-[ext_resource type="Script" uid="uid://s3qjrm61nwpw" path="res://scripts/player.gd" id="1_mi8v4"]
+[ext_resource type="Script" uid="uid://s3qjrm61nwpw" path="res://scripts/ground_player.gd" id="1_mi8v4"]
 [ext_resource type="AudioStream" uid="uid://bcf4vtlmsviap" path="res://sounds/gunshot_1.mp3" id="2_ct7o8"]
 [ext_resource type="PackedScene" uid="uid://b86kjs4qf05m7" path="res://models/viewmodels/example.gltf" id="3_vjnaj"]
 [ext_resource type="Shader" uid="uid://huqb1yknqiut" path="res://shaders/crosshair.gdshader" id="4_1ywih"]
@@ -9,7 +9,7 @@
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="5_ct7o8"]
 [ext_resource type="Texture2D" uid="uid://knhdbp0bqy7k" path="res://textures/direction_enemy.png" id="6_5vwr8"]
 [ext_resource type="Script" uid="uid://dqo5stsh13ac7" path="res://scripts/ground_direction.gd" id="7_8gbjj"]
-[ext_resource type="PackedScene" uid="uid://c0ay3ek232fxh" path="res://scenes/enemy_ground.tscn" id="8_5vwr8"]
+[ext_resource type="PackedScene" uid="uid://c0ay3ek232fxh" path="res://scenes/ground_enemy.tscn" id="8_5vwr8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ra5r"]
 radius = 0.3
@@ -151,9 +151,8 @@ transform = Transform3D(1, -4.440892e-16, -3.5527137e-15, 0, 0.9999684, 0.007949
 
 [node name="Enemies" type="Node3D" parent="." unique_id=794891135]
 
-[node name="Enemy" parent="Enemies" unique_id=1978278070 node_paths=PackedStringArray("points") instance=ExtResource("8_5vwr8")]
+[node name="Enemy" parent="Enemies" unique_id=1978278070 instance=ExtResource("8_5vwr8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
-points = [NodePath("../../AInode1"), NodePath("../../AInode2")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1392721533]
 environment = SubResource("Environment_mi8v4")

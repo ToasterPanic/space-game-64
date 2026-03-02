@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://327edkfun0y3"]
 
-[ext_resource type="Script" uid="uid://j4btq11jm2e" path="res://scripts/character_hitbox_setup.gd" id="1_tcb8x"]
+[ext_resource type="Script" uid="uid://j4btq11jm2e" path="res://scripts/legacy/character_hitbox_setup.gd" id="1_tcb8x"]
 [ext_resource type="Script" uid="uid://cjjqi1s2kwc5h" path="res://scripts/limb_hitbox.gd" id="2_u2c84"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hokwi"]

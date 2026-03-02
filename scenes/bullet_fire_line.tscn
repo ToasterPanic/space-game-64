@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bo4ovo2u3a4jo"]
 
-[ext_resource type="Script" uid="uid://520pdskg065d" path="res://scripts/bullet_fire_line.gd" id="1_0w3bs"]
+[ext_resource type="Script" uid="uid://520pdskg065d" path="res://scripts/bullet_trail.gd" id="1_0w3bs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0w3bs"]
 transparency = 1

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c0ay3ek232fxh"]
 
-[ext_resource type="Script" uid="uid://bcayn6xb3psee" path="res://scripts/enemy.gd" id="1_ffhoh"]
+[ext_resource type="Script" uid="uid://cvsvj3qdfendl" path="res://scripts/ground_enemy.gd" id="1_ffhoh"]
 [ext_resource type="AudioStream" uid="uid://bcf4vtlmsviap" path="res://sounds/gunshot_1.mp3" id="2_xi17v"]
 [ext_resource type="PackedScene" uid="uid://cc7dgw66nbshf" path="res://models/character.gltf" id="3_sekqj"]
 
@@ -62,9 +62,8 @@ node_connections = [&"output", 0, &"dead", &"pistol_idle", 0, &"idle", &"pistol_
 [sub_resource type="BoxShape3D" id="BoxShape3D_ffhoh"]
 size = Vector3(0.1, 0.1, 0.1)
 
-[node name="Enemy" type="CharacterBody3D" unique_id=1978278070 node_paths=PackedStringArray("points")]
+[node name="Enemy" type="CharacterBody3D" unique_id=1978278070]
 script = ExtResource("1_ffhoh")
-points = [null, null]
 
 [node name="Gunshot1" type="AudioStreamPlayer" parent="." unique_id=2119845551]
 stream = ExtResource("2_xi17v")
@@ -97,28 +96,28 @@ parameters/walk/blend_amount = 0.0
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Mesh" index="0" unique_id=920161782]
-bones/0/position = Vector3(0, 1.8098464, 0)
+bones/0/position = Vector3(0, 1.7940652, 0)
 bones/6/position = Vector3(0.0125, -0.0625, 0.28125)
-bones/6/rotation = Quaternion(-0.029312866, 0.029312866, 0.706499, 0.706499)
+bones/6/rotation = Quaternion(-0.04066114, 0.04066114, 0.7059368, 0.7059368)
 bones/8/position = Vector3(0.0625, -0.0625, -0.125)
 bones/8/rotation = Quaternion(-0.27059805, -3.155809e-13, 0.6532815, 0.70710677)
-bones/10/position = Vector3(0, -0.9348464, -0.125)
-bones/12/position = Vector3(0, -0.9348464, 0.125)
+bones/10/position = Vector3(0, -0.91906524, -0.125)
+bones/12/position = Vector3(0, -0.91906524, 0.125)
 
 [node name="torso_2" parent="Mesh/Skeleton3D" index="0" unique_id=654106401]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1848464, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1690652, 0)
 
 [node name="neck_2" parent="Mesh/Skeleton3D" index="1" unique_id=196503317]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7473464, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7315652, 0)
 
 [node name="head_2" parent="Mesh/Skeleton3D" index="2" unique_id=1728743399]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8723464, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8565652, 0)
 
 [node name="right_arm_2" parent="Mesh/Skeleton3D" index="3" unique_id=1355245548]
-transform = Transform3D(-1.1920929e-07, -1.0000001, 0, 0.99656314, -1.1920929e-07, 0.082838036, -0.082838036, 0, 0.996563, 0.63750005, 1.7473465, 0.28125)
+transform = Transform3D(-1.1920929e-07, -1.0000001, 0, 0.9933868, -1.1920929e-07, 0.11481677, -0.11481677, 0, 0.9933867, 0.63750005, 1.7315654, 0.28125)
 
 [node name="left_arm_2" parent="Mesh/Skeleton3D" index="4" unique_id=996451703]
-transform = Transform3D(0.14644653, -0.92387956, -0.3535534, 0.92387956, -1.1920929e-07, 0.38268343, -0.3535534, -0.38268343, 0.8535534, 0.6399247, 1.7473465, 0.11417714)
+transform = Transform3D(0.14644653, -0.92387956, -0.3535534, 0.92387956, -1.1920929e-07, 0.38268343, -0.3535534, -0.38268343, 0.8535534, 0.6399247, 1.7315654, 0.11417714)
 
 [node name="Label" type="Label3D" parent="." unique_id=1794744602]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.500328, 0)
