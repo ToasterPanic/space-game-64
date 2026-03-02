@@ -151,8 +151,9 @@ transform = Transform3D(1, -4.440892e-16, -3.5527137e-15, 0, 0.9999684, 0.007949
 
 [node name="Enemies" type="Node3D" parent="." unique_id=794891135]
 
-[node name="Enemy" parent="Enemies" unique_id=1978278070 instance=ExtResource("8_5vwr8")]
+[node name="Enemy" parent="Enemies" unique_id=1978278070 node_paths=PackedStringArray("points") instance=ExtResource("8_5vwr8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+points = [NodePath("../../AInode1"), NodePath("../../AInode2")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1392721533]
 environment = SubResource("Environment_mi8v4")
