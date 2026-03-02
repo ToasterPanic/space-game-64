@@ -64,10 +64,9 @@ func _process(delta: float) -> void:
 		
 	$Stand.disabled = crouching
 	
-	if Input.is_action_pressed("crouch"):
-		crouching = true
-	elif !$CrouchCheck.is_colliding():
-		crouching = false
+	if Input.is_action_just_pressed("crouch"):
+		if crouching and !$CrouchCheck.is_colliding(): crouching = false
+		else: crouching = true
 		
 	if crouching:
 		camera.position.y += (1.15 - camera.position.y) / (5 - ((1/delta)/60))
@@ -118,7 +117,7 @@ func _process(delta: float) -> void:
 		
 		var sound_alert = sound_alert_scene.instantiate()
 		
-		sound_alert.radius = 4
+		sound_alert.radius = 16
 		
 		get_parent().add_child(sound_alert)
 		
