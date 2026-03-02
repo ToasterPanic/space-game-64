@@ -27,12 +27,11 @@ var concentration := 0.0
 var memory_point = null # Are nullable typed vars a thing? If they are I couldn't figure it out
 var can_see_player := false
 
-var ai_tick_timer = randf_range(0.0, 0.05)
+var ai_tick_timer := randf_range(0.0, 0.05)
 
 var rotation_target := Vector3(0.0, 0.0, 0.0)
 
 # Nodes for quick use
-#@onready var rotation_target := $RotationTarget
 @onready var mesh := $Mesh
 @onready var animator := $Animator
 @onready var fire_point := $Mesh/Skeleton3D/right_arm_2
