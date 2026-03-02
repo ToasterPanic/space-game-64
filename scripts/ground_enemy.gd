@@ -59,11 +59,10 @@ var bullet_trail_scene = preload("res://scenes/bullet_fire_line.tscn")
 
 # Functions
 func _set_look_target(value: Vector3) -> void:
-	var new_transform = global_transform.looking_at(value)
+	if global_transform.origin == value: return
 	
+	var new_transform = global_transform.looking_at(value)
 	rotation_target = new_transform.basis.get_euler()
-	#if rotation_target.global_position != value:
-	#	rotation_target.look_at(value)
 		
 func _is_player_in_fov() -> bool:
 	return (abs(rad_to_deg(sight.rotation.y)) < 75) and (abs(rad_to_deg(sight.rotation.x)) < 50)
