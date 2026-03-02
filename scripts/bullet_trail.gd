@@ -19,8 +19,3 @@ func _ready() -> void:
 	global_position += direction
 	
 	$Mesh/AnimationPlayer.play("fire")
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

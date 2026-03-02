@@ -87,21 +87,21 @@ func _process(delta: float) -> void:
 			if "health" in collider:
 				collider.health -= damage
 			elif collider.has_meta("owner"):
-				var owner = collider.get_meta("owner")
+				var collider_owner = collider.get_meta("owner")
 				
 				if collider.name == "head":
-					if (owner.phase == owner.AI_PHASE.ATTACK) or (owner.phase == owner.AI_PHASE.PURSUE):
-						owner.health -= damage * 2
+					if (collider_owner.phase == collider_owner.AI_PHASE.ATTACK) or (collider_owner.phase == collider_owner.AI_PHASE.PURSUE):
+						collider_owner.health -= damage * 2
 					else:
-						owner.health -= damage * 60000
+						collider_owner.health -= damage * 60000
 				elif collider.name == "torso":
-					owner.health -= damage
+					collider_owner.health -= damage
 				else:
-					owner.health -= damage * 0.66
+					collider_owner.health -= damage * 0.66
 					
-				owner.phase = owner.AI_PHASE.PURSUE
-				owner.state = owner.AI_STATE.PURSUE_CHASE
-				owner.memory_point = global_position
+				collider_owner.phase = collider_owner.AI_PHASE.PURSUE
+				collider_owner.state = collider_owner.AI_STATE.PURSUE_CHASE
+				collider_owner.memory_point = global_position
 		
 		await get_tree().create_timer(0.15).timeout
 		
@@ -134,17 +134,17 @@ func _process(delta: float) -> void:
 			if "health" in collider:
 				collider.health -= damage
 			elif collider.has_meta("owner"):
-				var owner = collider.get_meta("owner")
+				var collider_owner = collider.get_meta("owner")
 				
-				owner.phase = owner.AI_PHASE.PURSUE
-				owner.state = owner.AI_STATE.PURSUE_CHASE
-				owner.memory_point = global_position
+				collider_owner.phase = collider_owner.AI_PHASE.PURSUE
+				collider_owner.state = collider_owner.AI_STATE.PURSUE_CHASE
+				collider_owner.memory_point = global_position
 				
 				if collider.name == "head":
-					owner.health -= damage * 2
+					collider_owner.health -= damage * 2
 				elif collider.name == "torso":
-					owner.health -= damage
+					collider_owner.health -= damage
 				else:
-					owner.health -= damage * 0.66
+					collider_owner.health -= damage * 0.66
 			
 			

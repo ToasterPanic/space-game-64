@@ -63,11 +63,10 @@ func _set_look_target(value: Vector3):
 		
 		
 func _is_player_in_fov() -> bool:
-	var angle_difference = rad_to_deg(abs(sight.rotation.x) + abs(sight.rotation.y))
 	return (abs(rad_to_deg(sight.rotation.y)) < 75) and (abs(rad_to_deg(sight.rotation.x)) < 50)
 		
 func _can_shoot_player() -> bool:
-	raycast.look_at(player.get_node("Camera").global_position)
+	raycast.look_at(player.get_node("Camera").global_position) 
 	raycast.force_raycast_update()
 	
 	return _is_player_in_fov() and (raycast.get_collider() == player)
@@ -76,8 +75,7 @@ func _can_see_player() -> bool:
 	sight.look_at(player.get_node("Camera").global_position)
 	sight.force_raycast_update()
 			
-	var angle_difference = rad_to_deg(abs(sight.rotation.x) + abs(sight.rotation.y))
-	return _is_player_in_fov() and (sight.get_collider() == player)
+	return _is_player_in_fov() and (sight.get_collider() == player) 
 
 # Okay the actual script starts here promise!!!!
 func _ready() -> void:
