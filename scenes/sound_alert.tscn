@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://vjqi80x3amsq"]
+
+[ext_resource type="Script" uid="uid://b67prseg2s7yl" path="res://scripts/sound_alert.gd" id="1_ojhpk"]
+
+[node name="SoundAlert" type="Area3D" unique_id=109503444]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_ojhpk")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=1182995866]
+debug_color = Color(0.7, 0, 0, 1)

@@ -29,6 +29,7 @@ var firing = false
 
 var concentration = 0
 var memory_location = null
+var memory_location_attention_time = 0
 var search_timer = 5
 var pursuing = false
 var dead = false
@@ -92,6 +93,12 @@ func _process(delta: float) -> void:
 		
 		spotted = false
 		
+		for n in $Hearing.get_overlapping_areas():
+			print(n)
+			
+			if n.attract_enemies:
+				memory_location = n.global_position
+		
 		var angle_difference = rad_to_deg(abs($Sight.rotation.x) + abs($Sight.rotation.y))
 		if (abs(rad_to_deg($Sight.rotation.y)) < 75) and (abs(rad_to_deg($Sight.rotation.x)) < 35) and ($Sight.get_collider() == player):
 			suspicion += delta * 6
@@ -116,12 +123,20 @@ func _process(delta: float) -> void:
 				suspicion = 0
 			
 		if memory_location:
-			$Navigator.target_position = memory_location
+			if $Navigator.target_position != memory_location:
+				$Navigator.target_position = memory_location
 			$Navigator.get_next_path_position()
 			
 			var direction = global_position.direction_to($Navigator.get_next_path_position())
 			velocity.x = direction.x * 3.0
 			velocity.z = direction.z * 3.0
+			
+			print($Navigator.is_target_reached())
+			print((memory_location - global_position).length())
+			
+			if !pursuing and $Navigator.is_target_reached():
+				memory_location = null
+				print("NULLIFY")
 			
 		ai_tick_timer = 0.05
 		
@@ -131,7 +146,7 @@ func _process(delta: float) -> void:
 			if search_timer <= 0:
 				pursuing = false
 				memory_location = null
-		elif points.size() > 0:
+		elif (points.size() > 0) and !memory_location:
 			var point = points[current_point]
 			
 			if !point_reached and ($Navigator.target_position != point.global_position):

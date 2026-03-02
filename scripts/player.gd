@@ -15,6 +15,7 @@ var busy = false
 
 var bullet_trail_scene = preload("res://scenes/bullet_fire_line.tscn")
 
+var sound_alert_scene = preload("res://scenes/sound_alert.tscn")
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -115,6 +116,14 @@ func _process(delta: float) -> void:
 		bullet_trail.target = raycast.get_collision_point()
 		
 		get_parent().add_child(bullet_trail)
+		
+		var sound_alert = sound_alert_scene.instantiate()
+		
+		sound_alert.radius = 4
+		
+		get_parent().add_child(sound_alert)
+		
+		sound_alert.global_position = camera.global_position
 		
 		$Gunshot1.play()
 		

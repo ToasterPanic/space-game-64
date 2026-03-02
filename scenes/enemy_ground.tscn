@@ -1,0 +1,154 @@
+[gd_scene format=3 uid="uid://c0ay3ek232fxh"]
+
+[ext_resource type="Script" uid="uid://bcayn6xb3psee" path="res://scripts/enemy.gd" id="1_ffhoh"]
+[ext_resource type="AudioStream" uid="uid://bcf4vtlmsviap" path="res://sounds/gunshot_1.mp3" id="2_xi17v"]
+[ext_resource type="PackedScene" uid="uid://cc7dgw66nbshf" path="res://models/character.gltf" id="3_sekqj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vjnaj"]
+radius = 0.6
+height = 2.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hokwi"]
+radius = 0.05
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5vwr8"]
+animation = &"dead"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8gbjj"]
+animation = &"pistol_equip"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2c1ag"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6ra5r"]
+animation = &"pistol_idle"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_8gbjj"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hokwi"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_2c1ag"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_5vwr8"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_hokwi"]
+filter_enabled = true
+filters = ["Skeleton3D:left_leg", "Skeleton3D:right_leg"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_hokwi"]
+graph_offset = Vector2(-644.1307, 61.455246)
+nodes/output/position = Vector2(1280, 160)
+nodes/idle/node = SubResource("AnimationNodeAnimation_hokwi")
+nodes/idle/position = Vector2(-420, 0)
+nodes/pistol_idle/node = SubResource("AnimationNodeOneShot_5vwr8")
+nodes/pistol_idle/position = Vector2(20, 200)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_6ra5r")
+nodes/Animation/position = Vector2(-380, 280)
+nodes/dead/node = SubResource("AnimationNodeOneShot_8gbjj")
+nodes/dead/position = Vector2(820, 120)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_5vwr8")
+"nodes/Animation 2/position" = Vector2(620, 300)
+nodes/pistol_equip/node = SubResource("AnimationNodeOneShot_2c1ag")
+nodes/pistol_equip/position = Vector2(-160, 320)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_8gbjj")
+"nodes/Animation 3/position" = Vector2(-380, 460)
+nodes/walk/node = SubResource("AnimationNodeBlend2_hokwi")
+nodes/walk/position = Vector2(320, 100)
+"nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_2c1ag")
+"nodes/Animation 4/position" = Vector2(281.43628, 409.86487)
+node_connections = [&"output", 0, &"dead", &"pistol_idle", 0, &"idle", &"pistol_idle", 1, &"pistol_equip", &"dead", 0, &"walk", &"dead", 1, &"Animation 2", &"pistol_equip", 0, &"Animation", &"pistol_equip", 1, &"Animation 3", &"walk", 0, &"pistol_idle", &"walk", 1, &"Animation 4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ffhoh"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Enemy" type="CharacterBody3D" unique_id=1978278070 node_paths=PackedStringArray("points")]
+script = ExtResource("1_ffhoh")
+points = [null, null]
+
+[node name="Gunshot1" type="AudioStreamPlayer" parent="." unique_id=2119845551]
+stream = ExtResource("2_xi17v")
+max_polyphony = 4
+
+[node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=2061145902]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("CapsuleShape3D_vjnaj")
+
+[node name="Dead" type="CollisionShape3D" parent="." unique_id=114197771]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04656133, 0)
+shape = SubResource("SphereShape3D_hokwi")
+
+[node name="Animator" type="AnimationTree" parent="." unique_id=581127151]
+root_node = NodePath("../Mesh")
+tree_root = SubResource("AnimationNodeBlendTree_hokwi")
+anim_player = NodePath("../Mesh/AnimationPlayer")
+parameters/pistol_idle/active = true
+parameters/pistol_idle/internal_active = true
+parameters/pistol_idle/request = 0
+parameters/dead/active = false
+parameters/dead/internal_active = false
+parameters/dead/request = 0
+parameters/pistol_equip/active = false
+parameters/pistol_equip/internal_active = false
+parameters/pistol_equip/request = 0
+parameters/walk/blend_amount = 0.0
+
+[node name="Mesh" parent="." unique_id=186389529 instance=ExtResource("3_sekqj")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Mesh" index="0" unique_id=920161782]
+bones/0/position = Vector3(0, 1.8098464, 0)
+bones/6/position = Vector3(0.0125, -0.0625, 0.28125)
+bones/6/rotation = Quaternion(-0.029312866, 0.029312866, 0.706499, 0.706499)
+bones/8/position = Vector3(0.0625, -0.0625, -0.125)
+bones/8/rotation = Quaternion(-0.27059805, -3.155809e-13, 0.6532815, 0.70710677)
+bones/10/position = Vector3(0, -0.9348464, -0.125)
+bones/12/position = Vector3(0, -0.9348464, 0.125)
+
+[node name="torso_2" parent="Mesh/Skeleton3D" index="0" unique_id=654106401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1848464, 0)
+
+[node name="neck_2" parent="Mesh/Skeleton3D" index="1" unique_id=196503317]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7473464, 0)
+
+[node name="head_2" parent="Mesh/Skeleton3D" index="2" unique_id=1728743399]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8723464, 0)
+
+[node name="right_arm_2" parent="Mesh/Skeleton3D" index="3" unique_id=1355245548]
+transform = Transform3D(-1.1920929e-07, -1.0000001, 0, 0.99656314, -1.1920929e-07, 0.082838036, -0.082838036, 0, 0.996563, 0.63750005, 1.7473465, 0.28125)
+
+[node name="left_arm_2" parent="Mesh/Skeleton3D" index="4" unique_id=996451703]
+transform = Transform3D(0.14644653, -0.92387956, -0.3535534, 0.92387956, -1.1920929e-07, 0.38268343, -0.3535534, -0.38268343, 0.8535534, 0.6399247, 1.7473465, 0.11417714)
+
+[node name="Label" type="Label3D" parent="." unique_id=1794744602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.500328, 0)
+billboard = 1
+no_depth_test = true
+text = "health:"
+
+[node name="Sight" type="RayCast3D" parent="." unique_id=538552558]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+enabled = false
+target_position = Vector3(0, 0, -1)
+collision_mask = 4
+
+[node name="Raycast" type="RayCast3D" parent="." unique_id=2032396376]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+enabled = false
+target_position = Vector3(0, 0, -1024)
+collision_mask = 4
+
+[node name="Navigator" type="NavigationAgent3D" parent="." unique_id=457650926]
+debug_enabled = true
+
+[node name="Rotator" type="Node3D" parent="." unique_id=1286252361]
+
+[node name="Hearing" type="Area3D" parent="." unique_id=1052418964]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1405897, 0)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hearing" unique_id=2025660158]
+shape = SubResource("BoxShape3D_ffhoh")
+
+[editable path="Mesh"]
