@@ -96,28 +96,28 @@ parameters/walk/blend_amount = 0.0
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Mesh" index="0" unique_id=920161782]
-bones/0/position = Vector3(0, 1.7922232, 0)
+bones/0/position = Vector3(0, 1.7932025, 0)
 bones/6/position = Vector3(0.0125, -0.0625, 0.28125)
-bones/6/rotation = Quaternion(-0.006695459, 0.006695459, 0.70707506, 0.70707506)
+bones/6/rotation = Quaternion(-0.00753245, 0.00753245, 0.70706666, 0.70706666)
 bones/8/position = Vector3(0.0625, -0.0625, -0.125)
 bones/8/rotation = Quaternion(-0.27059805, -3.155809e-13, 0.6532815, 0.70710677)
-bones/10/position = Vector3(0, -0.9172232, -0.125)
-bones/12/position = Vector3(0, -0.9172232, 0.125)
+bones/10/position = Vector3(0, -0.9182025, -0.125)
+bones/12/position = Vector3(0, -0.9182025, 0.125)
 
 [node name="torso_2" parent="Mesh/Skeleton3D" index="0" unique_id=654106401]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1672232, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1682025, 0)
 
 [node name="neck_2" parent="Mesh/Skeleton3D" index="1" unique_id=196503317]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7297232, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7307025, 0)
 
 [node name="head_2" parent="Mesh/Skeleton3D" index="2" unique_id=1728743399]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8547232, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8557025, 0)
 
 [node name="right_arm_2" parent="Mesh/Skeleton3D" index="3" unique_id=1355245548]
-transform = Transform3D(5.9604645e-08, -0.99999994, 0, 0.99982065, 5.9604645e-08, 0.018936768, -0.018936768, 0, 0.9998207, 0.6374999, 1.7297232, 0.28125)
+transform = Transform3D(0, -1, 0, 0.999773, 0, 0.021303777, -0.021303777, 0, 0.999773, 0.6375, 1.7307025, 0.28125)
 
 [node name="left_arm_2" parent="Mesh/Skeleton3D" index="4" unique_id=996451703]
-transform = Transform3D(0.14644653, -0.92387956, -0.3535534, 0.92387956, -1.1920929e-07, 0.38268343, -0.3535534, -0.38268343, 0.8535534, 0.6399247, 1.7297233, 0.11417714)
+transform = Transform3D(0.14644653, -0.92387956, -0.3535534, 0.92387956, -1.1920929e-07, 0.38268343, -0.3535534, -0.38268343, 0.8535534, 0.6399247, 1.7307026, 0.11417714)
 
 [node name="Label" type="Label3D" parent="." unique_id=1794744602]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.500328, 0)
@@ -149,5 +149,6 @@ collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hearing" unique_id=2025660158]
 shape = SubResource("BoxShape3D_ffhoh")
+debug_color = Color(0.8748489, 0.00043837487, 0.8386524, 0.41960785)
 
 [editable path="Mesh"]

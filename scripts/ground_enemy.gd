@@ -11,7 +11,7 @@ extends CharacterBody3D
 @export var point_delay_time := 5.0
 
 # Internal values
-var dead := false
+#var dead := false
 var firing := false
 
 var phase: AI_PHASE = AI_PHASE.IDLE
@@ -114,7 +114,11 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 		velocity.z = 0
 		
-		if phase != AI_PHASE.ATTACK:
+		if (health <= 0) and (phase != AI_PHASE.DEAD_AS_FUCK):
+			phase = AI_PHASE.DEAD_AS_FUCK
+			state = AI_STATE.DEAD_AS_FUCK_IDLE
+		
+		if (phase != AI_PHASE.ATTACK) and (phase != AI_PHASE.DEAD_AS_FUCK):
 			# Hearing
 			for n in $Hearing.get_overlapping_areas():
 				if n.attract_enemies:
@@ -260,8 +264,12 @@ func _physics_process(delta: float) -> void:
 					phase = AI_PHASE.IDLE
 					state = AI_STATE.IDLE_WALK_TO_POINT
 
-	# If the enemy is not dead, rotate the player towards its rotation target
-	if !dead:
+	
+	if phase == AI_PHASE.DEAD_AS_FUCK:
+		animator.set("parameters/dead/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		$CollisionShape.disabled = true
+	else:
+		# If the enemy is not dead, rotate the player towards its rotation target
 		global_rotation.y = lerp_angle(global_rotation.y, rotation_target.global_rotation.y, 6.0 * delta)
 		
 	move_and_slide()
