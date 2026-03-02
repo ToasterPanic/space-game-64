@@ -208,6 +208,7 @@ func _physics_process(delta: float) -> void:
 				
 				if navigator.is_navigation_finished():
 					state = AI_STATE.PURSUE_SEARCH
+					
 			elif state == AI_STATE.PURSUE_SEARCH:
 				state_timer -= tick_delta
 				
@@ -220,6 +221,15 @@ func _physics_process(delta: float) -> void:
 		global_rotation.y = lerp_angle(global_rotation.y, rotation_target.global_rotation.y, 6.0 * delta)
 		
 	move_and_slide()
+	
+	# Handle weapon equip animations
+	if (phase == AI_PHASE.ATTACK) or (phase == AI_PHASE.PURSUE):
+		if !animator.get("parameters/pistol_idle/active"):
+			animator.set("parameters/pistol_equip/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+			animator.set("parameters/pistol_idle/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	else:
+		if animator.get("parameters/pistol_idle/active"):
+			animator.set("parameters/pistol_idle/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 	
 	# You have to set it after move_and_slide() otherwise it takes unapplied gravity into account
 	animator.set("parameters/walk/blend_amount", clampf(velocity.length() / 4, 0, 1))
