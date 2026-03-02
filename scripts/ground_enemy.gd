@@ -4,7 +4,8 @@ extends CharacterBody3D
 @export var health := 100.0
 @export var body_texture: Texture2D = load("res://textures/character_test.png")
 
-@export var sight_max_distance: int = 256.0
+@export var min_spread := 4.0
+@export var max_spread := 7.0
 
 @export var points: Array[Node3D] = [ ]
 @export var point_delay_time := 5.0
@@ -16,10 +17,12 @@ var firing := false
 var phase: AI_PHASE = AI_PHASE.IDLE
 var state: AI_STATE = AI_STATE.IDLE_WALK_TO_POINT
 var state_timer := 0.0
+var firing_timer := 0.0
 
 var current_point := 0
 
 var suspicion := 0.0
+var concentration := 0.0
 
 var memory_point = null # Are nullable typed vars a thing? If they are I couldn't figure it out
 var can_see_player := false
@@ -50,16 +53,10 @@ enum AI_STATE {
 	DEAD_AS_FUCK_IDLE, DEAD_AS_FUCK_DRAGGED
 }
 
-func _ready() -> void:
-	# Create a point at the enemy's position if there isn't one already
-	if points == [ ]:
-		var point = Node3D.new()
-		point.global_position = global_position
-		
-		game.add_child(point)
-		
-		points = [ point ]
-		
+# Scenes to load
+var bullet_trail_scene = preload("res://scenes/bullet_fire_line.tscn")
+
+# Functions
 func _set_look_target(value: Vector3):
 	if rotation_target.global_position != value:
 		rotation_target.look_at(value)
@@ -81,6 +78,24 @@ func _can_see_player() -> bool:
 			
 	var angle_difference = rad_to_deg(abs(sight.rotation.x) + abs(sight.rotation.y))
 	return _is_player_in_fov() and (sight.get_collider() == player)
+
+# Okay the actual script starts here promise!!!!
+func _ready() -> void:
+	# Create a point at the enemy's position if there isn't one already
+	if points == [ ]:
+		var point = Node3D.new()
+		point.global_position = global_position
+		
+		game.add_child(point)
+		
+		points = [ point ]
+	
+	# Make sure all limb colliders have the enemy set as the owner
+	for n in $Mesh/Skeleton3D.get_children():
+		var body = n.find_child(n.name).get_node("StaticBody3D")
+		
+		body.name = n.name.get_slice("_2", 0)
+		body.set_meta("owner", self)
 
 func _physics_process(delta: float) -> void:
 	velocity.y -= 9.8 * delta
@@ -181,13 +196,42 @@ func _physics_process(delta: float) -> void:
 			
 			memory_point = player.global_position
 			
-			if ((player.global_position - global_position).length() > 3.5) or (!_can_shoot_player()):
+			if concentration < 0: concentration = 0
+			
+			if ((player.global_position - global_position).length() > 7.5) or (!_can_shoot_player()):
 				if navigator.target_position != player.global_position:
 					navigator.target_position = player.global_position
 					
 				var direction = global_position.direction_to(navigator.get_next_path_position())
 				velocity.x = direction.x * 3.0
 				velocity.z = direction.z * 3.0
+				
+				concentration -= tick_delta
+			else:
+				firing_timer -= tick_delta
+				concentration += tick_delta / 4
+				
+				if (firing_timer < 0) and (concentration > 0.2):
+					firing_timer = 0.25
+					
+					if concentration > 0.8: concentration = 0.8
+					
+					var spread = randf_range(min_spread, max_spread) * (1 - concentration)
+					
+					print(spread)
+				
+					$Raycast.rotation += Vector3(deg_to_rad(randf_range(-spread, spread)), deg_to_rad(randf_range(-spread, spread)), 0.0)
+					$Raycast.force_raycast_update()
+					
+					var bullet_trail = bullet_trail_scene.instantiate() 
+					
+					bullet_trail.origin = fire_point.global_position
+					bullet_trail.target = $Raycast.get_collision_point()
+					
+					get_parent().get_parent().add_child(bullet_trail)
+					
+					if $Raycast.get_collider() == player:
+						print("HIT" + str(delta))
 				
 			if !_can_see_player():
 				phase = AI_PHASE.PURSUE

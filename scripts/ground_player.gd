@@ -138,10 +138,9 @@ func _process(delta: float) -> void:
 			elif collider.has_meta("owner"):
 				var owner = collider.get_meta("owner")
 				
-				owner.spotted = true
-				owner.memory_location = global_position
-				owner.pursuing = true
-				owner.search_timer = 5
+				owner.phase = owner.AI_PHASE.PURSUE
+				owner.state = owner.AI_STATE.PURSUE_CHASE
+				owner.memory_point = global_position
 				
 				if collider.name == "head":
 					owner.health -= damage * 2
