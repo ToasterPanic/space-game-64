@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://f0ygvclgtofg"]
 
-[ext_resource type="Script" uid="uid://xol6sqxtln7w" path="res://scripts/game.gd" id="1_w2a5u"]
+[ext_resource type="Script" uid="uid://xol6sqxtln7w" path="res://scripts/space_game.gd" id="1_w2a5u"]
 [ext_resource type="AudioStream" uid="uid://dmkoqkk5u124" path="res://sounds/music/ballad_of_the_cats.mp3" id="2_cubfu"]
 [ext_resource type="AudioStream" uid="uid://cyv467m042n8x" path="res://sounds/music/clouds_full_of_tears.mp3" id="3_auaq4"]
 [ext_resource type="AudioStream" uid="uid://niq81duekkf8" path="res://sounds/music/loneliness.mp3" id="4_1ihek"]

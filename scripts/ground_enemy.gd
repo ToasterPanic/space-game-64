@@ -58,7 +58,7 @@ enum AI_STATE {
 var bullet_trail_scene = preload("res://scenes/bullet_fire_line.tscn")
 
 # Functions
-func _set_look_target(value: Vector3) -> void:
+func _set_look_target(value: Vector3) -> void: 
 	if global_transform.origin == value: return
 	
 	var new_transform = global_transform.looking_at(value)
