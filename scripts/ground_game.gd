@@ -17,3 +17,5 @@ func _process(delta: float) -> void:
 		$UILayer/InteractFlow/Label.text = collider.action_text
 	else:
 		$UILayer/InteractFlow.visible = false
+		
+	$UILayer/Damage.material.set_shader_parameter("radius", 1.0 - (player.health/100.0))

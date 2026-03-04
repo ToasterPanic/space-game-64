@@ -1,21 +1,24 @@
 extends CharacterBody3D
 
-@export var walk_speed = 5.0
-@export var gravity = 9.8
+@export var walk_speed := 5.0
+@export var gravity := 9.8
 
-@export var mouse_sensitivity = 0.002
-@export var controller_camera_sensitivity = 2.2
+@export var mouse_sensitivity := 0.002
+@export var controller_camera_sensitivity := 2.2
 
-@onready var camera = $Camera
-@onready var raycast = $Camera/Raycast
+@onready var camera := $Camera
+@onready var raycast := $Camera/Raycast
 
-var damage = 25
-var crouching = false
-var busy = false
+var damage := 25
+var crouching := false
+var busy := false
 
-var bullet_trail_scene = preload("res://scenes/bullet_fire_line.tscn")
+var health := 100.0
+var health_regen_check := 100.0
+var health_regen_timer := 2.0
 
-var sound_alert_scene = preload("res://scenes/sound_alert.tscn")
+var bullet_trail_scene := preload("res://scenes/bullet_fire_line.tscn")
+var sound_alert_scene := preload("res://scenes/sound_alert.tscn")
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -63,6 +66,20 @@ func _process(delta: float) -> void:
 		$Camera/Viewmodel/AnimationPlayer.play("idle")
 		
 	$Stand.disabled = crouching
+	
+	if health != health_regen_check:
+		if health < health_regen_check:
+			health_regen_timer = 5.0
+			
+		health_regen_check = health
+		
+	health_regen_timer -= delta
+	
+	print(health_regen_timer)
+	print(health)
+	
+	if (health_regen_timer < 0.0) and (health < 100.0):
+		health += delta * 15.0
 	
 	if Input.is_action_just_pressed("crouch"):
 		if crouching and !$CrouchCheck.is_colliding(): crouching = false

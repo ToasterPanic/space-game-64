@@ -231,7 +231,6 @@ func _physics_process(delta: float) -> void:
 					
 					var spread = randf_range(min_spread, max_spread) * (1 - concentration)
 					
-					print(spread)
 				
 					$Raycast.rotation += Vector3(deg_to_rad(randf_range(-spread, spread)), deg_to_rad(randf_range(-spread, spread)), 0.0)
 					$Raycast.force_raycast_update()
@@ -245,6 +244,7 @@ func _physics_process(delta: float) -> void:
 					
 					if $Raycast.get_collider() == player:
 						print("HIT" + str(delta))
+						player.health -= 10
 				
 			if !_can_see_player():
 				phase = AI_PHASE.PURSUE
