@@ -19,6 +19,8 @@ var state: AI_STATE = AI_STATE.IDLE_WALK_TO_POINT
 var state_timer := 0.0
 var firing_timer := 0.0
 
+var dragged_by_head := true
+
 var current_point := 0
 
 var suspicion := 0.0
@@ -65,6 +67,8 @@ func _set_look_target(value: Vector3) -> void:
 	rotation_target = new_transform.basis.get_euler()
 		
 func _is_player_in_fov() -> bool:
+	sight.look_at(player.get_node("Camera").global_position)
+	
 	return (abs(rad_to_deg(sight.rotation.y)) < 75) and (abs(rad_to_deg(sight.rotation.x)) < 50)
 		
 func _can_shoot_player() -> bool:
@@ -103,8 +107,13 @@ func interact(action_id: String) -> void:
 			state = AI_STATE.DEAD_AS_FUCK_DRAGGED
 			player.crouching = true
 			
+			dragged_by_head = !_is_player_in_fov()
+			
+			$DragBody.action_text = "STOP DRAGGING"
 		else:
 			state = AI_STATE.DEAD_AS_FUCK_IDLE
+			
+			$DragBody.action_text = "DRAG BODY"
 
 func _physics_process(delta: float) -> void:
 	velocity.y -= 9.8 * delta
@@ -281,6 +290,8 @@ func _physics_process(delta: float) -> void:
 		if state == AI_STATE.DEAD_AS_FUCK_DRAGGED:
 			_set_look_target(player.global_position)
 			
+			if dragged_by_head: rotation_target.y += deg_to_rad(180)
+			
 			var distance = (global_position - player.global_position).length()
 			
 			if distance > 1.5:
@@ -288,8 +299,9 @@ func _physics_process(delta: float) -> void:
 				velocity.x = direction.x * (player.velocity.length())
 				velocity.z = direction.z * (player.velocity.length())
 				
-			if !player.crouching:
+			if (!player.crouching) or ((player.global_position - global_position).length() > 2.5):
 				state = AI_STATE.DEAD_AS_FUCK_IDLE
+				$DragBody.action_text = "DRAG BODY"
 	
 	global_rotation.y = lerp_angle(global_rotation.y, rotation_target.y, 6.0 * delta)
 		

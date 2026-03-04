@@ -75,9 +75,6 @@ func _process(delta: float) -> void:
 		
 	health_regen_timer -= delta
 	
-	print(health_regen_timer)
-	print(health)
-	
 	if (health_regen_timer < 0.0) and (health < 100.0):
 		health += delta * 15.0
 	
