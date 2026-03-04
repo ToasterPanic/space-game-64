@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://knhdbp0bqy7k" path="res://textures/direction_enemy.png" id="6_5vwr8"]
 [ext_resource type="Script" uid="uid://dqo5stsh13ac7" path="res://scripts/ground_direction.gd" id="7_8gbjj"]
 [ext_resource type="PackedScene" uid="uid://c0ay3ek232fxh" path="res://scenes/ground_enemy.tscn" id="8_5vwr8"]
+[ext_resource type="Texture2D" uid="uid://dk8avoxwuhfii" path="res://textures/character_test.png" id="10_257nh"]
 [ext_resource type="FontFile" uid="uid://n1nd5m2kwexu" path="res://fonts/Michroma.ttf" id="11_2c1ag"]
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="11_8gbjj"]
 [ext_resource type="Shader" uid="uid://05xjj2ikioj1" path="res://shaders/2d_outline.gdshader" id="11_176r3"]
@@ -185,6 +186,10 @@ transform = Transform3D(1, -4.440892e-16, -3.5527137e-15, 0, 0.9999684, 0.007949
 [node name="Enemy" parent="Enemies" unique_id=1978278070 node_paths=PackedStringArray("points") instance=ExtResource("8_5vwr8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
 points = [NodePath("../../AInode1"), NodePath("../../AInode2")]
+
+[node name="Enemy2" parent="Enemies" unique_id=977089144 instance=ExtResource("8_5vwr8")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1, 0, -5)
+body_texture = ExtResource("10_257nh")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1392721533]
 environment = SubResource("Environment_mi8v4")

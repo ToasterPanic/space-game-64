@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dk6whchb2tlrj" path="res://scripts/interact_area.gd" id="4_5g0ai"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vjnaj"]
-radius = 0.6
+radius = 0.35
 height = 2.4
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hokwi"]
@@ -100,28 +100,34 @@ parameters/walk/blend_amount = 0.0
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Mesh" index="0" unique_id=920161782]
-bones/0/position = Vector3(0, 1.7947749, 0)
+bones/0/position = Vector3(0, 1.8068653, 0)
 bones/6/position = Vector3(0.0125, -0.0625, 0.28125)
-bones/6/rotation = Quaternion(-0.008646271, 0.008646271, 0.70705396, 0.70705396)
+bones/6/rotation = Quaternion(-0.031835295, 0.031835295, 0.7063898, 0.7063898)
 bones/8/position = Vector3(0.0625, -0.0625, -0.125)
 bones/8/rotation = Quaternion(-0.27059805, -3.155809e-13, 0.6532815, 0.70710677)
-bones/10/position = Vector3(0, -0.9197749, -0.125)
-bones/12/position = Vector3(0, -0.9197749, 0.125)
+bones/10/position = Vector3(0, -0.9318654, -0.125)
+bones/12/position = Vector3(0, -0.9318654, 0.125)
 
 [node name="torso_2" parent="Mesh/Skeleton3D" index="0" unique_id=654106401]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1697749, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1818653, 0)
 
 [node name="neck_2" parent="Mesh/Skeleton3D" index="1" unique_id=196503317]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7322749, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7443653, 0)
 
 [node name="head_2" parent="Mesh/Skeleton3D" index="2" unique_id=1728743399]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8572749, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8693653, 0)
 
 [node name="right_arm_2" parent="Mesh/Skeleton3D" index="3" unique_id=1355245548]
-transform = Transform3D(0, -1, 0, 0.999701, 0, 0.024453519, -0.024453519, 0, 0.99970096, 0.6375, 1.7322749, 0.28125)
+transform = Transform3D(0, -1, 0, 0.9959461, 0, 0.089952506, -0.089952506, 0, 0.99594605, 0.6375, 1.7443653, 0.28125)
 
 [node name="left_arm_2" parent="Mesh/Skeleton3D" index="4" unique_id=996451703]
-transform = Transform3D(0.14644653, -0.92387956, -0.3535534, 0.92387956, -1.1920929e-07, 0.38268343, -0.3535534, -0.38268343, 0.8535534, 0.6399247, 1.732275, 0.11417714)
+transform = Transform3D(0.14644653, -0.92387956, -0.3535534, 0.92387956, -1.1920929e-07, 0.38268343, -0.3535534, -0.38268343, 0.8535534, 0.6399247, 1.7443655, 0.11417714)
+
+[node name="left_leg_2" parent="Mesh/Skeleton3D" index="5" unique_id=985145667]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24999994, -0.125)
+
+[node name="right_leg_2" parent="Mesh/Skeleton3D" index="6" unique_id=2061210947]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24999994, 0.125)
 
 [node name="Label" type="Label3D" parent="." unique_id=1794744602]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.500328, 0)
@@ -143,6 +149,11 @@ target_position = Vector3(0, 0, -1024)
 collision_mask = 4
 
 [node name="Navigator" type="NavigationAgent3D" parent="." unique_id=457650926]
+avoidance_enabled = true
+height = 2.0
+radius = 0.75
+neighbor_distance = 6.0
+time_horizon_agents = 0.5
 debug_enabled = true
 
 [node name="RotationTarget" type="Node3D" parent="." unique_id=1286252361]
@@ -163,6 +174,7 @@ script = ExtResource("4_5g0ai")
 action_text = "DRAG BODY"
 action_id = "drag"
 interacted_node = NodePath("..")
+interact_range = 2.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DragBody" unique_id=1644441085]
 shape = SubResource("BoxShape3D_t2poe")

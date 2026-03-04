@@ -12,7 +12,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var collider = interact_cast.get_collider()
 	
-	if collider and ("action_id" in collider):
+	if collider and ("action_id" in collider) and ((collider.global_position - player.global_position).length() < collider.interact_range):
 		$UILayer/InteractFlow.visible = true
 		$UILayer/InteractFlow/Label.text = collider.action_text
 	else:

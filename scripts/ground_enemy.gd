@@ -83,8 +83,27 @@ func _can_see_player() -> bool:
 			
 	return _is_player_in_fov() and (sight.get_collider() == player) 
 
+func _apply_texture(node: Node, material: StandardMaterial3D):
+	for n in node.get_children():
+		if n.is_class("MeshInstance3D"):
+			n.material_override = material
+		else:
+			_apply_texture(n, material)
+
+func on_safe_velocity_computed(safe_velocity: Vector3):
+	velocity.x = safe_velocity.x
+	velocity.z = safe_velocity.z
+
 # Okay the actual script starts here promise!!!!
 func _ready() -> void:
+	NavigationServer3D.agent_set_avoidance_callback(navigator.get_rid(), self.on_safe_velocity_computed)
+	
+	var material = StandardMaterial3D.new()
+	material.albedo_texture = body_texture
+	material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+		
+	_apply_texture(mesh, material)
+	
 	# Create a point at the enemy's position if there isn't one already
 	if points == [ ]:
 		var point = Node3D.new()
@@ -252,7 +271,6 @@ func _physics_process(delta: float) -> void:
 					get_parent().get_parent().add_child(bullet_trail)
 					
 					if $Raycast.get_collider() == player:
-						print("HIT" + str(delta))
 						player.health -= 10
 				
 			if !_can_see_player():
@@ -318,3 +336,5 @@ func _physics_process(delta: float) -> void:
 	
 	# You have to set it after move_and_slide() otherwise it takes unapplied gravity into account
 	animator.set("parameters/walk/blend_amount", clampf(velocity.length() / 4, 0, 1))
+	
+	NavigationServer3D.agent_set_velocity(navigator.get_rid(), velocity)
