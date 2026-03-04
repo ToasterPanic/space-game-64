@@ -123,11 +123,13 @@ func _process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("interact"):
 		var collider = $Camera/InteractCast.get_collider()
-		var collision_point = $Camera/InteractCast.get_collision_point() 
-		var distance = (collider.global_position - global_position).length()
-				
-		if (collider is Area3D) and (distance < collider.interact_range):
-			collider.interacted_node.interact(collider.action_id)
+		
+		if collider:
+			var collision_point = $Camera/InteractCast.get_collision_point() 
+			var distance = (collider.global_position - global_position).length()
+					
+			if (collider is Area3D) and (distance < collider.interact_range):
+				collider.interacted_node.interact(collider.action_id)
 	if Input.is_action_just_pressed("fire") and !busy:
 		var bullet_trail = bullet_trail_scene.instantiate()
 		

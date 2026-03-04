@@ -224,14 +224,8 @@ func _physics_process(delta: float) -> void:
 				
 				_set_look_target(navigator.get_next_path_position())
 				
-				sight.look_at(navigator.target_position)
-				sight.target_position.z = -((navigator.target_position - sight.global_position).length())
-				
 				if navigator.is_navigation_finished() or ((navigator.target_position - global_position).length() < 2.5):
-					if !sight.get_collider():
-						state = AI_STATE.INVESTIGATE_WAIT
-						
-				sight.target_position.z = -1024
+					state = AI_STATE.INVESTIGATE_WAIT
 					
 			elif state == AI_STATE.INVESTIGATE_WAIT:
 				state_timer -= tick_delta
@@ -298,14 +292,9 @@ func _physics_process(delta: float) -> void:
 				
 				_set_look_target(navigator.get_next_path_position())
 				
-				sight.look_at(navigator.target_position)
-				sight.target_position.z = -((navigator.target_position - sight.global_position).length())
 				
 				if navigator.is_navigation_finished() or ((navigator.target_position - global_position).length() < 2.5):
-					if !sight.get_collider(): 
-						state = AI_STATE.INVESTIGATE_WAIT
-						
-				sight.target_position.z = -1024
+					state = AI_STATE.PURSUE_SEARCH
 					
 			elif state == AI_STATE.PURSUE_SEARCH:
 				state_timer -= tick_delta
