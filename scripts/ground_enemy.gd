@@ -45,7 +45,7 @@ var rotation_target := Vector3(0.0, 0.0, 0.0)
 @onready var game = get_parent().get_parent()
 @onready var player = game.get_node("Player")
 
-# Enums!!!
+# Enums!!! 
 enum AI_PHASE { IDLE, INVESTIGATE, ATTACK, PURSUE, DEAD_AS_FUCK }
 
 enum AI_STATE { 
@@ -119,6 +119,8 @@ func _ready() -> void:
 		
 		body.name = n.name.get_slice("_2", 0)
 		body.set_meta("owner", self)
+		
+	rotation_target = rotation
 
 func interact(action_id: String) -> void:
 	if (action_id == "drag") and (phase == AI_PHASE.DEAD_AS_FUCK):
@@ -222,8 +224,14 @@ func _physics_process(delta: float) -> void:
 				
 				_set_look_target(navigator.get_next_path_position())
 				
-				if navigator.is_navigation_finished():
-					state = AI_STATE.INVESTIGATE_WAIT
+				sight.look_at(navigator.target_position)
+				sight.target_position.z = -((navigator.target_position - sight.global_position).length())
+				
+				if navigator.is_navigation_finished() or ((navigator.target_position - global_position).length() < 2.5):
+					if !sight.get_collider():
+						state = AI_STATE.INVESTIGATE_WAIT
+						
+				sight.target_position.z = -1024
 					
 			elif state == AI_STATE.INVESTIGATE_WAIT:
 				state_timer -= tick_delta
@@ -290,8 +298,14 @@ func _physics_process(delta: float) -> void:
 				
 				_set_look_target(navigator.get_next_path_position())
 				
-				if navigator.is_navigation_finished():
-					state = AI_STATE.PURSUE_SEARCH
+				sight.look_at(navigator.target_position)
+				sight.target_position.z = -((navigator.target_position - sight.global_position).length())
+				
+				if navigator.is_navigation_finished() or ((navigator.target_position - global_position).length() < 2.5):
+					if !sight.get_collider(): 
+						state = AI_STATE.INVESTIGATE_WAIT
+						
+				sight.target_position.z = -1024
 					
 			elif state == AI_STATE.PURSUE_SEARCH:
 				state_timer -= tick_delta

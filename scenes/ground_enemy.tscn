@@ -100,28 +100,28 @@ parameters/walk/blend_amount = 0.0
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Mesh" index="0" unique_id=920161782]
-bones/0/position = Vector3(0, 1.8068653, 0)
+bones/0/position = Vector3(0, 1.7993493, 0)
 bones/6/position = Vector3(0.0125, -0.0625, 0.28125)
-bones/6/rotation = Quaternion(-0.031835295, 0.031835295, 0.7063898, 0.7063898)
+bones/6/rotation = Quaternion(-0.011771101, 0.011771101, 0.7070088, 0.7070088)
 bones/8/position = Vector3(0.0625, -0.0625, -0.125)
 bones/8/rotation = Quaternion(-0.27059805, -3.155809e-13, 0.6532815, 0.70710677)
-bones/10/position = Vector3(0, -0.9318654, -0.125)
-bones/12/position = Vector3(0, -0.9318654, 0.125)
+bones/10/position = Vector3(0, -0.92434937, -0.125)
+bones/12/position = Vector3(0, -0.92434937, 0.125)
 
 [node name="torso_2" parent="Mesh/Skeleton3D" index="0" unique_id=654106401]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1818653, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1743493, 0)
 
 [node name="neck_2" parent="Mesh/Skeleton3D" index="1" unique_id=196503317]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7443653, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7368493, 0)
 
 [node name="head_2" parent="Mesh/Skeleton3D" index="2" unique_id=1728743399]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8693653, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8618493, 0)
 
 [node name="right_arm_2" parent="Mesh/Skeleton3D" index="3" unique_id=1355245548]
-transform = Transform3D(0, -1, 0, 0.9959461, 0, 0.089952506, -0.089952506, 0, 0.99594605, 0.6375, 1.7443653, 0.28125)
+transform = Transform3D(0, -1, 0, 0.9994458, 0, 0.03328909, -0.03328909, 0, 0.99944574, 0.6375, 1.7368493, 0.28125)
 
 [node name="left_arm_2" parent="Mesh/Skeleton3D" index="4" unique_id=996451703]
-transform = Transform3D(0.14644653, -0.92387956, -0.3535534, 0.92387956, -1.1920929e-07, 0.38268343, -0.3535534, -0.38268343, 0.8535534, 0.6399247, 1.7443655, 0.11417714)
+transform = Transform3D(0.14644653, -0.92387956, -0.3535534, 0.92387956, -1.1920929e-07, 0.38268343, -0.3535534, -0.38268343, 0.8535534, 0.6399247, 1.7368494, 0.11417714)
 
 [node name="left_leg_2" parent="Mesh/Skeleton3D" index="5" unique_id=985145667]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24999994, -0.125)
@@ -151,9 +151,9 @@ collision_mask = 4
 [node name="Navigator" type="NavigationAgent3D" parent="." unique_id=457650926]
 avoidance_enabled = true
 height = 2.0
-radius = 0.75
-neighbor_distance = 6.0
-time_horizon_agents = 0.5
+radius = 0.3
+neighbor_distance = 1.5
+time_horizon_agents = 0.33
 debug_enabled = true
 
 [node name="RotationTarget" type="Node3D" parent="." unique_id=1286252361]
