@@ -193,7 +193,7 @@ transform = Transform3D(1, -4.440892e-16, -3.5527137e-15, 0, 0.9999684, 0.007949
 
 [node name="Enemy" parent="Enemies" unique_id=1978278070 node_paths=PackedStringArray("points") instance=ExtResource("8_5vwr8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
-points = [NodePath("../../AInode1"), NodePath("../../AInode2")]
+points = [NodePath("../../AINodes/AInode1"), NodePath("../../AINodes/AInode2")]
 
 [node name="Enemy2" parent="Enemies" unique_id=977089144 instance=ExtResource("8_5vwr8")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1, 0, -5)
@@ -603,11 +603,11 @@ size = Vector3(0.25, 0.25, 1)
 material = SubResource("StandardMaterial3D_mi8v4")
 
 [node name="THE FUCKING FLOOR24" type="CSGBox3D" parent="World/NavigationRegion3D" unique_id=858796029]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 0.125, 10.875)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 0.25, 10.875)
 use_collision = true
 collision_layer = 23
 collision_mask = 23
-size = Vector3(4, 5.75, 0.25)
+size = Vector3(4, 6, 0.25)
 material = SubResource("StandardMaterial3D_mi8v4")
 
 [node name="THE FUCKING FLOOR23" type="CSGBox3D" parent="World/NavigationRegion3D" unique_id=594336662]
@@ -732,10 +732,17 @@ collision_mask = 23
 size = Vector3(0.25, 0.25, 1)
 material = SubResource("StandardMaterial3D_mi8v4")
 
-[node name="AInode2" type="Node3D" parent="." unique_id=1340381224]
+[node name="AINodes" type="Node3D" parent="." unique_id=976330910]
+
+[node name="AInode2" type="Node3D" parent="AINodes" unique_id=1340381224]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.43940896, 0.56509835)
 
-[node name="AInode1" type="Node3D" parent="." unique_id=1596278971]
+[node name="AInode1" type="Node3D" parent="AINodes" unique_id=1596278971]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.43940896, -3.5185375)
+
+[node name="CoverNodes" type="Node3D" parent="." unique_id=170203878]
+
+[node name="CoverNode" type="Node3D" parent="CoverNodes" unique_id=1984126661]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.43940896, 5.4814625)
 
 [editable path="Player/Camera/Viewmodel"]

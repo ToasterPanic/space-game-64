@@ -19,15 +19,15 @@ var state: AI_STATE = AI_STATE.IDLE_WALK_TO_POINT
 var state_timer := 0.0
 var firing_timer := 0.0
 
-var dragged_by_head := true
-
 var current_point := 0
 
 var suspicion := 0.0
 var concentration := 0.0
+var boldness := randi_range(0, 3)
 
 var memory_point = null # Are nullable typed vars a thing? If they are I couldn't figure it out
 var can_see_player := false
+var dragged_by_head := true
 
 var ai_tick_timer := randf_range(0.0, 0.05)
 
@@ -51,9 +51,13 @@ enum AI_PHASE { IDLE, INVESTIGATE, ATTACK, PURSUE, DEAD_AS_FUCK }
 enum AI_STATE { 
 	IDLE_WALK_TO_POINT, IDLE_WAIT_AT_POINT,
 	INVESTIGATE_APPROACH, INVESTIGATE_SOLVE_DISTRACTION, INVESTIGATE_WAIT,
-	ATTACK,
+	ATTACK_CHARGE, ATTACK_FIND_COVER, ATTACK_COVER, ATTACK_PEEK_COVER, ATTACK_DECIDE,
 	PURSUE_CHASE, PURSUE_SEARCH,
 	DEAD_AS_FUCK_IDLE, DEAD_AS_FUCK_DRAGGED
+}
+
+enum AI_BOLDNESS { 
+	PUSSY, NORMAL, BOLD, FEARLESS
 }
 
 # Scenes to load
@@ -182,7 +186,7 @@ func _physics_process(delta: float) -> void:
 					suspicion = 1
 					
 					phase = AI_PHASE.ATTACK
-					state = AI_STATE.ATTACK
+					state = AI_STATE.ATTACK_DECIDE
 		
 		if phase == AI_PHASE.IDLE:
 			if state == AI_STATE.IDLE_WALK_TO_POINT:
@@ -235,20 +239,64 @@ func _physics_process(delta: float) -> void:
 					state = AI_STATE.IDLE_WALK_TO_POINT
 					
 		elif phase == AI_PHASE.ATTACK:
-			_set_look_target(player.global_position)
+			if state == AI_STATE.ATTACK_DECIDE:
+				if boldness == AI_BOLDNESS.FEARLESS:
+					state = AI_STATE.ATTACK_CHARGE
+				elif boldness == AI_BOLDNESS.BOLD:
+					if ((player.global_position - global_position).length() < 8.5) or (randi_range(0, 1) == 0):
+						state = AI_STATE.ATTACK_CHARGE
+					else:
+						state = AI_STATE.ATTACK_FIND_COVER
+				elif boldness == AI_BOLDNESS.NORMAL:
+					if ((player.global_position - global_position).length() < 6.0) or (randi_range(0, 6) == 0):
+						state = AI_STATE.ATTACK_CHARGE
+					else:
+						state = AI_STATE.ATTACK_FIND_COVER
+				elif boldness == AI_BOLDNESS.PUSSY:
+					state = AI_STATE.ATTACK_FIND_COVER
 			
-			memory_point = player.global_position
-			
-			if concentration < 0: concentration = 0
-			
-			if ((player.global_position - global_position).length() > 7.5) or (!_can_shoot_player()):
+			if state == AI_STATE.ATTACK_CHARGE:
+				_set_look_target(player.global_position)
+				
+				memory_point = player.global_position
+				
+				if !_can_see_player():
+					phase = AI_PHASE.PURSUE
+					state = AI_STATE.PURSUE_CHASE
+					
+					state_timer = 10
+					
 				if navigator.target_position != player.global_position:
 					navigator.target_position = player.global_position
 					
-				var direction = global_position.direction_to(navigator.get_next_path_position())
-				velocity.x = direction.x * 3.0
-				velocity.z = direction.z * 3.0
+				if ((player.global_position - global_position).length() > 2.5):
+					var direction = global_position.direction_to(navigator.get_next_path_position())
+					velocity.x = direction.x * 3.0
+					velocity.z = direction.z * 3.0
+			elif state == AI_STATE.ATTACK_FIND_COVER:
+				_set_look_target(player.global_position)
 				
+				var cover = null
+				
+				memory_point = player.global_position
+				
+				if !_can_see_player():
+					phase = AI_PHASE.PURSUE
+					state = AI_STATE.PURSUE_CHASE
+					
+					state_timer = 10
+					
+				if navigator.target_position != player.global_position:
+					navigator.target_position = player.global_position
+					
+				if ((player.global_position - global_position).length() > 2.5):
+					var direction = global_position.direction_to(navigator.get_next_path_position())
+					velocity.x = direction.x * 3.0
+					velocity.z = direction.z * 3.0
+				
+			if concentration < 0: concentration = 0
+			
+			if !_can_shoot_player():
 				concentration -= tick_delta
 			else:
 				firing_timer -= tick_delta
@@ -260,7 +308,6 @@ func _physics_process(delta: float) -> void:
 					if concentration > 0.8: concentration = 0.8
 					
 					var spread = randf_range(min_spread, max_spread) * (1 - concentration)
-					
 				
 					$Raycast.rotation += Vector3(deg_to_rad(randf_range(-spread, spread)), deg_to_rad(randf_range(-spread, spread)), 0.0)
 					$Raycast.force_raycast_update()
@@ -270,31 +317,36 @@ func _physics_process(delta: float) -> void:
 					bullet_trail.origin = fire_point.global_position
 					bullet_trail.target = $Raycast.get_collision_point()
 					
+					var camera_shake_amount = 0.07 - ((player.global_position - global_position).length() * 0.005)
+					if player.camera_shake <= camera_shake_amount: player.camera_shake = camera_shake_amount
+					
 					get_parent().get_parent().add_child(bullet_trail)
 					
 					if $Raycast.get_collider() == player:
 						player.health -= 10
-				
-			if !_can_see_player():
-				phase = AI_PHASE.PURSUE
-				state = AI_STATE.PURSUE_CHASE
 				
 		elif phase == AI_PHASE.PURSUE:
 			if state == AI_STATE.PURSUE_CHASE:
 				if navigator.target_position != memory_point:
 					navigator.target_position = memory_point
 					
+				concentration -= tick_delta
+				if concentration < 0.1: concentration = 0.1
+					
 				var direction = global_position.direction_to(navigator.get_next_path_position())
 				velocity.x = direction.x * 3.0
 				velocity.z = direction.z * 3.0
 				
-				state_timer = 2
-				
 				_set_look_target(navigator.get_next_path_position())
 				
+				state_timer -= tick_delta * 0.5
 				
-				if navigator.is_navigation_finished() or ((navigator.target_position - global_position).length() < 2.5):
+				if navigator.is_navigation_finished():
 					state = AI_STATE.PURSUE_SEARCH
+				
+				if state_timer <= 0:
+					phase = AI_PHASE.IDLE
+					state = AI_STATE.IDLE_WALK_TO_POINT
 					
 			elif state == AI_STATE.PURSUE_SEARCH:
 				state_timer -= tick_delta

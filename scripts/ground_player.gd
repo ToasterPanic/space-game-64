@@ -9,7 +9,7 @@ extends CharacterBody3D
 @onready var camera := $Camera
 @onready var raycast := $Camera/Raycast
 
-var damage := 25
+var damage := 40
 var crouching := false
 var busy := false
 
@@ -20,11 +20,15 @@ var health_regen_timer := 2.0
 var bullet_trail_scene := preload("res://scenes/bullet_fire_line.tscn")
 var sound_alert_scene := preload("res://scenes/sound_alert.tscn")
 
+var camera_shake := 0.0
+
+var viewmodel_offset: Vector3 
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	var viewmodel_offset = $Camera/Viewmodel.global_position - $Camera/Viewmodel/camera.global_position
+	viewmodel_offset = $Camera/Viewmodel.global_position - $Camera/Viewmodel/camera.global_position
 	
-	$Camera/Viewmodel.position = viewmodel_offset
+	$Camera/Viewmodel.position = viewmodel_offset 
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -58,6 +62,14 @@ func _physics_process(delta):
 	if crouching:
 		velocity.x /= 2
 		velocity.z /= 2
+		
+	camera.h_offset = randf_range(camera_shake, -camera_shake)
+	camera.v_offset = randf_range(camera_shake, -camera_shake)
+	
+	$Camera/Viewmodel.position = viewmodel_offset + Vector3(camera.h_offset, camera.v_offset, 0)
+	
+	camera_shake -= delta / 3
+	if camera_shake < 0: camera_shake = 0
 
 	move_and_slide()
 
@@ -73,7 +85,7 @@ func _process(delta: float) -> void:
 			
 		health_regen_check = health
 		
-	health_regen_timer -= delta
+	health_regen_timer -= delta 
 	
 	if (health_regen_timer < 0.0) and (health < 100.0):
 		health += delta * 15.0
@@ -108,10 +120,10 @@ func _process(delta: float) -> void:
 						collider_owner.health -= damage * 2
 					else:
 						collider_owner.health -= damage * 60000
-				elif collider.name == "torso":
-					collider_owner.health -= damage
-				else:
+				elif collider.name.contains("leg"):
 					collider_owner.health -= damage * 0.66
+				else:
+					collider_owner.health -= damage
 					
 				collider_owner.phase = collider_owner.AI_PHASE.PURSUE
 				collider_owner.state = collider_owner.AI_STATE.PURSUE_CHASE
@@ -147,6 +159,8 @@ func _process(delta: float) -> void:
 		sound_alert.global_position = camera.global_position
 		
 		$Gunshot1.play()
+		
+		camera_shake = 0.05
 		
 		$Camera/Viewmodel/AnimationPlayer.stop()
 		$Camera/Viewmodel/AnimationPlayer.play("fire")
