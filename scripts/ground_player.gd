@@ -85,7 +85,7 @@ func _process(delta: float) -> void:
 			
 		health_regen_check = health
 		
-	health_regen_timer -= delta 
+	health_regen_timer -= delta
 	
 	if (health_regen_timer < 0.0) and (health < 100.0):
 		health += delta * 15.0
@@ -110,6 +110,8 @@ func _process(delta: float) -> void:
 		var collider = raycast.get_collider()
 		
 		if collider and (($Camera.global_position - raycast.get_collision_point()).length() < 2):
+			camera_shake = 0.03
+			
 			if "health" in collider:
 				collider.health -= damage
 			elif collider.has_meta("owner"):

@@ -79,7 +79,7 @@ func _physics_process(delta: float) -> void:
 	firing = Input.is_action_pressed("fire")
 	alt_firing = Input.is_action_pressed("fire_alternate")
 	
-	var input_dir := Input.get_vector("ship_left", "ship_right", "move_forward", "move_backwards")
+	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backwards")
 	move_x = input_dir.x
 	move_y = input_dir.y
 	
