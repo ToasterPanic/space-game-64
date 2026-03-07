@@ -476,7 +476,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, 6)
 use_collision = true
 collision_layer = 23
 collision_mask = 23
-size = Vector3(2, 250, 2)
+size = Vector3(2, 64, 2)
 material = SubResource("StandardMaterial3D_mi8v4")
 
 [node name="THE FUCKING FLOOR9" type="CSGBox3D" parent="World/Node3D3" unique_id=1541219066]
@@ -484,7 +484,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.5, 14)
 use_collision = true
 collision_layer = 23
 collision_mask = 23
-size = Vector3(2, 250, 2)
+size = Vector3(2, 64, 2)
 material = SubResource("StandardMaterial3D_mi8v4")
 
 [node name="THE FUCKING FLOOR11" type="CSGBox3D" parent="World/Node3D3" unique_id=386071216]
@@ -492,7 +492,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, 14)
 use_collision = true
 collision_layer = 23
 collision_mask = 23
-size = Vector3(2, 250, 2)
+size = Vector3(2, 64, 2)
 material = SubResource("StandardMaterial3D_mi8v4")
 
 [node name="THE FUCKING FLOOR12" type="CSGBox3D" parent="World/Node3D3" unique_id=520814389]
@@ -500,7 +500,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, 21)
 use_collision = true
 collision_layer = 23
 collision_mask = 23
-size = Vector3(2, 250, 2)
+size = Vector3(2, 64, 2)
 material = SubResource("StandardMaterial3D_mi8v4")
 
 [node name="THE FUCKING FLOOR13" type="CSGBox3D" parent="World/Node3D3" unique_id=88865394]
@@ -508,7 +508,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.5, 12)
 use_collision = true
 collision_layer = 23
 collision_mask = 23
-size = Vector3(2, 250, 2)
+size = Vector3(2, 64, 2)
 material = SubResource("StandardMaterial3D_mi8v4")
 
 [node name="THE FUCKING FLOOR14" type="CSGBox3D" parent="World/Node3D3" unique_id=872921645]
@@ -516,7 +516,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.5, 22)
 use_collision = true
 collision_layer = 23
 collision_mask = 23
-size = Vector3(2, 250, 2)
+size = Vector3(2, 64, 2)
 material = SubResource("StandardMaterial3D_mi8v4")
 
 [node name="THE FUCKING FLOOR15" type="CSGBox3D" parent="World/Node3D3" unique_id=1431595631]
@@ -524,7 +524,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.5, 22)
 use_collision = true
 collision_layer = 23
 collision_mask = 23
-size = Vector3(2, 250, 2)
+size = Vector3(2, 64, 2)
 material = SubResource("StandardMaterial3D_mi8v4")
 
 [node name="THE FUCKING FLOOR7" type="CSGBox3D" parent="World/Node3D3" unique_id=145211627]
