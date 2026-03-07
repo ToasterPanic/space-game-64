@@ -28,6 +28,8 @@ var boldness := AI_BOLDNESS.PUSSY
 var memory_point = null # Are nullable typed vars a thing? If they are I couldn't figure it out
 var can_see_player := false
 var dragged_by_head := true
+var has_seen_player_this_peek := false
+var ai_state_before_pursuing: AI_STATE = AI_STATE.ATTACK_CHARGE
 var current_cover = null
 
 var ai_tick_timer := randf_range(0.0, 0.05)
@@ -284,9 +286,15 @@ func _physics_process(delta: float) -> void:
 				if raycast.get_collider() == player:
 					state = AI_STATE.ATTACK_CHARGE
 				elif state_timer <= 0:
+					state_timer = 3.0
 					state = AI_STATE.ATTACK_PEEK_COVER
 			elif state == AI_STATE.ATTACK_FIND_COVER:
-				_set_look_target(player.global_position)
+				if _can_see_player():
+					_set_look_target(player.global_position)
+					
+					memory_point = player.global_position
+				else:
+					_set_look_target(memory_point)
 				
 				if current_cover == null:
 					var valids = []
@@ -314,11 +322,41 @@ func _physics_process(delta: float) -> void:
 					if navigator.target_position != current_cover.global_position:
 						navigator.target_position = current_cover.global_position
 						
-					print(navigator.is_target_reached())
-						
 					if navigator.is_target_reached():
 						state_timer = 3.0
 						state = AI_STATE.ATTACK_COVER
+						
+						has_seen_player_this_peek = false
+					else:
+						var direction = global_position.direction_to(navigator.get_next_path_position())
+						velocity.x = direction.x * 3.0
+						velocity.z = direction.z * 3.0
+			elif state == AI_STATE.ATTACK_PEEK_COVER:
+				if _can_see_player():
+					_set_look_target(player.global_position)
+					
+					memory_point = player.global_position
+				else:
+					_set_look_target(memory_point)
+				
+				if current_cover:
+					if navigator.target_position != current_cover.get_node("Peek").global_position:
+						navigator.target_position = current_cover.get_node("Peek").global_position
+						
+					if navigator.is_target_reached():
+						state_timer -= tick_delta
+						
+						if _can_shoot_player():
+							has_seen_player_this_peek = true
+						
+						if state_timer <= 0:
+							if has_seen_player_this_peek:
+								state_timer = 3.0
+								state = AI_STATE.ATTACK_FIND_COVER
+							else:
+								phase = AI_PHASE.PURSUE
+								state = AI_STATE.PURSUE_CHASE
+								
 					else:
 						var direction = global_position.direction_to(navigator.get_next_path_position())
 						velocity.x = direction.x * 3.0

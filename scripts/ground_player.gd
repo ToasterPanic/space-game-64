@@ -145,6 +145,11 @@ func _process(delta: float) -> void:
 			if (collider is Area3D) and (distance < collider.interact_range):
 				collider.interacted_node.interact(collider.action_id)
 	if Input.is_action_just_pressed("fire") and !busy:
+		var spread = 1
+		
+		raycast.rotation += Vector3(deg_to_rad(randf_range(-spread, spread)), deg_to_rad(randf_range(-spread, spread)), 0.0)
+		raycast.force_raycast_update()
+		
 		var bullet_trail = bullet_trail_scene.instantiate()
 		
 		bullet_trail.origin = $Camera/TrailOrigin.global_position
@@ -168,6 +173,8 @@ func _process(delta: float) -> void:
 		$Camera/Viewmodel/AnimationPlayer.play("fire")
 		
 		var collider = raycast.get_collider()
+		
+		raycast.rotation = Vector3()
 		
 		if collider:
 			if "health" in collider:
