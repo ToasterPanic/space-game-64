@@ -23,11 +23,12 @@ var current_point := 0
 
 var suspicion := 0.0
 var concentration := 0.0
-var boldness := randi_range(0, 3)
+var boldness := AI_BOLDNESS.PUSSY
 
 var memory_point = null # Are nullable typed vars a thing? If they are I couldn't figure it out
 var can_see_player := false
 var dragged_by_head := true
+var current_cover = null
 
 var ai_tick_timer := randf_range(0.0, 0.05)
 
@@ -273,26 +274,55 @@ func _physics_process(delta: float) -> void:
 					var direction = global_position.direction_to(navigator.get_next_path_position())
 					velocity.x = direction.x * 3.0
 					velocity.z = direction.z * 3.0
+			elif state == AI_STATE.ATTACK_COVER:
+				state_timer -= tick_delta
+				
+				raycast.look_at(player.global_position + Vector3(0, 1, 0))
+						
+				raycast.force_raycast_update()
+				
+				if raycast.get_collider() == player:
+					state = AI_STATE.ATTACK_CHARGE
+				elif state_timer <= 0:
+					state = AI_STATE.ATTACK_PEEK_COVER
 			elif state == AI_STATE.ATTACK_FIND_COVER:
 				_set_look_target(player.global_position)
 				
-				var cover = null
+				if current_cover == null:
+					var valids = []
+					
+					for n in game.get_node("CoverNodes").get_children():
+						raycast.global_position = n.global_position
+						raycast.look_at(player.global_position + Vector3(0, 1, 0))
+						
+						raycast.force_raycast_update()
+						
+						if raycast.get_collider() != player:
+							valids.push_front(n)
+						else:
+							print(raycast.get_collider())
+							
+					if valids.size() > 0:
+						current_cover = valids[0]
+						print(current_cover)
+					else:
+						print("NO COVER!")
 				
-				memory_point = player.global_position
-				
-				if !_can_see_player():
-					phase = AI_PHASE.PURSUE
-					state = AI_STATE.PURSUE_CHASE
+				raycast.position = Vector3(0, 1, 0)
 					
-					state_timer = 10
-					
-				if navigator.target_position != player.global_position:
-					navigator.target_position = player.global_position
-					
-				if ((player.global_position - global_position).length() > 2.5):
-					var direction = global_position.direction_to(navigator.get_next_path_position())
-					velocity.x = direction.x * 3.0
-					velocity.z = direction.z * 3.0
+				if current_cover:
+					if navigator.target_position != current_cover.global_position:
+						navigator.target_position = current_cover.global_position
+						
+					print(navigator.is_target_reached())
+						
+					if navigator.is_target_reached():
+						state_timer = 3.0
+						state = AI_STATE.ATTACK_COVER
+					else:
+						var direction = global_position.direction_to(navigator.get_next_path_position())
+						velocity.x = direction.x * 3.0
+						velocity.z = direction.z * 3.0
 				
 			if concentration < 0: concentration = 0
 			
