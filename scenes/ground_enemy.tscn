@@ -71,7 +71,7 @@ floor_constant_speed = true
 floor_max_angle = 0.9599311
 script = ExtResource("1_ffhoh")
 
-[node name="Gunshot1" type="AudioStreamPlayer" parent="." unique_id=2119845551]
+[node name="Gunshot1" type="AudioStreamPlayer3D" parent="." unique_id=32354411]
 stream = ExtResource("2_xi17v")
 max_polyphony = 4
 
@@ -102,28 +102,28 @@ parameters/walk/blend_amount = 0.0
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Mesh" index="0" unique_id=920161782]
-bones/0/position = Vector3(0, 1.8008068, 0)
+bones/0/position = Vector3(0, 1.7875577, 0)
 bones/6/position = Vector3(0.0125, -0.0625, 0.28125)
-bones/6/rotation = Quaternion(-0.012766656, 0.012766656, 0.7069915, 0.7069915)
+bones/6/rotation = Quaternion(-0.046247, 0.046247, 0.7055928, 0.7055928)
 bones/8/position = Vector3(0.0625, -0.0625, -0.125)
 bones/8/rotation = Quaternion(-0.27059805, -3.155809e-13, 0.6532815, 0.70710677)
-bones/10/position = Vector3(0, -0.9258068, -0.125)
-bones/12/position = Vector3(0, -0.9258068, 0.125)
+bones/10/position = Vector3(0, -0.9125578, -0.125)
+bones/12/position = Vector3(0, -0.9125578, 0.125)
 
 [node name="torso_2" parent="Mesh/Skeleton3D" index="0" unique_id=654106401]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1758068, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1625577, 0)
 
 [node name="neck_2" parent="Mesh/Skeleton3D" index="1" unique_id=196503317]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7383068, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7250577, 0)
 
 [node name="head_2" parent="Mesh/Skeleton3D" index="2" unique_id=1728743399]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8633068, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8500577, 0)
 
 [node name="right_arm_2" parent="Mesh/Skeleton3D" index="3" unique_id=1355245548]
-transform = Transform3D(0, -1, 1.8626451e-09, 0.99934804, 0, 0.036103673, -0.036103673, -1.8626451e-09, 0.99934804, 0.6375, 1.7383068, 0.28125)
+transform = Transform3D(0, -1, 0, 0.9914448, 0, 0.13052621, -0.13052621, 0, 0.9914449, 0.6375, 1.7250577, 0.28125)
 
 [node name="left_arm_2" parent="Mesh/Skeleton3D" index="4" unique_id=996451703]
-transform = Transform3D(0.14644653, -0.92387956, -0.3535534, 0.92387956, -1.1920929e-07, 0.38268343, -0.3535534, -0.38268343, 0.8535534, 0.6399247, 1.7383069, 0.11417714)
+transform = Transform3D(0.14644653, -0.92387956, -0.3535534, 0.92387956, -1.1920929e-07, 0.38268343, -0.3535534, -0.38268343, 0.8535534, 0.6399247, 1.7250578, 0.11417714)
 
 [node name="left_leg_2" parent="Mesh/Skeleton3D" index="5" unique_id=985145667]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24999994, -0.125)

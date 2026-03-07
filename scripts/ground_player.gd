@@ -9,6 +9,8 @@ extends CharacterBody3D
 @onready var camera := $Camera
 @onready var raycast := $Camera/Raycast
 
+@onready var game = get_parent()
+
 var damage := 40
 var crouching := false
 var busy := false
@@ -174,9 +176,9 @@ func _process(delta: float) -> void:
 		
 		var collider = raycast.get_collider()
 		
-		raycast.rotation = Vector3()
-		
 		if collider:
+			game.handle_hit_particle_effect(collider, raycast.get_collision_point(), raycast.get_collision_normal())
+			
 			if "health" in collider:
 				collider.health -= damage
 			elif collider.has_meta("owner"):
@@ -192,5 +194,7 @@ func _process(delta: float) -> void:
 					collider_owner.health -= damage
 				else:
 					collider_owner.health -= damage * 0.66
+		
+		raycast.rotation = Vector3()
 			
 			

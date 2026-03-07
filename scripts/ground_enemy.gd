@@ -377,6 +377,8 @@ func _physics_process(delta: float) -> void:
 					
 					if concentration > 0.8: concentration = 0.8
 					
+					$Gunshot1.play()
+					
 					var spread = randf_range(min_spread, max_spread) * (1 - concentration)
 				
 					$Raycast.rotation += Vector3(deg_to_rad(randf_range(-spread, spread)), deg_to_rad(randf_range(-spread, spread)), 0.0)

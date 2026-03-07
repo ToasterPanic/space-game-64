@@ -205,7 +205,7 @@ transform = Transform3D(1, -4.440892e-16, -3.5527137e-15, 0, 0.9999684, 0.007949
 [node name="Enemies" type="Node3D" parent="." unique_id=794891135]
 
 [node name="Enemy" parent="Enemies" unique_id=1978278070 node_paths=PackedStringArray("points") instance=ExtResource("8_5vwr8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 0, -2)
 body_texture = ExtResource("10_257nh")
 points = [NodePath("../../AINodes/AInode1"), NodePath("../../AINodes/AInode2")]
 
@@ -790,5 +790,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.43940896, 5.4814625)
 
 [node name="Peek" type="Node3D" parent="CoverNodes/CoverNode" unique_id=580430323]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -1.25)
+
+[node name="EffectDecals" type="Node3D" parent="." unique_id=651118926]
 
 [editable path="Player/Camera/Viewmodel"]

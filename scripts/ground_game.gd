@@ -9,6 +9,9 @@ var current_music = null
 
 var in_combat = false
 
+var bullethole_scene = preload("res://scenes/effects/bullethole.tscn")
+var blood_hit_scene = preload("res://scenes/blood_hit.tscn")
+
 func play_music(track: AudioStreamPlayer):
 	if current_music:
 		current_music.stop()
@@ -20,7 +23,46 @@ func play_music(track: AudioStreamPlayer):
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
+	
+func create_decal(decal, position, normal) -> void:
+	decal.global_position = position
+	$EffectDecals.add_child(decal)
+	
+	decal.look_at(position + Vector3(0, normal.y, 0))
+	
+	print(normal)
+	Vector3.FORWARD
+	
+	
+	# This gets it looking the right way + with a random rotation. Don't ask how it scares me
+	decal.rotate_object_local(Vector3.UP, deg_to_rad(randi_range(-180, 180)))
+	
+	if (normal == Vector3.FORWARD) or (normal == Vector3.BACK):
+		decal.rotate_x(deg_to_rad(90))
+	else:
+		decal.rotate_z(deg_to_rad(90))
+	
+func handle_hit_particle_effect(target, position, normal) -> void:
+	var scene = null
+	
+	if ("health" in target) or (target.has_meta("owner")):
+		scene = blood_hit_scene
+		
+	if scene:
+		var effect = scene.instantiate()
+		
+		effect.global_position = position
+		
+		add_child(effect)
+		
+		effect.play()
+		
+		print(effect)
+		
+	if target is CSGShape3D:
+		var bullethole = bullethole_scene.instantiate()
+		
+		create_decal(bullethole, position, normal)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var collider = interact_cast.get_collider()

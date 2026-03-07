@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dbiyhjoxucgfm"]
+
+[ext_resource type="Script" uid="uid://c08bqwgkx7ocv" path="res://scripts/particle_emitter_3d.gd" id="1_wj2st"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qqas2"]
+particle_flag_rotate_y = true
+angle_min = -720.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 3.1999998
+angular_velocity_min = -512.0
+angular_velocity_max = 511.99997
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qqas2"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(0.36, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rncil"]
+material = SubResource("StandardMaterial3D_qqas2")
+size = Vector3(0.075, 0.075, 0.075)
+
+[node name="BloodHit" type="Node3D" unique_id=2070813715]
+script = ExtResource("1_wj2st")
+effect_length = 1.0
+
+[node name="Particle" type="GPUParticles3D" parent="." unique_id=165812034]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+emitting = false
+amount = 24
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_qqas2")
+draw_pass_1 = SubResource("BoxMesh_rncil")
