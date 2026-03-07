@@ -170,7 +170,7 @@ func _physics_process(delta: float) -> void:
 				if n.attract_enemies:
 					if phase == AI_PHASE.PURSUE:
 						state = AI_STATE.PURSUE_CHASE
-						state_timer = 2
+						state_timer = 10
 						
 						memory_point = n.global_position
 					else:
@@ -356,6 +356,8 @@ func _physics_process(delta: float) -> void:
 							else:
 								phase = AI_PHASE.PURSUE
 								state = AI_STATE.PURSUE_CHASE
+								
+								state_timer = 10
 								
 					else:
 						var direction = global_position.direction_to(navigator.get_next_path_position())

@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://s3qjrm61nwpw" path="res://scripts/ground_player.gd" id="1_mi8v4"]
 [ext_resource type="Script" uid="uid://bwb4l3j7ix87f" path="res://scripts/ground_game.gd" id="1_modao"]
 [ext_resource type="AudioStream" uid="uid://bcf4vtlmsviap" path="res://sounds/gunshot_1.mp3" id="2_ct7o8"]
+[ext_resource type="AudioStream" uid="uid://niq81duekkf8" path="res://sounds/music/loneliness.mp3" id="2_e3s4u"]
+[ext_resource type="AudioStream" uid="uid://dl8o1r8vbmgu2" path="res://sounds/music/stars.mp3" id="3_qqas2"]
 [ext_resource type="PackedScene" uid="uid://b86kjs4qf05m7" path="res://models/viewmodels/example.gltf" id="3_vjnaj"]
 [ext_resource type="Shader" uid="uid://huqb1yknqiut" path="res://shaders/crosshair.gdshader" id="4_1ywih"]
 [ext_resource type="Material" uid="uid://sdhxmad0t6jc" path="res://materials/pistol.tres" id="4_hokwi"]
@@ -105,6 +107,17 @@ albedo_color = Color(1, 0.48000002, 0.48000002, 0.42745098)
 
 [node name="Ground" type="Node3D" unique_id=1916199610]
 script = ExtResource("1_modao")
+
+[node name="CombatMusic" type="Node3D" parent="." unique_id=1129964814]
+
+[node name="Loneliness" type="AudioStreamPlayer" parent="CombatMusic" unique_id=873463220]
+stream = ExtResource("2_e3s4u")
+parameters/looping = true
+
+[node name="Stars" type="AudioStreamPlayer" parent="CombatMusic" unique_id=171914023]
+stream = ExtResource("3_qqas2")
+volume_db = -6.0
+parameters/looping = true
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=1510734023]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1)
