@@ -75,6 +75,10 @@ shader_parameter/radius = 0.0
 shader_parameter/speed = 3.0000001425
 shader_parameter/effect_color = Color(0.251, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_bcjct"]
+font = ExtResource("11_2c1ag")
+font_size = 24
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6ra5r"]
 shader = ExtResource("5_ct7o8")
 shader_parameter/shake = 0.015
@@ -191,6 +195,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+
+[node name="FPSCounter" type="Label" parent="UILayer/HUD" unique_id=640160652]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "0 FPS"
+label_settings = SubResource("LabelSettings_bcjct")
 
 [node name="CRT" type="ColorRect" parent="UILayer" unique_id=927231073]
 material = SubResource("ShaderMaterial_6ra5r")
@@ -581,6 +597,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4893746, 3.5, 3.9538803)
 [node name="CeilingLight2" parent="World/Prefabs" unique_id=891797443 instance=ExtResource("25_41adg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4893746, 3.5, -6.5461197)
 
+[node name="CeilingLight5" parent="World/Prefabs" unique_id=2058096597 instance=ExtResource("25_41adg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0106254, 3.5, -6.5461197)
+
 [node name="CeilingLight3" parent="World/Prefabs" unique_id=2125281848 instance=ExtResource("25_41adg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.510626, 3.5, -6.5461197)
 
@@ -625,6 +644,48 @@ script = ExtResource("27_bcjct")
 
 [node name="Peek" type="Sprite3D" parent="CoverNodes/CoverNode3" unique_id=615149958]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75)
+pixel_size = 0.002
+billboard = 1
+texture = ExtResource("28_bcjct")
+script = ExtResource("27_bcjct")
+
+[node name="CoverNode6" type="Sprite3D" parent="CoverNodes" unique_id=1734432031]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1344266, 0.43940896, -4.5185375)
+pixel_size = 0.002
+billboard = 1
+texture = ExtResource("26_n2e0y")
+script = ExtResource("27_bcjct")
+
+[node name="Peek" type="Sprite3D" parent="CoverNodes/CoverNode6" unique_id=793685570]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0, 0)
+pixel_size = 0.002
+billboard = 1
+texture = ExtResource("28_bcjct")
+script = ExtResource("27_bcjct")
+
+[node name="CoverNode7" type="Sprite3D" parent="CoverNodes" unique_id=282826734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1155734, 0.43940896, -4.5185375)
+pixel_size = 0.002
+billboard = 1
+texture = ExtResource("26_n2e0y")
+script = ExtResource("27_bcjct")
+
+[node name="Peek" type="Sprite3D" parent="CoverNodes/CoverNode7" unique_id=1433871932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4999995, 0, 0)
+pixel_size = 0.002
+billboard = 1
+texture = ExtResource("28_bcjct")
+script = ExtResource("27_bcjct")
+
+[node name="CoverNode8" type="Sprite3D" parent="CoverNodes" unique_id=1549025480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.634426, 0.43940896, -4.5185375)
+pixel_size = 0.002
+billboard = 1
+texture = ExtResource("26_n2e0y")
+script = ExtResource("27_bcjct")
+
+[node name="Peek" type="Sprite3D" parent="CoverNodes/CoverNode8" unique_id=1682623910]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4999995, 0, 0)
 pixel_size = 0.002
 billboard = 1
 texture = ExtResource("28_bcjct")

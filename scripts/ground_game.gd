@@ -6,6 +6,7 @@ extends Node3D
 @onready var crosshair = $UILayer/HUD/Crosshair 
 @onready var interact_flow = $UILayer/HUD/InteractFlow
 @onready var damage_overlay = $UILayer/HUD/DamageOverlay
+@onready var fps_counter = $UILayer/HUD/FPSCounter
 
 @onready var viewport = get_viewport()
 
@@ -73,6 +74,8 @@ func handle_hit_particle_effect(target, position, normal) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var collider = interact_cast.get_collider()
+	
+	fps_counter.text = str(Engine.get_frames_per_second()) + " FPS"
 	
 	var screen_size = viewport.size
 	
