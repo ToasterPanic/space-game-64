@@ -14,14 +14,14 @@
 [ext_resource type="Material" uid="uid://sdhxmad0t6jc" path="res://resources/pistol.tres" id="4_hokwi"]
 [ext_resource type="Texture2D" uid="uid://d0brv24gh7p4i" path="res://textures/navigation_ring.png" id="5_6ra5r"]
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="5_ct7o8"]
-[ext_resource type="Texture2D" uid="uid://knhdbp0bqy7k" path="res://textures/direction_enemy.png" id="6_5vwr8"]
-[ext_resource type="Script" uid="uid://dqo5stsh13ac7" path="res://scripts/ground_direction.gd" id="7_8gbjj"]
 [ext_resource type="PackedScene" uid="uid://c0ay3ek232fxh" path="res://scenes/ground_enemy.tscn" id="8_5vwr8"]
 [ext_resource type="Texture2D" uid="uid://dfaoht6xdh5u5" path="res://textures/enemy_ground_1.png" id="10_257nh"]
 [ext_resource type="FontFile" uid="uid://n1nd5m2kwexu" path="res://fonts/Michroma.ttf" id="11_2c1ag"]
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="11_8gbjj"]
 [ext_resource type="Shader" uid="uid://05xjj2ikioj1" path="res://shaders/2d_outline.gdshader" id="11_176r3"]
+[ext_resource type="PackedScene" uid="uid://2lfut7qmw7nx" path="res://scenes/ground_direction.tscn" id="16_5lhkr"]
 [ext_resource type="Shader" uid="uid://c51iixoxxscth" path="res://shaders/evil_vignette.gdshader" id="16_26mqe"]
+[ext_resource type="Texture2D" uid="uid://gh5sjt3e1lnw" path="res://textures/direction_waypoint.png" id="16_srehv"]
 [ext_resource type="Material" uid="uid://ds0y0ujl4l2kk" path="res://resources/flooring_1.tres" id="20_2tk4m"]
 [ext_resource type="Material" uid="uid://bfd5car26bvj2" path="res://resources/concrete_1.tres" id="21_eyphm"]
 [ext_resource type="Material" uid="uid://u5il0nk53oiq" path="res://resources/flooring_1_offset_.5.tres" id="21_gur08"]
@@ -167,6 +167,19 @@ script = ExtResource("1_modao")
 [node name="Navmesh" type="NavigationRegion3D" parent="." unique_id=1939123683]
 visible = false
 navigation_mesh = SubResource("NavigationMesh_hokwi")
+
+[node name="CombatMusic" type="Node3D" parent="." unique_id=1129964814]
+
+[node name="Loneliness" type="AudioStreamPlayer" parent="CombatMusic" unique_id=873463220]
+stream = ExtResource("2_e3s4u")
+bus = &"Music"
+parameters/looping = true
+
+[node name="Stars" type="AudioStreamPlayer" parent="CombatMusic" unique_id=171914023]
+stream = ExtResource("3_qqas2")
+volume_db = -6.0
+bus = &"Music"
+parameters/looping = true
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=597139997]
 
@@ -325,22 +338,18 @@ omni_range = 2.0
 
 [node name="StealthIndicator" type="Sprite3D" parent="Player" unique_id=1538791899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
-modulate = Color(1, 1, 1, 0.53333336)
+modulate = Color(1, 1, 1, 0.44313726)
 axis = 1
 double_sided = false
+no_depth_test = true
 alpha_cut = 3
 texture_filter = 0
 texture = ExtResource("5_6ra5r")
 
-[node name="GroundDirection" type="Sprite3D" parent="Player/StealthIndicator" unique_id=1782247845]
-pixel_size = 0.05
-axis = 1
-alpha_cut = 3
-texture_filter = 0
-texture = ExtResource("6_5vwr8")
-script = ExtResource("7_8gbjj")
-scale_size_with_distance = false
-stealth_suspicion = false
+[node name="HoldDirection" parent="Player/StealthIndicator" unique_id=191580527 node_paths=PackedStringArray("target") instance=ExtResource("16_5lhkr")]
+texture = ExtResource("16_srehv")
+target = NodePath("../../../HoldPoints/HoldPoint1/HoldArea")
+free_on_target_destroyed = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1392721533]
 environment = SubResource("Environment_mi8v4")
@@ -446,7 +455,7 @@ height = 0.25
 script = ExtResource("27_bcjct")
 
 [node name="HoldSpawn2" type="CSGCylinder3D" parent="HoldPoints/HoldPoint1/HoldSpawns" unique_id=1270015239]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.244999, -0.375, 6.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.219999, -0.375, 3.5)
 radius = 1.0
 height = 0.25
 script = ExtResource("27_bcjct")
@@ -456,19 +465,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.244999, 4.125, -1.5)
 radius = 1.0
 height = 0.25
 script = ExtResource("27_bcjct")
-
-[node name="CombatMusic" type="Node3D" parent="." unique_id=1129964814]
-
-[node name="Loneliness" type="AudioStreamPlayer" parent="CombatMusic" unique_id=873463220]
-stream = ExtResource("2_e3s4u")
-bus = &"Music"
-parameters/looping = true
-
-[node name="Stars" type="AudioStreamPlayer" parent="CombatMusic" unique_id=171914023]
-stream = ExtResource("3_qqas2")
-volume_db = -6.0
-bus = &"Music"
-parameters/looping = true
 
 [node name="FirePoint" type="Node3D" parent="." unique_id=1693997578]
 transform = Transform3D(1, -4.440892e-16, -3.5527137e-15, 0, 0.9999684, 0.00794927, 0, -0.00794927, 0.9999684, 0, -0.8180943, 0.016034365)

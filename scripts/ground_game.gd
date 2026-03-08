@@ -91,7 +91,8 @@ func _process(delta: float) -> void:
 	
 	if in_combat:
 		if !current_music or (current_music.get_parent() != $CombatMusic):
-			play_music($CombatMusic/Loneliness)
+			var tracks = $CombatMusic.get_children()
+			play_music(tracks[randi_range(0, tracks.size() - 1)])
 			
 		var unsafe = false
 		

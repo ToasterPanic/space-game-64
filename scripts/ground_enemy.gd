@@ -196,6 +196,9 @@ func _physics_process(delta: float) -> void:
 					
 					phase = AI_PHASE.ATTACK
 					state = AI_STATE.ATTACK_DECIDE
+			else:
+				suspicion -= delta * 8
+				if suspicion < 0: suspicion = 0
 		
 		if phase == AI_PHASE.IDLE:
 			if state == AI_STATE.IDLE_WALK_TO_POINT:

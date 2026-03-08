@@ -99,6 +99,7 @@ func _process(delta: float) -> void:
 						active = false
 						
 						$HoldArea.position.y = 999999
+						$Barriers.queue_free()
 					else:
 						scanning = true
 						timer = 35

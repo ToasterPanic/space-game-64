@@ -15,10 +15,10 @@ func _process(_delta: float) -> void:
 	if target:
 		visible = true
 		
-		look_at(target.global_position)
+		look_at(target.global_position, Vector3.FORWARD)
 		
 		if stealth_suspicion:
-			scale.x = target.suspicion
+			$Suspicion.modulate.a = target.suspicion
 		
 		if "health" in target:
 			if target.health <= 0:

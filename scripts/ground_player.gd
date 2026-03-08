@@ -21,6 +21,7 @@ var health_regen_timer := 2.0
 
 var bullet_trail_scene := preload("res://scenes/bullet_fire_line.tscn")
 var sound_alert_scene := preload("res://scenes/sound_alert.tscn")
+var stealth_indicator_scene := preload("res://scenes/ground_direction.tscn")
 
 var camera_shake := 0.0
 
@@ -49,12 +50,18 @@ func _handle_controller_camera_input(delta):
 	
 
 func _physics_process(delta):
-	if dead:
-		move_and_slide()
-		return
-	
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+		
+	if dead:
+		velocity.x = 0
+		velocity.z = 0
+		
+		move_and_slide()
+		
+		return
+	
+	
 	if Input.is_action_just_pressed("jump"):
 		velocity.y = 4
 		
@@ -84,6 +91,7 @@ func _physics_process(delta):
 func _process(delta: float) -> void:
 	if dead:
 		camera.position.y += (0.2 - camera.position.y) / (5 - ((1/delta)/60))
+		$StealthIndicator.modulate.a += (0.0 - $StealthIndicator.modulate.a) / (5 - ((1/delta)/60))
 		
 		camera.rotation.x = 0
 		camera.rotation_degrees.z = -20.0
@@ -120,8 +128,30 @@ func _process(delta: float) -> void:
 		
 	if crouching:
 		camera.position.y += (1.15 - camera.position.y) / (5 - ((1/delta)/60))
+		$StealthIndicator.modulate.a += (0.5 - $StealthIndicator.modulate.a) / (5 - ((1/delta)/60))
+		
+		for n in game.get_node("Enemies").get_children():
+			if ((n.global_position - global_position).length() < 24) and (n.health > 0):
+				var has_indicator = false
+				
+				for o in $StealthIndicator.get_children():
+					if o.target == n: 
+						has_indicator = true
+						break
+						
+				if has_indicator: continue
+				
+				var indicator = stealth_indicator_scene.instantiate() 
+				
+				indicator.texture = load("res://textures/direction_enemy.png")
+				indicator.stealth_suspicion = true
+				indicator.free_on_target_destroyed = true
+				indicator.target = n
+				
+				$StealthIndicator.add_child(indicator)
 	else:
 		camera.position.y += (2.15 - camera.position.y) / (5 - delta)
+		$StealthIndicator.modulate.a += (0.0 - $StealthIndicator.modulate.a) / (5 - ((1/delta)/60))
 		
 	if Input.is_action_just_pressed("melee") and !busy:
 		$Camera/Viewmodel/AnimationPlayer.stop()

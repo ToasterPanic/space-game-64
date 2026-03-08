@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://2lfut7qmw7nx"]
+
+[ext_resource type="Script" uid="uid://dqo5stsh13ac7" path="res://scripts/ground_direction.gd" id="2_yf1a7"]
+[ext_resource type="Texture2D" uid="uid://drcgx6vt4i5jo" path="res://textures/direction_enemy_suspicion.png" id="3_48eh0"]
+[ext_resource type="Texture2D" uid="uid://knhdbp0bqy7k" path="res://textures/direction_enemy.png" id="3_yf1a7"]
+
+[node name="GroundDirection" type="Sprite3D" unique_id=191580527]
+pixel_size = 0.05
+axis = 1
+no_depth_test = true
+alpha_cut = 3
+texture_filter = 0
+texture = ExtResource("3_yf1a7")
+script = ExtResource("2_yf1a7")
+scale_size_with_distance = false
+stealth_suspicion = false
+free_on_target_destroyed = false
+
+[node name="Suspicion" type="Sprite3D" parent="." unique_id=252296628]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
+modulate = Color(1, 1, 1, 0)
+pixel_size = 0.05
+axis = 1
+no_depth_test = true
+alpha_cut = 3
+texture_filter = 0
+render_priority = 5
+texture = ExtResource("3_48eh0")
