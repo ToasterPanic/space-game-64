@@ -394,6 +394,8 @@ func _physics_process(delta: float) -> void:
 					
 					get_parent().get_parent().add_child(bullet_trail)
 					
+					game.handle_hit_particle_effect($Raycast.get_collider(), $Raycast.get_collision_point(), $Raycast.get_collision_normal())
+					
 					if $Raycast.get_collider() == player:
 						player.health -= 10
 				

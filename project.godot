@@ -40,6 +40,10 @@ movie_writer/fps=30
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/super_awesome_input_icons/plugin.cfg")
 
+[global_group]
+
+navigation_group=""
+
 [input]
 
 move_left={

@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bw64sojla3dio"]
+
+[ext_resource type="Texture2D" uid="uid://b1m2dqgctfrdj" path="res://textures/wall_bracing.png" id="1_003og"]
+[ext_resource type="Texture2D" uid="uid://36rydfyjhq3j" path="res://textures/wall_bracing_emission.png" id="2_ldupg"]
+
+[resource]
+albedo_texture = ExtResource("1_003og")
+emission_enabled = true
+emission_energy_multiplier = 2.0
+emission_texture = ExtResource("2_ldupg")
+texture_filter = 0

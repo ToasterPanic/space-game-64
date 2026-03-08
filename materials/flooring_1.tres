@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ds0y0ujl4l2kk"]
+
+[ext_resource type="Texture2D" uid="uid://sdrdmb6gm7yy" path="res://textures/map/flooring_1.png" id="1_e4w4y"]
+
+[resource]
+albedo_texture = ExtResource("1_e4w4y")
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 2

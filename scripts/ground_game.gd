@@ -81,7 +81,7 @@ func _process(delta: float) -> void:
 	$UILayer/Damage.material.set_shader_parameter("radius", 1.0 - (player.health/100.0))
 	
 	if in_combat:
-		if !current_music or(current_music.get_parent() != $CombatMusic):
+		if !current_music or (current_music.get_parent() != $CombatMusic):
 			play_music($CombatMusic/Loneliness)
 			
 		var unsafe = false
@@ -94,6 +94,7 @@ func _process(delta: float) -> void:
 		if !unsafe:
 			in_combat = false
 			current_music.stop()
+			current_music = null
 	else:
 		for n in $Enemies.get_children():
 			if (n.phase == n.AI_PHASE.ATTACK) or (n.phase == n.AI_PHASE.PURSUE):
