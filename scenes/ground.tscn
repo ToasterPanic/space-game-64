@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://dl8o1r8vbmgu2" path="res://sounds/music/stars.mp3" id="3_qqas2"]
 [ext_resource type="PackedScene" uid="uid://b86kjs4qf05m7" path="res://models/viewmodels/example.gltf" id="3_vjnaj"]
 [ext_resource type="Shader" uid="uid://huqb1yknqiut" path="res://shaders/crosshair.gdshader" id="4_1ywih"]
+[ext_resource type="Texture2D" uid="uid://dauoebs801ngm" path="res://addons/super_awesome_input_icons/textures/keyboard/question.png" id="4_bcjct"]
 [ext_resource type="Material" uid="uid://sdhxmad0t6jc" path="res://materials/pistol.tres" id="4_hokwi"]
 [ext_resource type="Texture2D" uid="uid://d0brv24gh7p4i" path="res://textures/navigation_ring.png" id="5_6ra5r"]
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="5_ct7o8"]
@@ -17,7 +18,6 @@
 [ext_resource type="FontFile" uid="uid://n1nd5m2kwexu" path="res://fonts/Michroma.ttf" id="11_2c1ag"]
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="11_8gbjj"]
 [ext_resource type="Shader" uid="uid://05xjj2ikioj1" path="res://shaders/2d_outline.gdshader" id="11_176r3"]
-[ext_resource type="Texture2D" uid="uid://538dteaw2mde" path="res://addons/super_awesome_input_icons/textures/generic/back.png" id="12_vuhkc"]
 [ext_resource type="Shader" uid="uid://c51iixoxxscth" path="res://shaders/evil_vignette.gdshader" id="16_26mqe"]
 [ext_resource type="Material" uid="uid://ds0y0ujl4l2kk" path="res://materials/flooring_1.tres" id="20_2tk4m"]
 [ext_resource type="Material" uid="uid://bfd5car26bvj2" path="res://materials/concrete_1.tres" id="21_eyphm"]
@@ -172,7 +172,7 @@ alignment = 2
 material = SubResource("ShaderMaterial_26mqe")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-texture = ExtResource("12_vuhkc")
+texture = ExtResource("4_bcjct")
 expand_mode = 1
 script = ExtResource("11_8gbjj")
 action_name = "interact"

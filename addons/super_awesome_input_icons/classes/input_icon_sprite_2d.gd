@@ -1,8 +1,8 @@
 @tool
 
-## Like a [TextureRect], but automatically updates as an input icon based on the provided [param action_name].
-extends TextureRect
-class_name InputIconTextureRect
+## Like a [Sprite2D], but automatically updates as an input icon based on the provided [param action_name].
+extends Sprite2D
+class_name InputIconSprite2D
 
 ## The action used for the input icon.
 @export var action_name: String = &"":
