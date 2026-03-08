@@ -23,10 +23,12 @@ var current_point := 0
 
 var suspicion := 0.0
 var concentration := 0.0
-var boldness := AI_BOLDNESS.FEARLESS
+var boldness := AI_BOLDNESS.PUSSY #randi_range(0, 3)
 
 var memory_point = null # Are nullable typed vars a thing? If they are I couldn't figure it out
+var search_point = null
 var can_see_player := false
+var always_knows_player_position := false
 var dragged_by_head := true
 var has_seen_player_this_peek := false
 var ai_state_before_pursuing: AI_STATE = AI_STATE.ATTACK_CHARGE
@@ -307,16 +309,26 @@ func _physics_process(delta: float) -> void:
 					var valids = []
 					
 					for n in game.get_node("CoverNodes").get_children():
-						raycast.global_position = n.global_position
+						if ((n.global_position - global_position).length() < 4) or ((n.global_position - global_position).length() > 28) or (n.has_meta("occupant")): continue
+						
+						raycast.global_position = n.global_position + Vector3(0, 1, 0)
 						raycast.look_at(player.global_position + Vector3(0, 1, 0))
+						
+						#DebugDraw3D.draw_line(raycast.global_position, player.global_position, Color(1, 0, 1), 0.5)
 						
 						raycast.force_raycast_update()
 						
-						if (raycast.get_collider() != player) and ((n.global_position - global_position).length() > 6) and ((n.global_position - global_position).length() < 28) and (!n.has_meta("occupant")):
-							valids.push_front(n)
+						if (raycast.get_collider() != player):
+							raycast.global_position = n.get_node("Peek").global_position + Vector3(0, 1, 0)
+							raycast.look_at(player.global_position + Vector3(0, 1, 0))
 							
-					valids.sort_custom(_sort_cover_points)
+							#DebugDraw3D.draw_line(raycast.global_position, player.global_position, Color(1, 1, 0), 0.5)
 							
+							raycast.force_raycast_update()
+							
+							if (raycast.get_collider() == player):
+								valids.push_front(n)
+					
 					if valids.size() > 0:
 						var size = valids.size()
 						
@@ -327,6 +339,8 @@ func _physics_process(delta: float) -> void:
 						print(current_cover)
 					else:
 						print("NO COVER!")
+						phase = AI_PHASE.ATTACK
+						state = AI_STATE.ATTACK_CHARGE
 				
 				raycast.position = Vector3(0, 1, 0)
 					
@@ -435,6 +449,11 @@ func _physics_process(delta: float) -> void:
 					state = AI_STATE.IDLE_WALK_TO_POINT
 					
 			elif state == AI_STATE.PURSUE_SEARCH:
+				if always_knows_player_position:
+					state_timer = 99999
+					memory_point = player.global_position
+					state = AI_STATE.PURSUE_CHASE
+				
 				state_timer -= tick_delta
 				
 				if state_timer <= 0:

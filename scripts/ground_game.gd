@@ -100,6 +100,11 @@ func _process(delta: float) -> void:
 				unsafe = true
 				break
 				
+		if has_node("HoldPoints"):
+			for n in $HoldPoints.get_children():
+				if n.active:
+					unsafe = true
+				
 		if !unsafe:
 			in_combat = false
 			current_music.stop()
@@ -108,3 +113,8 @@ func _process(delta: float) -> void:
 		for n in $Enemies.get_children():
 			if (n.phase == n.AI_PHASE.ATTACK) or (n.phase == n.AI_PHASE.PURSUE):
 				in_combat = true
+				
+		if has_node("HoldPoints"):
+			for n in $HoldPoints.get_children():
+				if n.active:
+					in_combat = true

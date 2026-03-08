@@ -56,7 +56,6 @@ func _set_panel(name) -> void:
 		
 		i += 1
 		
-		
 	for n in current_panel.find_children("*"):
 		if n is Button:
 			n.disabled = false
