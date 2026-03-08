@@ -40,19 +40,19 @@ shader_parameter/circle_outline_width = 0.005
 shader_parameter/circle_outline_flat = true
 shader_parameter/circle_rotation_speed = 0.0
 shader_parameter/circle_base_angle = 0.0
-shader_parameter/dot_radius = 0.015
+shader_parameter/dot_radius = 0.010000000475
 shader_parameter/dot_color = Color(1, 1, 1, 1)
 shader_parameter/dot_outline_width = 0.05
 shader_parameter/dot_outline_color = Color(0, 0, 0, 1)
 shader_parameter/dot_outline_flat = true
 shader_parameter/cross_bar_width = 0.0750000035625
 shader_parameter/cross_thickness = 0.02
-shader_parameter/cross_gap_size = 0.0250000011875
+shader_parameter/cross_gap_size = 0.0400000019
 shader_parameter/cross_color_main = Color(1, 1, 1, 1)
 shader_parameter/cross_color_outline = Color(0, 0, 0, 1)
 shader_parameter/cross_outline_width = 0.005
 shader_parameter/cross_outline_flat = true
-shader_parameter/cross_rotation_speed = 1.0000005225000006
+shader_parameter/cross_rotation_speed = 0.0
 shader_parameter/cross_base_angle = 0.0
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hokwi"]

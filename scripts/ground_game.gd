@@ -38,10 +38,6 @@ func create_decal(decal, position, normal) -> void:
 	
 	decal.look_at(position + Vector3(0, normal.y, 0))
 	
-	print(normal)
-	Vector3.FORWARD
-	
-	
 	# This gets it looking the right way + with a random rotation. Don't ask how it scares me
 	decal.rotate_object_local(Vector3.UP, deg_to_rad(randi_range(-180, 180)))
 	
@@ -52,6 +48,8 @@ func create_decal(decal, position, normal) -> void:
 	
 func handle_hit_particle_effect(target, position, normal) -> void:
 	var scene = null
+	
+	if !target: return
 	
 	if ("health" in target) or (target.has_meta("owner")):
 		scene = blood_hit_scene

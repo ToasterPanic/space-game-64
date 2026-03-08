@@ -96,6 +96,9 @@ func _apply_texture(node: Node, material: StandardMaterial3D):
 			n.material_override = material
 		else:
 			_apply_texture(n, material)
+			
+func _sort_cover_points(a: Node3D, b: Node3D):
+	return (a.global_position - global_position).length() < (b.global_position - global_position).length()
 
 func on_safe_velocity_computed(safe_velocity: Vector3):
 	velocity.x = safe_velocity.x
@@ -261,6 +264,10 @@ func _physics_process(delta: float) -> void:
 			if state == AI_STATE.ATTACK_CHARGE:
 				_set_look_target(player.global_position)
 				
+				if current_cover:
+					current_cover.remove_meta("occupant")
+					current_cover = null
+				
 				memory_point = player.global_position
 				
 				if !_can_see_player():
@@ -305,13 +312,18 @@ func _physics_process(delta: float) -> void:
 						
 						raycast.force_raycast_update()
 						
-						if raycast.get_collider() != player:
+						if (raycast.get_collider() != player) and ((n.global_position - global_position).length() > 6) and ((n.global_position - global_position).length() < 28) and (!n.has_meta("occupant")):
 							valids.push_front(n)
-						else:
-							print(raycast.get_collider())
+							
+					valids.sort_custom(_sort_cover_points)
 							
 					if valids.size() > 0:
-						current_cover = valids[0]
+						var size = valids.size()
+						
+						current_cover = valids[randi_range(0, size - 1)]
+						
+						current_cover.set_meta("occupant", self)
+						
 						print(current_cover)
 					else:
 						print("NO COVER!")
@@ -429,7 +441,11 @@ func _physics_process(delta: float) -> void:
 					phase = AI_PHASE.IDLE
 					state = AI_STATE.IDLE_WALK_TO_POINT
 
-	
+		if phase != AI_PHASE.ATTACK:
+			if current_cover:
+				current_cover.remove_meta("occupant")
+				current_cover = null
+
 	if phase == AI_PHASE.DEAD_AS_FUCK:
 		animator.set("parameters/dead/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		$CollisionShape.disabled = true
