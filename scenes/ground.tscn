@@ -104,6 +104,9 @@ height = 2.3
 [sub_resource type="Environment" id="Environment_mi8v4"]
 background_energy_multiplier = 0.0
 glow_enabled = true
+glow_levels/2 = 0.3
+glow_levels/3 = 0.0
+glow_levels/4 = 0.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dnkg1"]
 
@@ -279,6 +282,7 @@ transform = Transform3D(0.8923989, 0.23911761, -0.38268346, -0.25881898, 0.96592
 material = ExtResource("4_hokwi")
 
 [node name="DarknessSafetyNet" type="OmniLight3D" parent="Player/Camera" unique_id=1122865872]
+visible = false
 light_color = Color(0.0885599, 0.0885599, 0.0885599, 1)
 omni_range = 2.0
 
@@ -720,5 +724,7 @@ texture = ExtResource("28_bcjct")
 script = ExtResource("27_bcjct")
 
 [node name="EffectDecals" type="Node3D" parent="." unique_id=651118926]
+
+[node name="LightmapGI" type="LightmapGI" parent="." unique_id=701289609]
 
 [editable path="Player/Camera/Viewmodel"]
