@@ -63,8 +63,6 @@ func handle_hit_particle_effect(target, position, normal) -> void:
 		
 		effect.play()
 		
-		print(effect)
-		
 	if target is CSGShape3D:
 		var bullethole = bullethole_scene.instantiate()
 		
