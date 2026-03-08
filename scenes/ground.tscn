@@ -380,11 +380,11 @@ size = Vector3(7.5, 1, 4.5)
 material = ExtResource("21_gur08")
 
 [node name="floor2" type="CSGBox3D" parent="World/Floors" unique_id=372558990]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -1, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1, -6.5)
 use_collision = true
 collision_layer = 23
 collision_mask = 23
-size = Vector3(25, 1, 5)
+size = Vector3(29, 1, 5)
 material = ExtResource("20_2tk4m")
 
 [node name="floor7" type="CSGBox3D" parent="World/Floors" unique_id=603582863]
@@ -504,11 +504,19 @@ size = Vector3(2, 1, 0.5)
 material = SubResource("StandardMaterial3D_n2e0y")
 
 [node name="wall6" type="CSGBox3D" parent="World/Walls" unique_id=715836997]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.125, 1.5, -9.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -9.25)
 use_collision = true
 collision_layer = 23
 collision_mask = 23
-size = Vector3(25.75, 4, 0.5)
+size = Vector3(29, 4, 0.5)
+material = SubResource("StandardMaterial3D_n2e0y")
+
+[node name="wall15" type="CSGBox3D" parent="World/Walls" unique_id=1833554595]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.25, 1.5, -6.75)
+use_collision = true
+collision_layer = 23
+collision_mask = 23
+size = Vector3(0.5, 4, 5.5)
 material = SubResource("StandardMaterial3D_n2e0y")
 
 [node name="wall13" type="CSGBox3D" parent="World/Walls" unique_id=275468484]
@@ -600,6 +608,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4893746, 3.5, 3.9538803)
 
 [node name="CeilingLight2" parent="World/Prefabs" unique_id=891797443 instance=ExtResource("25_41adg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4893746, 3.5, -6.5461197)
+
+[node name="CeilingLight6" parent="World/Prefabs" unique_id=1566248470 instance=ExtResource("25_41adg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.989374, 3.5, -6.5461197)
 
 [node name="CeilingLight5" parent="World/Prefabs" unique_id=2058096597 instance=ExtResource("25_41adg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0106254, 3.5, -6.5461197)
