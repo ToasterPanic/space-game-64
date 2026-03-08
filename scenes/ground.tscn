@@ -29,12 +29,6 @@
 [ext_resource type="Script" uid="uid://ctvfonif3iv7b" path="res://scripts/internal_node_hider.gd" id="27_bcjct"]
 [ext_resource type="Texture2D" uid="uid://ftrf4cx0a0lb" path="res://textures/debug/cover_point_peek.png" id="28_bcjct"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_257nh"]
-shader = ExtResource("16_26mqe")
-shader_parameter/radius = 0.0
-shader_parameter/speed = 3.0000001425
-shader_parameter/effect_color = Color(0.251, 0, 0, 1)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vjnaj"]
 shader = ExtResource("4_1ywih")
 shader_parameter/circle_radius = 0.050000002375
@@ -74,6 +68,12 @@ font = ExtResource("11_2c1ag")
 font_size = 24
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_257nh"]
+shader = ExtResource("16_26mqe")
+shader_parameter/radius = 0.0
+shader_parameter/speed = 3.0000001425
+shader_parameter/effect_color = Color(0.251, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6ra5r"]
 shader = ExtResource("5_ct7o8")
@@ -126,17 +126,17 @@ script = ExtResource("1_modao")
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=597139997]
 
-[node name="Damage" type="ColorRect" parent="UILayer" unique_id=233003182]
-material = SubResource("ShaderMaterial_257nh")
+[node name="HUD" type="Control" parent="UILayer" unique_id=58163908]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0)
 
-[node name="Crosshair" type="TextureRect" parent="UILayer" unique_id=906905936]
+[node name="Crosshair" type="TextureRect" parent="UILayer/HUD" unique_id=906905936]
 material = SubResource("ShaderMaterial_vjnaj")
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -150,12 +150,8 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("PlaceholderTexture2D_hokwi")
 
-[node name="FPS" type="Label" parent="UILayer" unique_id=293732158]
-offset_right = 254.0
-offset_bottom = 23.0
-text = "FPS:"
-
-[node name="InteractFlow" type="HFlowContainer" parent="UILayer" unique_id=1285735225]
+[node name="InteractFlow" type="HFlowContainer" parent="UILayer/HUD" unique_id=1285735225]
+layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.5
 anchor_right = 0.5
@@ -168,7 +164,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 alignment = 2
 
-[node name="InputIconTextureRect" type="TextureRect" parent="UILayer/InteractFlow" unique_id=619622975]
+[node name="InputIconTextureRect" type="TextureRect" parent="UILayer/HUD/InteractFlow" unique_id=619622975]
 material = SubResource("ShaderMaterial_26mqe")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
@@ -178,13 +174,23 @@ script = ExtResource("11_8gbjj")
 action_name = "interact"
 metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
 
-[node name="Label" type="Label" parent="UILayer/InteractFlow" unique_id=737783149]
+[node name="Label" type="Label" parent="UILayer/HUD/InteractFlow" unique_id=737783149]
 use_parent_material = true
 custom_minimum_size = Vector2(32, 48)
 layout_mode = 2
 text = "TO INTERACT"
 label_settings = SubResource("LabelSettings_modao")
 vertical_alignment = 1
+
+[node name="DamageOverlay" type="ColorRect" parent="UILayer/HUD" unique_id=233003182]
+material = SubResource("ShaderMaterial_257nh")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [node name="CRT" type="ColorRect" parent="UILayer" unique_id=927231073]
 material = SubResource("ShaderMaterial_6ra5r")
@@ -194,17 +200,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
-
-[node name="CombatMusic" type="Node3D" parent="." unique_id=1129964814]
-
-[node name="Loneliness" type="AudioStreamPlayer" parent="CombatMusic" unique_id=873463220]
-stream = ExtResource("2_e3s4u")
-parameters/looping = true
-
-[node name="Stars" type="AudioStreamPlayer" parent="CombatMusic" unique_id=171914023]
-stream = ExtResource("3_qqas2")
-volume_db = -6.0
-parameters/looping = true
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=1510734023]
 transform = Transform3D(-0.8660254, 0, -0.50000006, 0, 1, 0, 0.50000006, 0, -0.8660254, 6.5, 0, -2.75)
@@ -267,6 +262,10 @@ transform = Transform3D(0.8923989, 0.23911761, -0.38268346, -0.25881898, 0.96592
 [node name="CSGMesh3D" type="CSGMesh3D" parent="Player/Camera/Viewmodel/Node" unique_id=756235434]
 material = ExtResource("4_hokwi")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="Player/Camera" unique_id=1122865872]
+light_color = Color(0.0885599, 0.0885599, 0.0885599, 1)
+omni_range = 2.0
+
 [node name="StealthIndicator" type="Sprite3D" parent="Player" unique_id=1538791899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 modulate = Color(1, 1, 1, 0.53333336)
@@ -285,6 +284,17 @@ texture = ExtResource("6_5vwr8")
 script = ExtResource("7_8gbjj")
 scale_size_with_distance = false
 stealth_suspicion = false
+
+[node name="CombatMusic" type="Node3D" parent="." unique_id=1129964814]
+
+[node name="Loneliness" type="AudioStreamPlayer" parent="CombatMusic" unique_id=873463220]
+stream = ExtResource("2_e3s4u")
+parameters/looping = true
+
+[node name="Stars" type="AudioStreamPlayer" parent="CombatMusic" unique_id=171914023]
+stream = ExtResource("3_qqas2")
+volume_db = -6.0
+parameters/looping = true
 
 [node name="FirePoint" type="Node3D" parent="." unique_id=1693997578]
 transform = Transform3D(1, -4.440892e-16, -3.5527137e-15, 0, 0.9999684, 0.00794927, 0, -0.00794927, 0.9999684, 0, -0.8180943, 0.016034365)
