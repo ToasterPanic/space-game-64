@@ -1,4 +1,4 @@
-extends Sprite3D
+extends Node3D
 
 func _ready() -> void:
 	visible = false

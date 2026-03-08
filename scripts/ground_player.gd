@@ -26,6 +26,8 @@ var camera_shake := 0.0
 
 var viewmodel_offset: Vector3 
 
+var dead = false
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	viewmodel_offset = $Camera/Viewmodel.global_position - $Camera/Viewmodel/camera.global_position
@@ -47,6 +49,10 @@ func _handle_controller_camera_input(delta):
 	
 
 func _physics_process(delta):
+	if dead:
+		move_and_slide()
+		return
+	
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	if Input.is_action_just_pressed("jump"):
@@ -76,6 +82,22 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _process(delta: float) -> void:
+	if dead:
+		camera.position.y += (0.2 - camera.position.y) / (5 - ((1/delta)/60))
+		
+		camera.rotation.x = 0
+		camera.rotation_degrees.z = -20.0
+		
+		health = 0
+		
+		AudioServer.set_bus_effect_enabled(1, 0, true)
+		AudioServer.set_bus_effect_enabled(2, 0, true)
+		
+		return
+		
+	if health <= 0:
+		dead = true
+	
 	if !$Camera/Viewmodel/AnimationPlayer.current_animation:
 		$Camera/Viewmodel/AnimationPlayer.play("idle")
 		
@@ -129,9 +151,9 @@ func _process(delta: float) -> void:
 				else:
 					collider_owner.health -= damage
 					
-				if collider_owner.phase != collider_owner.AI_PHASE.DEAD_AS_FUCK:
-					collider_owner.phase = collider_owner.AI_PHASE.PURSUE
-					collider_owner.state = collider_owner.AI_STATE.PURSUE_CHASE
+				if (collider_owner.health <= 0) or (collider_owner.phase != collider_owner.AI_PHASE.DEAD_AS_FUCK):
+					collider_owner.phase = collider_owner.AI_PHASE.ATTACK
+					collider_owner.state = collider_owner.AI_STATE.ATTACK_DECIDE
 				
 				collider_owner.memory_point = global_position
 		
@@ -164,6 +186,7 @@ func _process(delta: float) -> void:
 		var sound_alert = sound_alert_scene.instantiate()
 		
 		sound_alert.radius = 16
+		sound_alert.aggravate_enemies = true
 		
 		get_parent().add_child(sound_alert)
 		
@@ -186,10 +209,6 @@ func _process(delta: float) -> void:
 			elif collider.has_meta("owner"):
 				var collider_owner = collider.get_meta("owner")
 				
-				if collider_owner.phase != collider_owner.AI_PHASE.DEAD_AS_FUCK:
-					collider_owner.phase = collider_owner.AI_PHASE.PURSUE
-					collider_owner.state = collider_owner.AI_STATE.PURSUE_CHASE
-				
 				collider_owner.memory_point = global_position
 				
 				if collider.name == "head":
@@ -198,6 +217,10 @@ func _process(delta: float) -> void:
 					collider_owner.health -= damage
 				else:
 					collider_owner.health -= damage * 0.66
+					
+				if (collider_owner.health <= 0) or (collider_owner.phase != collider_owner.AI_PHASE.DEAD_AS_FUCK):
+					collider_owner.phase = collider_owner.AI_PHASE.ATTACK
+					collider_owner.state = collider_owner.AI_STATE.ATTACK_DECIDE
 		
 		raycast.rotation = Vector3()
 			

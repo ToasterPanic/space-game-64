@@ -173,7 +173,8 @@ func _physics_process(delta: float) -> void:
 			# Hearing
 			for n in $Hearing.get_overlapping_areas():
 				if n.attract_enemies:
-					if phase == AI_PHASE.PURSUE:
+					if (phase == AI_PHASE.PURSUE) or (n.aggravate_enemies):
+						phase = AI_PHASE.PURSUE
 						state = AI_STATE.PURSUE_CHASE
 						state_timer = 10
 						
@@ -353,6 +354,8 @@ func _physics_process(delta: float) -> void:
 						state = AI_STATE.ATTACK_COVER
 						
 						has_seen_player_this_peek = false
+					elif !navigator.is_target_reachable():
+						state = AI_STATE.ATTACK_CHARGE
 					else:
 						var direction = global_position.direction_to(navigator.get_next_path_position())
 						velocity.x = direction.x * 3.0
@@ -396,7 +399,7 @@ func _physics_process(delta: float) -> void:
 				concentration -= tick_delta
 			else:
 				firing_timer -= tick_delta
-				concentration += tick_delta / 4
+				concentration += tick_delta / 5.5
 				
 				if (firing_timer < 0) and (concentration > 0.2):
 					firing_timer = 0.25

@@ -7,10 +7,10 @@ extends Node3D
 var active = false
 var completed = false
 
-var timer = 60
+var timer = 35
 
-var layers_left = 2
-var layers = 2
+var layers_left = 1
+var layers = 1
 var time_until_next_spawn = 5
 var scanning = true
 
@@ -28,51 +28,90 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 	if active:
-		timer -= delta
+		if !has_node("HoldArea"): return
+		
+		$HoldArea/Mesh.visible = !scanning
+		
+		time_until_next_spawn -= delta
+		
+		if time_until_next_spawn <= 0:
+			if scanning:
+				time_until_next_spawn = 12
+			else:
+				time_until_next_spawn = 8
+			
+			for n in enemies.get_children(): if n.phase == n.AI_PHASE.DEAD_AS_FUCK: n.queue_free()
+			
+			var spawns = $SpawnAreas.get_children()
+			var spawn = spawns[randi_range(0, spawns.size() - 1)]
+			
+			var i = 0
+			while i < layers + 1:
+				if enemies.get_children().size() >= (layers + 1) * 2: return
+				
+				var enemy = enemy_scene.instantiate()
+				
+				enemy.body_texture = load("res://textures/enemy_ground_1.png")
+				
+				enemy.memory_point = player.global_position
+				enemy.phase = enemy.AI_PHASE.PURSUE
+				enemy.state = enemy.AI_STATE.PURSUE_CHASE
+				enemy.always_knows_player_position = true
+				enemy.state_timer = 99999
+				
+				enemies.add_child(enemy)
+				
+				enemy.global_position = spawn.global_position
+				
+				await get_tree().create_timer(1).timeout
+				
+				i += 1
 		
 		if scanning:
-			time_until_next_spawn -= delta
-			
-			if time_until_next_spawn <= 0:
-				time_until_next_spawn = 15
+			timer -= delta
 				
-				for n in enemies.get_children(): if n.phase == n.AI_PHASE.DEAD_AS_FUCK: n.queue_free()
+			if timer <= 0:
+				scanning = false
+				timer = 20
+				time_until_next_spawn = 5
 				
-				var spawns = $SpawnAreas.get_children()
-				var spawn = spawns[randi_range(0, spawns.size() - 1)]
+				_obliterate_enemies()
 				
-				var i = 0
-				while i < 1 + layers:
-					if enemies.get_children().size() > layers * 2: return
-					
-					var enemy = enemy_scene.instantiate()
-					
-					enemy.body_texture = load("res://textures/enemy_ground_1.png")
-					
-					enemy.memory_point = player.global_position
-					enemy.phase = enemy.AI_PHASE.PURSUE
-					enemy.state = enemy.AI_STATE.PURSUE_CHASE
-					enemy.always_knows_player_position = true
-					enemy.state_timer = 99999
-					
-					enemies.add_child(enemy)
-					
-					enemy.global_position = spawn.global_position
-					
-					await get_tree().create_timer(0.25).timeout
-					
-					i += 1
+				var hold_spawns = $HoldSpawns.get_children()
 				
+				$HoldArea.global_position = hold_spawns[randi_range(0, hold_spawns.size() - 1)].global_position
 				
 			$HoldArea/Label.text = "SCANNING\n" + timer_string()
+		
+		if !scanning:
+			$HoldArea/Label.text = "HOLD THIS POINT\n" + timer_string()
+			
+			if $HoldArea.get_overlapping_bodies().has(player):
+				timer -= delta
+				
+				if timer < 0:
+					_obliterate_enemies()
+					
+					layers_left -= 1
+					
+					if layers_left <= 0:
+						completed = true
+						active = false
+						
+						$HoldArea.position.y = 999999
+					else:
+						scanning = true
+						timer = 35
 
 func _on_hold_area_body_entered(body: Node3D) -> void:
 	if completed: return
 	if active: return
 	
 	if body == player:
-		$HoldArea/Mesh.queue_free()
+		$HoldArea/Mesh.visible = false
 		$HoldArea.monitoring = false
+		
+		$HoldArea/Label.no_depth_test = true
 		
 		$Barriers.position.y = 0
 		
