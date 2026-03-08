@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dtkpwkhr0p02s"]
+
+[ext_resource type="PackedScene" uid="uid://blsadfhs84u0j" path="res://models/wall_light.gltf" id="1_65wvq"]
+
+[node name="WallLight" unique_id=593855807 instance=ExtResource("1_65wvq")]
+
+[node name="SpotLight3D" type="OmniLight3D" parent="." index="2" unique_id=1747873675]
+transform = Transform3D(-4.371139e-08, -4.371139e-08, 1, -1, 1.9106855e-15, -4.371139e-08, 0, -1, -4.371139e-08, -0.0036672354, 0.25, 0)
+visible = false
+light_color = Color(0.83, 0.92350006, 1, 1)
+light_energy = 2.0
+light_bake_mode = 1
+shadow_enabled = true
+distance_fade_enabled = true
+omni_range = 8.0
+
+[node name="SpotLight3D2" type="OmniLight3D" parent="." index="3" unique_id=1521715145]
+transform = Transform3D(-4.371139e-08, -4.371139e-08, 1, -1, 1.9106855e-15, -4.371139e-08, 0, -1, -4.371139e-08, -0.38, 0.23149103, 0)
+visible = false
+light_color = Color(0.83, 0.92350006, 1, 1)
+light_energy = 0.5
+light_bake_mode = 1
+distance_fade_enabled = true
+distance_fade_begin = 16.0
+omni_range = 4.0

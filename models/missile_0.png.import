@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dbsa081axyho5"
 path.s3tc="res://.godot/imported/missile_0.png-1c012037f45db887c7c5700e3fb56373.s3tc.ctex"
+path.etc2="res://.godot/imported/missile_0.png-1c012037f45db887c7c5700e3fb56373.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://models/missile_0.png"
-dest_files=["res://.godot/imported/missile_0.png-1c012037f45db887c7c5700e3fb56373.s3tc.ctex"]
+dest_files=["res://.godot/imported/missile_0.png-1c012037f45db887c7c5700e3fb56373.s3tc.ctex", "res://.godot/imported/missile_0.png-1c012037f45db887c7c5700e3fb56373.etc2.ctex"]
 
 [params]
 

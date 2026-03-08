@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ftrf4cx0a0lb"
 path.s3tc="res://.godot/imported/cover_point_peek.png-f0e6cb8770009bf82513564b65388ceb.s3tc.ctex"
+path.etc2="res://.godot/imported/cover_point_peek.png-f0e6cb8770009bf82513564b65388ceb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://textures/debug/cover_point_peek.png"
-dest_files=["res://.godot/imported/cover_point_peek.png-f0e6cb8770009bf82513564b65388ceb.s3tc.ctex"]
+dest_files=["res://.godot/imported/cover_point_peek.png-f0e6cb8770009bf82513564b65388ceb.s3tc.ctex", "res://.godot/imported/cover_point_peek.png-f0e6cb8770009bf82513564b65388ceb.etc2.ctex"]
 
 [params]
 

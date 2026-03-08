@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SPACE GAME 64"
-run/main_scene="uid://f0ygvclgtofg"
+run/main_scene="uid://dqwi2d5xyl4n7"
 config/features=PackedStringArray("4.6", "Mobile")
 
 [audio]
@@ -43,6 +43,11 @@ enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res:/
 [global_group]
 
 navigation_group=""
+
+[gui]
+
+theme/custom="uid://dtc7h6gpwpend"
+theme/custom_font="uid://n1nd5m2kwexu"
 
 [input]
 
@@ -182,6 +187,7 @@ textures/lossless_compression/force_png=true
 lights_and_shadows/directional_shadow/size=2048
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
 textures/default_filters/anisotropic_filtering_level=0
+scaling_3d/fsr_sharpness=2.0
 textures/decals/filter=0
 textures/light_projectors/filter=0
 environment/glow/upscale_mode=0

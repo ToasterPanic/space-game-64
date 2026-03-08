@@ -1,0 +1,308 @@
+[gd_scene format=3 uid="uid://dqwi2d5xyl4n7"]
+
+[ext_resource type="Script" uid="uid://v5j7tro7nbe6" path="res://scripts/title.gd" id="1_6civk"]
+[ext_resource type="AudioStream" uid="uid://cxeohu58d2x4t" path="res://sounds/music/title.mp3" id="2_7af2g"]
+[ext_resource type="AudioStream" uid="uid://tsx4xe150elo" path="res://sounds/ui_select.mp3" id="3_81wt4"]
+[ext_resource type="AudioStream" uid="uid://bxo3uwliwahsx" path="res://sounds/ui_error.mp3" id="4_kcc3o"]
+[ext_resource type="AudioStream" uid="uid://88o5vq2mpfwe" path="res://sounds/ui_back.mp3" id="5_6rcc6"]
+[ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://resources/ui_theme.tres" id="6_ah8jo"]
+[ext_resource type="FontFile" uid="uid://donsvh2l775rb" path="res://fonts/Doto.ttf" id="7_blk4q"]
+[ext_resource type="FontFile" uid="uid://n1nd5m2kwexu" path="res://fonts/Michroma.ttf" id="8_8magm"]
+[ext_resource type="Texture2D" uid="uid://bunt0b3fnys2h" path="res://textures/scraps_logo.png" id="9_fgbvm"]
+[ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="10_vjr5h"]
+[ext_resource type="Shader" uid="uid://bq6d3nyfjagl5" path="res://shaders/starry_sky.gdshader" id="11_pmcd8"]
+[ext_resource type="PackedScene" uid="uid://bsgkqnjb6ic6h" path="res://models/ship.fbx" id="12_e75f2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pn48e"]
+font = ExtResource("7_blk4q")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_yd3hq"]
+font = ExtResource("8_8magm")
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_nkfx0"]
+font = ExtResource("8_8magm")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_xy61l"]
+font_size = 24
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7tjgy"]
+shader = ExtResource("10_vjr5h")
+shader_parameter/shake = 0.015
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.001
+shader_parameter/offsetIntensity = 0.00049999998735
+shader_parameter/colorOffsetIntensity = 0.2
+shader_parameter/pixelSize = 640.0000303525
+shader_parameter/grainIntensity = 0.04
+shader_parameter/use_overlay = true
+shader_parameter/use_lens_distortion = false
+shader_parameter/overlay_color = Color(1, 1, 1, 10)
+shader_parameter/lens_distortion_strength = 0.05
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxdrl"]
+shader = ExtResource("11_pmcd8")
+shader_parameter/vertical_sections = 12
+shader_parameter/star_size = 0.01
+shader_parameter/star_falloff = 4.0
+shader_parameter/margin = 0.01
+
+[sub_resource type="Sky" id="Sky_ssvqc"]
+sky_material = SubResource("ShaderMaterial_oxdrl")
+
+[sub_resource type="Environment" id="Environment_ysdt6"]
+background_mode = 2
+background_color = Color(1, 1, 1, 1)
+sky = SubResource("Sky_ssvqc")
+ambient_light_source = 2
+ambient_light_color = Color(0.37036446, 0.3703645, 0.37036443, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hsba"]
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.8666667, 0, 1)
+
+[node name="Title" type="Node3D" unique_id=1717790235]
+script = ExtResource("1_6civk")
+
+[node name="Title" type="AudioStreamPlayer" parent="." unique_id=1189768179]
+stream = ExtResource("2_7af2g")
+volume_db = 2.5
+autoplay = true
+parameters/looping = true
+
+[node name="UiSelect" type="AudioStreamPlayer" parent="." unique_id=64040077]
+stream = ExtResource("3_81wt4")
+
+[node name="UiError" type="AudioStreamPlayer" parent="." unique_id=590372349]
+stream = ExtResource("4_kcc3o")
+
+[node name="UiBack" type="AudioStreamPlayer" parent="." unique_id=2070268922]
+stream = ExtResource("5_6rcc6")
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1280594530]
+
+[node name="UI" type="Control" parent="UILayer" unique_id=1166482239]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Goodbye" type="Panel" parent="UILayer/UI" unique_id=1342389842]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_ah8jo")
+
+[node name="Main" type="VBoxContainer" parent="UILayer/UI" unique_id=8919235]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -499.0
+offset_bottom = 157.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="UILayer/UI/Main" unique_id=791871942]
+layout_mode = 2
+text = "SPACE GAME 64"
+label_settings = SubResource("LabelSettings_pn48e")
+
+[node name="Flow" type="HFlowContainer" parent="UILayer/UI/Main" unique_id=1713476824]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+alignment = 1
+
+[node name="Play" type="Button" parent="UILayer/UI/Main/Flow" unique_id=1276776920]
+custom_minimum_size = Vector2(256, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_ah8jo")
+theme_type_variation = &"FlatButton"
+text = "play"
+
+[node name="Settings" type="Button" parent="UILayer/UI/Main/Flow" unique_id=1215443339]
+custom_minimum_size = Vector2(256, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_ah8jo")
+theme_type_variation = &"FlatButton"
+text = "settings"
+
+[node name="Credits" type="Button" parent="UILayer/UI/Main/Flow" unique_id=1913529357]
+custom_minimum_size = Vector2(256, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_ah8jo")
+theme_type_variation = &"FlatButton"
+text = "credits"
+
+[node name="Quit" type="Button" parent="UILayer/UI/Main/Flow" unique_id=1350168950]
+custom_minimum_size = Vector2(256, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_ah8jo")
+theme_type_variation = &"FlatButton"
+text = "quit"
+
+[node name="Scenarios" type="PanelContainer" parent="UILayer/UI" unique_id=1603970670]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -249.5
+offset_top = -118.5
+offset_right = 249.5
+offset_bottom = 118.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("6_ah8jo")
+
+[node name="Flow2" type="HFlowContainer" parent="UILayer/UI/Scenarios" unique_id=1444616861]
+custom_minimum_size = Vector2(640, 640)
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="UILayer/UI/Scenarios/Flow2" unique_id=133455445]
+custom_minimum_size = Vector2(630, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SCENARIOS"
+label_settings = SubResource("LabelSettings_pn48e")
+horizontal_alignment = 1
+
+[node name="ReturnToMain" type="Button" parent="UILayer/UI/Scenarios/Flow2" unique_id=89488383]
+custom_minimum_size = Vector2(256, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_ah8jo")
+theme_type_variation = &"FlatButton"
+text = "go back"
+
+[node name="Label7" type="Label" parent="UILayer/UI/Scenarios/Flow2" unique_id=1045434412]
+custom_minimum_size = Vector2(630, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TAKE & HOLD"
+label_settings = SubResource("LabelSettings_yd3hq")
+horizontal_alignment = 1
+
+[node name="Label8" type="Label" parent="UILayer/UI/Scenarios/Flow2" unique_id=623018094]
+custom_minimum_size = Vector2(630, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Simple gameplay prototype to show off the most important features, copying the gamemode of the same name from H3VR."
+label_settings = SubResource("LabelSettings_nkfx0")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="PlayTakeAndHold" type="Button" parent="UILayer/UI/Scenarios/Flow2" unique_id=1123272076]
+custom_minimum_size = Vector2(256, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_ah8jo")
+theme_type_variation = &"FlatButton"
+text = "play"
+
+[node name="Label3" type="Label" parent="UILayer/UI/Scenarios/Flow2" unique_id=2003983714]
+custom_minimum_size = Vector2(630, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SPACE TEST"
+label_settings = SubResource("LabelSettings_yd3hq")
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="UILayer/UI/Scenarios/Flow2" unique_id=350930011]
+custom_minimum_size = Vector2(630, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "General gameplay test. Take your spaceship, land it at the local station, whatever. Likely HIGHLY unfinished."
+label_settings = SubResource("LabelSettings_nkfx0")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="PlayDogfightTest" type="Button" parent="UILayer/UI/Scenarios/Flow2" unique_id=1622043440]
+custom_minimum_size = Vector2(256, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_ah8jo")
+theme_type_variation = &"FlatButton"
+text = "play"
+
+[node name="Splash" type="Panel" parent="UILayer/UI" unique_id=1399363165]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_ah8jo")
+
+[node name="flow" type="HFlowContainer" parent="UILayer/UI/Splash" unique_id=1799982585]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="UILayer/UI/Splash/flow" unique_id=1588068083]
+layout_mode = 2
+text = "made with <3 for"
+label_settings = SubResource("LabelSettings_xy61l")
+
+[node name="Scraps" type="TextureRect" parent="UILayer/UI/Splash/flow" unique_id=1843544150]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+texture = ExtResource("9_fgbvm")
+expand_mode = 4
+
+[node name="CRT" type="ColorRect" parent="UILayer" unique_id=233542075]
+material = SubResource("ShaderMaterial_7tjgy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=540074288]
+environment = SubResource("Environment_ysdt6")
+
+[node name="Camera" type="Camera3D" parent="." unique_id=494406490]
+transform = Transform3D(-0.7071068, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071068, -12, 1.25, -3.75)
+
+[node name="Sun" type="CSGSphere3D" parent="Camera" unique_id=1631404208]
+transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.70710677, -5.8336306, -1.25, -11.136931)
+use_collision = true
+radius = 8.0
+radial_segments = 32
+rings = 32
+material = SubResource("StandardMaterial3D_3hsba")
+
+[node name="Sprite3D" type="Sprite3D" parent="Camera/Sun" unique_id=2032651466]
+
+[node name="Mesh" parent="Camera" unique_id=1630490036 instance=ExtResource("12_e75f2")]
+transform = Transform3D(0.24148148, 0, 0.06470478, 0, 0.25, 0, -0.06470478, 0, 0.24148148, 2.6516514, -1.5, -3.7123108)
+
+[node name="Sunlight" type="DirectionalLight3D" parent="Camera" unique_id=1782376221]
+transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, -16.617008, -1.25, -0.35355282)
+
+[connection signal="pressed" from="UILayer/UI/Main/Flow/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="UILayer/UI/Scenarios/Flow2/ReturnToMain" to="." method="_on_return_to_main_pressed"]
+[connection signal="pressed" from="UILayer/UI/Scenarios/Flow2/PlayTakeAndHold" to="." method="_on_play_take_and_hold_pressed"]

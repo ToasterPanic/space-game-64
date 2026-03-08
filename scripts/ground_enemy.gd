@@ -23,7 +23,7 @@ var current_point := 0
 
 var suspicion := 0.0
 var concentration := 0.0
-var boldness := AI_BOLDNESS.PUSSY
+var boldness := AI_BOLDNESS.FEARLESS
 
 var memory_point = null # Are nullable typed vars a thing? If they are I couldn't figure it out
 var can_see_player := false

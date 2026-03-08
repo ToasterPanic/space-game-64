@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://uhybsf3tpu8c"]
+
+[ext_resource type="Texture2D" uid="uid://khbuq2psgptu" path="res://textures/table.png" id="1_u6h26"]
+
+[resource]
+albedo_texture = ExtResource("1_u6h26")
+emission_enabled = true
+emission_energy_multiplier = 8.0
+texture_filter = 0

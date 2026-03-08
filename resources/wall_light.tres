@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cqbhgqnoqi2hg"]
+
+[ext_resource type="Texture2D" uid="uid://nbqmxky6v18p" path="res://textures/wall_light.png" id="1_hcmq5"]
+[ext_resource type="Texture2D" uid="uid://dt8gwuqp485h2" path="res://textures/wall_light_emission.png" id="2_jhemx"]
+
+[resource]
+albedo_texture = ExtResource("1_hcmq5")
+emission_enabled = true
+emission_energy_multiplier = 8.0
+emission_texture = ExtResource("2_jhemx")
+texture_filter = 0

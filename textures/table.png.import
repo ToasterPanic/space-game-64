@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sdrdmb6gm7yy"
-path.s3tc="res://.godot/imported/flooring_1.png-f3bad5a318709b6d08f9617660d406cb.s3tc.ctex"
-path.etc2="res://.godot/imported/flooring_1.png-f3bad5a318709b6d08f9617660d406cb.etc2.ctex"
+uid="uid://khbuq2psgptu"
+path.s3tc="res://.godot/imported/table.png-8bbf28697255c5b50cc2d5a60671ae29.s3tc.ctex"
+path.etc2="res://.godot/imported/table.png-8bbf28697255c5b50cc2d5a60671ae29.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/map/flooring_1.png"
-dest_files=["res://.godot/imported/flooring_1.png-f3bad5a318709b6d08f9617660d406cb.s3tc.ctex", "res://.godot/imported/flooring_1.png-f3bad5a318709b6d08f9617660d406cb.etc2.ctex"]
+source_file="res://textures/table.png"
+dest_files=["res://.godot/imported/table.png-8bbf28697255c5b50cc2d5a60671ae29.s3tc.ctex", "res://.godot/imported/table.png-8bbf28697255c5b50cc2d5a60671ae29.etc2.ctex"]
 
 [params]
 

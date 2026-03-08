@@ -45,6 +45,9 @@ func create_decal(decal, position, normal) -> void:
 		decal.rotate_x(deg_to_rad(90))
 	else:
 		decal.rotate_z(deg_to_rad(90))
+		
+	if $EffectDecals.get_children().size() > 128:
+		$EffectDecals.get_children()[0].queue_free()
 	
 func handle_hit_particle_effect(target, position, normal) -> void:
 	var scene = null

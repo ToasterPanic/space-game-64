@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sdrdmb6gm7yy"
-path.s3tc="res://.godot/imported/flooring_1.png-f3bad5a318709b6d08f9617660d406cb.s3tc.ctex"
-path.etc2="res://.godot/imported/flooring_1.png-f3bad5a318709b6d08f9617660d406cb.etc2.ctex"
+uid="uid://dt8gwuqp485h2"
+path.s3tc="res://.godot/imported/wall_light_emission.png-ab0e34ceeb5770dd151fa634da587aad.s3tc.ctex"
+path.etc2="res://.godot/imported/wall_light_emission.png-ab0e34ceeb5770dd151fa634da587aad.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/map/flooring_1.png"
-dest_files=["res://.godot/imported/flooring_1.png-f3bad5a318709b6d08f9617660d406cb.s3tc.ctex", "res://.godot/imported/flooring_1.png-f3bad5a318709b6d08f9617660d406cb.etc2.ctex"]
+source_file="res://textures/wall_light_emission.png"
+dest_files=["res://.godot/imported/wall_light_emission.png-ab0e34ceeb5770dd151fa634da587aad.s3tc.ctex", "res://.godot/imported/wall_light_emission.png-ab0e34ceeb5770dd151fa634da587aad.etc2.ctex"]
 
 [params]
 

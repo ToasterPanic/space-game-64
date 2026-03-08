@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://d0brv24gh7p4i"
 path.s3tc="res://.godot/imported/navigation_ring.png-eaf2cfea0480ebed8f7f659b783d94ef.s3tc.ctex"
+path.etc2="res://.godot/imported/navigation_ring.png-eaf2cfea0480ebed8f7f659b783d94ef.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://textures/navigation_ring.png"
-dest_files=["res://.godot/imported/navigation_ring.png-eaf2cfea0480ebed8f7f659b783d94ef.s3tc.ctex"]
+dest_files=["res://.godot/imported/navigation_ring.png-eaf2cfea0480ebed8f7f659b783d94ef.s3tc.ctex", "res://.godot/imported/navigation_ring.png-eaf2cfea0480ebed8f7f659b783d94ef.etc2.ctex"]
 
 [params]
 

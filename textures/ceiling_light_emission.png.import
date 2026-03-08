@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://djwt1kqml13lw"
 path.s3tc="res://.godot/imported/ceiling_light_emission.png-ab8c18e845cf620cf737a27f0e7ac9d9.s3tc.ctex"
+path.etc2="res://.godot/imported/ceiling_light_emission.png-ab8c18e845cf620cf737a27f0e7ac9d9.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://textures/ceiling_light_emission.png"
-dest_files=["res://.godot/imported/ceiling_light_emission.png-ab8c18e845cf620cf737a27f0e7ac9d9.s3tc.ctex"]
+dest_files=["res://.godot/imported/ceiling_light_emission.png-ab8c18e845cf620cf737a27f0e7ac9d9.s3tc.ctex", "res://.godot/imported/ceiling_light_emission.png-ab8c18e845cf620cf737a27f0e7ac9d9.etc2.ctex"]
 
 [params]
 

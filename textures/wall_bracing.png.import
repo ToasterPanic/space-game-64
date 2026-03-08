@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1m2dqgctfrdj"
 path.s3tc="res://.godot/imported/wall_bracing.png-68c1ac48f76ecccd21d50e6e4cfe92ff.s3tc.ctex"
+path.etc2="res://.godot/imported/wall_bracing.png-68c1ac48f76ecccd21d50e6e4cfe92ff.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://textures/wall_bracing.png"
-dest_files=["res://.godot/imported/wall_bracing.png-68c1ac48f76ecccd21d50e6e4cfe92ff.s3tc.ctex"]
+dest_files=["res://.godot/imported/wall_bracing.png-68c1ac48f76ecccd21d50e6e4cfe92ff.s3tc.ctex", "res://.godot/imported/wall_bracing.png-68c1ac48f76ecccd21d50e6e4cfe92ff.etc2.ctex"]
 
 [params]
 
