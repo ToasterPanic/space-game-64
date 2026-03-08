@@ -129,8 +129,10 @@ func _process(delta: float) -> void:
 				else:
 					collider_owner.health -= damage
 					
-				collider_owner.phase = collider_owner.AI_PHASE.PURSUE
-				collider_owner.state = collider_owner.AI_STATE.PURSUE_CHASE
+				if collider_owner.phase != collider_owner.AI_PHASE.DEAD_AS_FUCK:
+					collider_owner.phase = collider_owner.AI_PHASE.PURSUE
+					collider_owner.state = collider_owner.AI_STATE.PURSUE_CHASE
+				
 				collider_owner.memory_point = global_position
 		
 		await get_tree().create_timer(0.15).timeout
@@ -184,8 +186,10 @@ func _process(delta: float) -> void:
 			elif collider.has_meta("owner"):
 				var collider_owner = collider.get_meta("owner")
 				
-				collider_owner.phase = collider_owner.AI_PHASE.PURSUE
-				collider_owner.state = collider_owner.AI_STATE.PURSUE_CHASE
+				if collider_owner.phase != collider_owner.AI_PHASE.DEAD_AS_FUCK:
+					collider_owner.phase = collider_owner.AI_PHASE.PURSUE
+					collider_owner.state = collider_owner.AI_STATE.PURSUE_CHASE
+				
 				collider_owner.memory_point = global_position
 				
 				if collider.name == "head":
