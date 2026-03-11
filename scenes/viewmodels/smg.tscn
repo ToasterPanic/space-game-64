@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://ck5xourcfuhhb"]
+
+[ext_resource type="PackedScene" uid="uid://k0aa2sa0kxqh" path="res://models/viewmodels/smg.gltf" id="1_xt3nq"]
+
+[node name="Viewmodel" unique_id=1282356338 instance=ExtResource("1_xt3nq")]

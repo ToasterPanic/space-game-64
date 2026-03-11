@@ -21,6 +21,7 @@ buses/default_bus_layout="uid://gei1qsi0chw5"
 [autoload]
 
 input_icon="*uid://bljuok1y1nutj"
+weapons="*uid://bab8wypuasob5"
 
 [debug_draw_3d]
 

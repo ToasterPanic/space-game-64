@@ -11,7 +11,6 @@ extends CharacterBody3D
 
 @onready var game = get_parent()
 
-var damage := 40
 var crouching := false
 var busy := false
 
@@ -19,23 +18,46 @@ var health := 100.0
 var health_regen_check := 100.0
 var health_regen_timer := 2.0
 
+var fire_delay := 0.0
+
 var bullet_trail_scene := preload("res://scenes/bullet_fire_line.tscn")
 var sound_alert_scene := preload("res://scenes/sound_alert.tscn")
 var stealth_indicator_scene := preload("res://scenes/ground_direction.tscn")
 
 var camera_shake := 0.0
 
+var weapon = "pistol"
+var weapon_stats = {}
+
 var viewmodel_offset: Vector3 
 
 var dead = false
 
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	viewmodel_offset = $Camera/Viewmodel.global_position - $Camera/Viewmodel/camera.global_position
+func _set_viewmodel(name: String) -> void:
+	var viewmodel = load("res://scenes/viewmodels/" + name + ".tscn").instantiate()
+	viewmodel.set_name("Viewmodel")
 	
-	$Camera/Viewmodel.position = viewmodel_offset 
+	viewmodel.global_position = $Camera.global_position
+	
+	$Camera.add_child(viewmodel)
+	
+	viewmodel_offset = viewmodel.global_position - $Camera/Viewmodel/camera.global_position
+	
+	viewmodel.position = viewmodel_offset 
+	viewmodel.rotation = camera.rotation
+	viewmodel.rotate_y(deg_to_rad(90))
 	
 	print(viewmodel_offset)
+	
+func _set_weapon(name: String) -> void:
+	weapon_stats = weapons.list[name]
+	
+	_set_viewmodel(name)
+
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	_set_weapon("smg")
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -176,19 +198,19 @@ func _process(delta: float) -> void:
 			camera_shake = 0.03
 			
 			if "health" in collider:
-				collider.health -= damage
+				collider.health -= weapon_stats["damage"]
 			elif collider.has_meta("owner"):
 				var collider_owner = collider.get_meta("owner")
 				
 				if collider.name == "head":
 					if (collider_owner.phase == collider_owner.AI_PHASE.ATTACK) or (collider_owner.phase == collider_owner.AI_PHASE.PURSUE):
-						collider_owner.health -= damage * 2
+						collider_owner.health -= weapon_stats["damage"] * 2
 					else:
-						collider_owner.health -= damage * 60000
+						collider_owner.health -= weapon_stats["damage"] * 60000
 				elif collider.name.contains("leg"):
-					collider_owner.health -= damage * 0.66
+					collider_owner.health -= weapon_stats["damage"] * 0.66
 				else:
-					collider_owner.health -= damage
+					collider_owner.health -= weapon_stats["damage"]
 					
 				if (collider_owner.health <= 0) or (collider_owner.phase != collider_owner.AI_PHASE.DEAD_AS_FUCK):
 					collider_owner.phase = collider_owner.AI_PHASE.ATTACK
@@ -209,7 +231,14 @@ func _process(delta: float) -> void:
 					
 			if (collider is Area3D) and (distance < collider.interact_range):
 				collider.interacted_node.interact(collider.action_id)
-	if Input.is_action_just_pressed("fire") and !busy:
+				
+	fire_delay -= delta
+	
+	if Input.is_action_pressed("fire") and (!busy) and (fire_delay <= 0):
+		if !weapon_stats.has("automatic") and !Input.is_action_just_pressed("fire"): return
+			
+		fire_delay = weapon_stats.firerate
+		
 		var spread = 1
 		
 		raycast.rotation += Vector3(deg_to_rad(randf_range(-spread, spread)), deg_to_rad(randf_range(-spread, spread)), 0.0)
@@ -244,18 +273,18 @@ func _process(delta: float) -> void:
 			game.handle_hit_particle_effect(collider, raycast.get_collision_point(), raycast.get_collision_normal())
 			
 			if "health" in collider:
-				collider.health -= damage
+				collider.health -= weapon_stats["damage"]
 			elif collider.has_meta("owner"):
 				var collider_owner = collider.get_meta("owner")
 				
 				collider_owner.memory_point = global_position
 				
 				if collider.name == "head":
-					collider_owner.health -= damage * 2
-				elif collider.name == "torso":
-					collider_owner.health -= damage
+					collider_owner.health -= weapon_stats["damage"] * weapon_stats.headshot_multiplier
+				elif collider.name.contains("leg"):
+					collider_owner.health -= weapon_stats["damage"] * 0.66
 				else:
-					collider_owner.health -= damage * 0.66
+					collider_owner.health -= weapon_stats["damage"]
 					
 				if (collider_owner.health <= 0) or (collider_owner.phase != collider_owner.AI_PHASE.DEAD_AS_FUCK):
 					collider_owner.phase = collider_owner.AI_PHASE.ATTACK

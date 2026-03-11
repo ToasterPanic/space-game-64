@@ -20,9 +20,7 @@
 [ext_resource type="Shader" uid="uid://05xjj2ikioj1" path="res://shaders/2d_outline.gdshader" id="11_176r3"]
 [ext_resource type="PackedScene" uid="uid://2lfut7qmw7nx" path="res://scenes/ground_direction.tscn" id="16_5lhkr"]
 [ext_resource type="Shader" uid="uid://c51iixoxxscth" path="res://shaders/evil_vignette.gdshader" id="16_26mqe"]
-[ext_resource type="PackedScene" uid="uid://be448jxbm8it5" path="res://models/viewmodels/pistol.gltf" id="16_cc7iw"]
 [ext_resource type="Texture2D" uid="uid://gh5sjt3e1lnw" path="res://textures/direction_waypoint.png" id="16_srehv"]
-[ext_resource type="PackedScene" uid="uid://k0aa2sa0kxqh" path="res://models/viewmodels/smg.gltf" id="17_doxim"]
 [ext_resource type="Shader" uid="uid://bq6d3nyfjagl5" path="res://shaders/starry_sky.gdshader" id="18_87r8v"]
 [ext_resource type="Material" uid="uid://ds0y0ujl4l2kk" path="res://resources/flooring_1.tres" id="20_2tk4m"]
 [ext_resource type="Material" uid="uid://bfd5car26bvj2" path="res://resources/concrete_1.tres" id="21_eyphm"]
@@ -320,7 +318,7 @@ script = ExtResource("1_mi8v4")
 
 [node name="Gunshot1" type="AudioStreamPlayer" parent="Player" unique_id=1645430119]
 stream = ExtResource("2_ct7o8")
-max_polyphony = 4
+max_polyphony = 12
 bus = &"Sound Effects"
 
 [node name="CrouchCheck" type="RayCast3D" parent="Player" unique_id=1810000700]
@@ -362,16 +360,9 @@ debug_shape_thickness = 1
 [node name="TrailOrigin" type="Node3D" parent="Player/Camera" unique_id=1529778346]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.5, -0.5, 0)
 
-[node name="Viewmodelold" parent="Player/Camera" unique_id=1663479736 instance=ExtResource("16_cc7iw")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
-visible = false
-
 [node name="DarknessSafetyNet" type="OmniLight3D" parent="Player/Camera" unique_id=1122865872]
 light_color = Color(0.0885599, 0.0885599, 0.0885599, 1)
 omni_range = 2.0
-
-[node name="Viewmodel" parent="Player/Camera" unique_id=1282356338 instance=ExtResource("17_doxim")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
 [node name="StealthIndicator" type="Sprite3D" parent="Player" unique_id=1538791899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
@@ -1680,7 +1671,6 @@ size = Vector3(5, 1, 5)
 material = ExtResource("20_2tk4m")
 
 [node name="Ceilings" type="Node3D" parent="World" unique_id=806463397]
-visible = false
 
 [node name="ceiling" type="CSGBox3D" parent="World/Ceilings" unique_id=1876280962]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 3.75, -0.75)
@@ -3821,5 +3811,3 @@ script = ExtResource("27_bcjct")
 [connection signal="body_entered" from="HoldPoints/HoldPoint2/HoldArea" to="HoldPoints/HoldPoint2" method="_on_hold_area_body_entered"]
 [connection signal="area_entered" from="HoldPoints/HoldPoint3/HoldArea" to="HoldPoints/HoldPoint3" method="_on_hold_area_area_entered"]
 [connection signal="body_entered" from="HoldPoints/HoldPoint3/HoldArea" to="HoldPoints/HoldPoint3" method="_on_hold_area_body_entered"]
-
-[editable path="Player/Camera/Viewmodelold"]
