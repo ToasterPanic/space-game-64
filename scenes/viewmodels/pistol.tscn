@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://b6pro5s2nbxr8"]
+
+[ext_resource type="PackedScene" uid="uid://be448jxbm8it5" path="res://models/viewmodels/pistol.gltf" id="1_ledqj"]
+
+[node name="Pistol" unique_id=1663479736 instance=ExtResource("1_ledqj")]

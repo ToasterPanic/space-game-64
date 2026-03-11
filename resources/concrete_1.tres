@@ -4,7 +4,8 @@
 
 [resource]
 albedo_texture = ExtResource("1_qshq2")
+metallic_specular = 0.25
 uv1_offset = Vector3(0.5, 0, 0.5)
 uv1_triplanar = true
 uv1_world_triplanar = true
-texture_filter = 2
+texture_filter = 0

@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wayfkwpyc6wx"
-path.s3tc="res://.godot/imported/metal_plate_1.png-70e76f55e2693b417e48d84624355007.s3tc.ctex"
-path.etc2="res://.godot/imported/metal_plate_1.png-70e76f55e2693b417e48d84624355007.etc2.ctex"
+uid="uid://c4acqoof3xvjt"
+path.s3tc="res://.godot/imported/smg_viewmodel.png-e9df04ce75391dd3f57ff980bdb89c9e.s3tc.ctex"
+path.etc2="res://.godot/imported/smg_viewmodel.png-e9df04ce75391dd3f57ff980bdb89c9e.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/map/metal_plate_1.png"
-dest_files=["res://.godot/imported/metal_plate_1.png-70e76f55e2693b417e48d84624355007.s3tc.ctex", "res://.godot/imported/metal_plate_1.png-70e76f55e2693b417e48d84624355007.etc2.ctex"]
+source_file="res://textures/smg_viewmodel.png"
+dest_files=["res://.godot/imported/smg_viewmodel.png-e9df04ce75391dd3f57ff980bdb89c9e.s3tc.ctex", "res://.godot/imported/smg_viewmodel.png-e9df04ce75391dd3f57ff980bdb89c9e.etc2.ctex"]
 
 [params]
 

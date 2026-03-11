@@ -34,6 +34,8 @@ func _ready():
 	viewmodel_offset = $Camera/Viewmodel.global_position - $Camera/Viewmodel/camera.global_position
 	
 	$Camera/Viewmodel.position = viewmodel_offset 
+	
+	print(viewmodel_offset)
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -62,7 +64,7 @@ func _physics_process(delta):
 		return
 	
 	
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = 4
 		
 	_handle_controller_camera_input(delta)
@@ -123,6 +125,7 @@ func _process(delta: float) -> void:
 		health += delta * 15.0
 	
 	if Input.is_action_just_pressed("crouch"):
+		print($CrouchCheck.is_colliding())
 		if crouching and !$CrouchCheck.is_colliding(): crouching = false
 		else: crouching = true
 		

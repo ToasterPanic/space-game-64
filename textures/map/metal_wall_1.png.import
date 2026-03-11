@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wayfkwpyc6wx"
-path.s3tc="res://.godot/imported/metal_plate_1.png-70e76f55e2693b417e48d84624355007.s3tc.ctex"
-path.etc2="res://.godot/imported/metal_plate_1.png-70e76f55e2693b417e48d84624355007.etc2.ctex"
+uid="uid://dooykwfdggwq2"
+path.s3tc="res://.godot/imported/metal_wall_1.png-198d6ff9465464e0d380316ff86cabd8.s3tc.ctex"
+path.etc2="res://.godot/imported/metal_wall_1.png-198d6ff9465464e0d380316ff86cabd8.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/map/metal_plate_1.png"
-dest_files=["res://.godot/imported/metal_plate_1.png-70e76f55e2693b417e48d84624355007.s3tc.ctex", "res://.godot/imported/metal_plate_1.png-70e76f55e2693b417e48d84624355007.etc2.ctex"]
+source_file="res://textures/map/metal_wall_1.png"
+dest_files=["res://.godot/imported/metal_wall_1.png-198d6ff9465464e0d380316ff86cabd8.s3tc.ctex", "res://.godot/imported/metal_wall_1.png-198d6ff9465464e0d380316ff86cabd8.etc2.ctex"]
 
 [params]
 

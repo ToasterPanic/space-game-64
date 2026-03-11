@@ -6,7 +6,6 @@
 
 [node name="UnselectableLight" type="SpotLight3D" parent="." index="2" unique_id=1963126890]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.14757204, 1.9339838, 0)
-visible = false
 light_color = Color(0.8863884, 0.5771003, 0.99999946, 1)
 light_energy = 2.0
 distance_fade_enabled = true

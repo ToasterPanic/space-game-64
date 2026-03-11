@@ -25,6 +25,7 @@ func _obliterate_enemies() -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Barriers.position.y = 9999
+	$HoldArea.position.y += 9999
 	
 func _process(delta: float) -> void:
 	if active:
@@ -47,7 +48,7 @@ func _process(delta: float) -> void:
 			
 			var i = 0
 			while i < layers + 1:
-				if enemies.get_children().size() >= (layers + 1) * 2: return
+				if enemies.get_children().size() >= (layers + 1) * 2: break
 				
 				var enemy = enemy_scene.instantiate()
 				
@@ -66,13 +67,15 @@ func _process(delta: float) -> void:
 				await get_tree().create_timer(1).timeout
 				
 				i += 1
+				
+				print(str(i) +"/"+str(layers + 1))
 		
 		if scanning:
 			timer -= delta
 				
 			if timer <= 0:
 				scanning = false
-				timer = 20
+				timer = 30
 				time_until_next_spawn = 5
 				
 				_obliterate_enemies()
@@ -102,7 +105,7 @@ func _process(delta: float) -> void:
 						$Barriers.queue_free()
 					else:
 						scanning = true
-						timer = 35
+						timer = 45
 
 func _on_hold_area_body_entered(body: Node3D) -> void:
 	if completed: return
@@ -117,6 +120,5 @@ func _on_hold_area_body_entered(body: Node3D) -> void:
 		$Barriers.position.y = 0
 		
 		active = true
-		completed = true
 		
 		_obliterate_enemies()

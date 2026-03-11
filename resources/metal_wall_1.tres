@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://drf50yl2s8l40"]
+
+[ext_resource type="Texture2D" uid="uid://dooykwfdggwq2" path="res://textures/map/metal_wall_1.png" id="1_nq5dj"]
+
+[resource]
+albedo_texture = ExtResource("1_nq5dj")
+metallic = 0.5
+metallic_specular = 1.0
+roughness = 0.5
+uv1_offset = Vector3(0.5, 0.25, 0)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 2
