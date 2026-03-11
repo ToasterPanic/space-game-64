@@ -71,14 +71,20 @@ func _physics_process(delta):
 
 	var input_dir = Input.get_vector("move_backwards", "move_forward", "move_left", "move_right")
 	
+	camera.rotation_degrees.z += ((-input_dir.y) - camera.rotation_degrees.z) / (5 - ((1/delta)/60))
+	$Camera/Viewmodel.rotation_degrees.z = -camera.rotation_degrees.z
+	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	velocity.x = direction.x * walk_speed
-	velocity.z = direction.z * walk_speed
+	var velocity_goal_x = direction.x * walk_speed
+	var velocity_goal_z = direction.z * walk_speed
 	
 	if crouching:
-		velocity.x /= 2
-		velocity.z /= 2
+		velocity_goal_x /= 2
+		velocity_goal_z /= 2
+		
+	velocity.x += (velocity_goal_x - velocity.x) / (5 - ((1/delta)/60))
+	velocity.z += (velocity_goal_z - velocity.z) / (5 - ((1/delta)/60))
 		
 	camera.h_offset = randf_range(camera_shake, -camera_shake)
 	camera.v_offset = randf_range(camera_shake, -camera_shake)

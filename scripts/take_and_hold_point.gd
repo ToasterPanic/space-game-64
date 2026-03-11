@@ -47,8 +47,10 @@ func _process(delta: float) -> void:
 			var spawn = spawns[randi_range(0, spawns.size() - 1)]
 			
 			var i = 0
-			while i < layers + 1:
-				if enemies.get_children().size() >= (layers + 1) * 2: break
+			while i < floori(((layers - 1) * 0.5) + 2):
+				if enemies.get_children().size() >= (layers * 2) + 1:  
+					time_until_next_spawn = 12
+					break
 				
 				var enemy = enemy_scene.instantiate()
 				
