@@ -12,6 +12,16 @@
 [ext_resource type="PackedScene" uid="uid://npjjb8mr3psb" path="res://scenes/prefabs/ceiling_light.tscn" id="5_tp51f"]
 [ext_resource type="PackedScene" uid="uid://c0ay3ek232fxh" path="res://scenes/ground_enemy.tscn" id="6_11sf4"]
 [ext_resource type="Texture2D" uid="uid://dk8avoxwuhfii" path="res://textures/character_test.png" id="7_30r6o"]
+[ext_resource type="PackedScene" uid="uid://cl7aieresc76v" path="res://scenes/weapon_pickup.tscn" id="8_070ue"]
+[ext_resource type="PackedScene" uid="uid://b0disrcafs0ev" path="res://models/table.gltf" id="11_5yd5h"]
+[ext_resource type="Script" uid="uid://cljnj367yew6g" path="res://scripts/handlers/tutorial_handler.gd" id="15_8nt7b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8nt7b"]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 0.30588236)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_070ue"]
 height = 24.0
@@ -101,6 +111,26 @@ billboard = 1
 texture = ExtResource("1_petko")
 script = ExtResource("2_tp51f")
 
+[node name="HoldBarrier2" type="CSGBox3D" parent="SpawnArea2" unique_id=1346364278]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.6245003, 1.5, -1.1749992)
+layers = 32
+cast_shadow = 0
+use_collision = true
+collision_layer = 32
+collision_mask = 32
+size = Vector3(0.001, 6, 5)
+material = SubResource("StandardMaterial3D_8nt7b")
+
+[node name="HoldBarrier3" type="CSGBox3D" parent="SpawnArea2" unique_id=356806005]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.6245003, 1.5, -7.924999)
+layers = 32
+cast_shadow = 0
+use_collision = true
+collision_layer = 32
+collision_mask = 32
+size = Vector3(0.001, 6, 5)
+material = SubResource("StandardMaterial3D_8nt7b")
+
 [node name="PlayerSpawn" type="Sprite3D" parent="." unique_id=222213109]
 transform = Transform3D(0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, 0.7071067, -1.75, 1, 1.5)
 pixel_size = 0.002
@@ -108,6 +138,11 @@ axis = 0
 double_sided = false
 texture = ExtResource("1_bvyj0")
 script = ExtResource("2_tp51f")
+
+[node name="Processed" type="Node3D" parent="." unique_id=1320657435]
+
+[node name="WeaponPickup" parent="Processed" unique_id=816893346 instance=ExtResource("8_070ue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6406975, 0.99000007, 1.9027776)
 
 [node name="HoldArea" type="Area3D" parent="." unique_id=1076954040]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -31, -0.5, -5.9604744e-08)
@@ -788,7 +823,7 @@ While crouching you will gain your sixth sense,
 which allows you to see nearby objectives and enemies."
 
 [node name="Label3D2" type="Label3D" parent="World" unique_id=1075800755]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18, 0, 0)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18, 0.25, 0)
 text = "Take the gun from the counter to the left.
 Kill the enemy to open the door
  by pressing left trigger / left click. 
@@ -797,13 +832,13 @@ Press [R] / (Y) / (Triangle) to reload."
 [node name="Label3D3" type="Label3D" parent="World" unique_id=1589724192]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -24, 0, 0)
 text = "Use [V] / (R3) to melee.
-Meleeing an unalerted enemy from behind will 
-instantly kill them."
+Meleeing an unalerted enemy in the head from
+behind will instantly kill them."
 
 [node name="Label3D4" type="Label3D" parent="World" unique_id=2080586772]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -29.5, 0, 0)
 text = "Hold Points are the main objective in the only
-gamemod ecurrently available.
+gamemode currently available.
 Enter the ahead Hold Point and wait for it to
 scan to open the door."
 
@@ -820,6 +855,9 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -42.
 double_sided = false
 text = "You have completed the tutorial! Proceed down the hall
 to continue to Take and Hold."
+
+[node name="Table" parent="World" unique_id=1509659617 instance=ExtResource("11_5yd5h")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.541094, -0.49999994, 2.1236615)
 
 [node name="Enemies" type="Node3D" parent="." unique_id=643716220]
 
@@ -840,3 +878,6 @@ compositor = SubResource("Compositor_5yd5h")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=367059278]
 navigation_mesh = SubResource("NavigationMesh_070ue")
+
+[node name="TutorialHandler" type="Node3D" parent="." unique_id=535386742]
+script = ExtResource("15_8nt7b")

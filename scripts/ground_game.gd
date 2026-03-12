@@ -18,6 +18,8 @@ var current_music = null
 
 var in_combat = false
 
+var loaded = false
+
 var bullethole_scene = preload("res://scenes/effects/bullethole.tscn")
 var blood_hit_scene = preload("res://scenes/blood_hit.tscn")
 
@@ -35,11 +37,22 @@ func _ready() -> void:
 	
 	for n in world.get_children():
 		world.remove_child(n)
+		
+		if n.get_name() == "Processed": for o in n.get_children(): if "game" in o: o.game = self
+		
+		if has_node(str(n.get_name())):
+			var duplicate = get_node(str(n.get_name()))
+			duplicate.set_name("balls")
+			duplicate.queue_free()
+		
+		n.owner = null
 		add_child(n)
 		
 	if has_node("PlayerSpawn"):
 		player.global_position = $PlayerSpawn.global_position + Vector3(0, -1, 0)
 		player.rotation = $PlayerSpawn.rotation
+		
+	loaded = true
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("hide_hud"): $UILayer/HUD.visible = !$UILayer/HUD.visible
@@ -84,6 +97,8 @@ func handle_hit_particle_effect(target, position, normal) -> void:
 		create_decal(bullethole, position, normal)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if !loaded: return
+	
 	var collider = interact_cast.get_collider()
 	
 	fps_counter.text = str(Engine.get_frames_per_second()) + " FPS"

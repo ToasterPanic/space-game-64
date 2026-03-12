@@ -41,12 +41,12 @@ shader_parameter/star_size = 0.01
 shader_parameter/star_falloff = 4.0
 shader_parameter/margin = 0.01
 
-[sub_resource type="Sky" id="Sky_doxim"]
+[sub_resource type="Sky" id="Sky_hregk"]
 sky_material = SubResource("ShaderMaterial_pe8qa")
 
 [sub_resource type="Environment" id="Environment_gqld2"]
 background_mode = 2
-sky = SubResource("Sky_doxim")
+sky = SubResource("Sky_hregk")
 ambient_light_source = 1
 tonemap_white = 4.0
 sdfgi_use_occlusion = true
@@ -3567,14 +3567,13 @@ script = ExtResource("9_fe1gn")
 [node name="TakeAndHoldHandler" type="Node3D" parent="." unique_id=810407317]
 script = ExtResource("1_leclc")
 
-[node name="HoldDirection" parent="TakeAndHoldHandler" unique_id=191580527 node_paths=PackedStringArray("target") instance=ExtResource("2_hregk")]
+[node name="HoldDirection" parent="TakeAndHoldHandler" unique_id=191580527 instance=ExtResource("2_hregk")]
 transform = Transform3D(-0.8660254, 0, -0.50000006, 0, 1, 0, 0.50000006, 0, -0.8660254, 6.5, 0.05, -2.75)
 texture = ExtResource("3_6wjsq")
-target = NodePath("")
 free_on_target_destroyed = true
 
 [node name="PlayerSpawn" type="Sprite3D" parent="." unique_id=1498032002]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6.5, 1, -2.75)
+transform = Transform3D(-1, 0, -3.019916e-07, 0, 4.5, 0, 1.509958e-07, 0, -2, 6.5, 1, -2.75)
 pixel_size = 0.002
 axis = 0
 double_sided = false

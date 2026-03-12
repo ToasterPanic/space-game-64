@@ -75,4 +75,6 @@ func _on_play_take_and_hold_pressed() -> void:
 	
 	await get_tree().create_timer(2.5).timeout
 	
+	game_state.ground_location = "takenhold"
+	
 	get_tree().change_scene_to_file("res://scenes/ground.tscn")

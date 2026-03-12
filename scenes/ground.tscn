@@ -343,3 +343,7 @@ texture_filter = 0
 texture = ExtResource("5_6ra5r")
 
 [node name="EffectDecals" type="Node3D" parent="." unique_id=1246501081]
+
+[node name="CoverNodes" type="Node3D" parent="." unique_id=1009261533]
+
+[node name="Enemies" type="Node3D" parent="." unique_id=565306449]

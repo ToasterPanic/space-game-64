@@ -42,28 +42,28 @@ func _set_viewmodel(name: String) -> void:
 	viewmodel = load("res://scenes/viewmodels/" + name + ".tscn").instantiate()
 	viewmodel.set_name("Viewmodel")
 	
-	
-	
-	$Camera.add_child(viewmodel)
-	
-	viewmodel.scale = Vector3(0.1, 0.1, 0.1)
 	for n in viewmodel.find_children("*"):
 		if "cast_shadow" in n:
 			n.cast_shadow = false
 	
 	viewmodel.global_position = $Camera.global_position
 	
-	viewmodel_offset = viewmodel.global_position - viewmodel.get_node("camera").global_position
+	print(viewmodel.get_node("camera").position)
 	
-	viewmodel.position = viewmodel_offset 
-	viewmodel.rotation = camera.rotation
-	viewmodel.rotate_y(deg_to_rad(90))
+	var old_rotation = camera.rotation
 	
+	camera.rotation_degrees = Vector3(0, -90, 0)
 	
+	viewmodel_offset = -viewmodel.get_node("camera").position * 0.1
 	
-	print(viewmodel.scale)
+	$Camera.add_child(viewmodel)
 	
+	viewmodel.scale = Vector3(0.1, 0.1, 0.1)
 	
+	camera.rotation = old_rotation
+	
+	viewmodel.position = viewmodel_offset
+
 	print(viewmodel_offset)
 	
 func _set_weapon(name: String) -> void:
@@ -176,7 +176,6 @@ func _process(delta: float) -> void:
 		health += delta * 15.0
 	
 	if Input.is_action_just_pressed("crouch"):
-		print($CrouchCheck.is_colliding())
 		if crouching and !$CrouchCheck.is_colliding(): crouching = false
 		else: crouching = true
 		

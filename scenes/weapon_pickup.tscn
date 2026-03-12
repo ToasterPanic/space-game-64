@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cl7aieresc76v"]
+
+[ext_resource type="Texture2D" uid="uid://dxgjby6x84kgi" path="res://textures/weapon_pickups/pistol.png" id="1_0reak"]
+[ext_resource type="Script" uid="uid://3wisofplhsm3" path="res://scripts/weapon_pickup.gd" id="1_qjt78"]
+[ext_resource type="Script" uid="uid://dk6whchb2tlrj" path="res://scripts/interact_area.gd" id="3_aoepw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bt436"]
+
+[node name="WeaponPickup" type="Node3D" unique_id=816893346]
+script = ExtResource("1_qjt78")
+
+[node name="Sprite" type="Sprite3D" parent="." unique_id=1220251994]
+pixel_size = 0.015
+texture_filter = 0
+texture = ExtResource("1_0reak")
+
+[node name="InteractArea" type="Area3D" parent="." unique_id=314790203 node_paths=PackedStringArray("interacted_node")]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("3_aoepw")
+action_text = "PICK UP"
+interacted_node = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" unique_id=2065774041]
+shape = SubResource("SphereShape3D_bt436")
