@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var walk_speed := 5.0
+@export var walk_speed := 6.0
 @export var gravity := 9.8
 
 @export var mouse_sensitivity := 0.002
@@ -19,6 +19,7 @@ var health_regen_check := 100.0
 var health_regen_timer := 2.0
 
 var fire_delay := 0.0
+var ammo_in_mag := 0
 
 var bullet_trail_scene := preload("res://scenes/bullet_fire_line.tscn")
 var sound_alert_scene := preload("res://scenes/sound_alert.tscn")
@@ -31,33 +32,55 @@ var weapon_stats = {}
 
 var viewmodel_offset: Vector3 
 
+var viewmodel = null
+
 var dead = false
 
 func _set_viewmodel(name: String) -> void:
-	var viewmodel = load("res://scenes/viewmodels/" + name + ".tscn").instantiate()
+	if viewmodel: viewmodel.queue_free()
+	
+	viewmodel = load("res://scenes/viewmodels/" + name + ".tscn").instantiate()
 	viewmodel.set_name("Viewmodel")
 	
-	viewmodel.global_position = $Camera.global_position
+	
 	
 	$Camera.add_child(viewmodel)
 	
-	viewmodel_offset = viewmodel.global_position - $Camera/Viewmodel/camera.global_position
+	viewmodel.scale = Vector3(0.1, 0.1, 0.1)
+	for n in viewmodel.find_children("*"):
+		if "cast_shadow" in n:
+			n.cast_shadow = false
+	
+	viewmodel.global_position = $Camera.global_position
+	
+	viewmodel_offset = viewmodel.global_position - viewmodel.get_node("camera").global_position
 	
 	viewmodel.position = viewmodel_offset 
 	viewmodel.rotation = camera.rotation
 	viewmodel.rotate_y(deg_to_rad(90))
+	
+	
+	
+	print(viewmodel.scale)
+	
 	
 	print(viewmodel_offset)
 	
 func _set_weapon(name: String) -> void:
 	weapon_stats = weapons.list[name]
 	
+	ammo_in_mag = weapon_stats["mag_size"]
+	
 	_set_viewmodel(name)
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-	_set_weapon("smg")
+	if LimboConsole.has_command("set_weapon"): LimboConsole.unregister_command("set_weapon")
+	
+	LimboConsole.register_command(_set_weapon, "set_weapon", "Sets the player's weapon")
+	
+	_set_weapon("pistol")
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -94,7 +117,7 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("move_backwards", "move_forward", "move_left", "move_right")
 	
 	camera.rotation_degrees.z += ((-input_dir.y) - camera.rotation_degrees.z) / (5 - ((1/delta)/60))
-	$Camera/Viewmodel.rotation_degrees.z = -camera.rotation_degrees.z
+	viewmodel.rotation_degrees.z = -camera.rotation_degrees.z
 	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
@@ -111,7 +134,7 @@ func _physics_process(delta):
 	camera.h_offset = randf_range(camera_shake, -camera_shake)
 	camera.v_offset = randf_range(camera_shake, -camera_shake)
 	
-	$Camera/Viewmodel.position = viewmodel_offset + Vector3(camera.h_offset, camera.v_offset, 0)
+	viewmodel.position = viewmodel_offset + Vector3(camera.h_offset, camera.v_offset, 0)
 	
 	camera_shake -= delta / 3
 	if camera_shake < 0: camera_shake = 0
@@ -136,8 +159,8 @@ func _process(delta: float) -> void:
 	if health <= 0:
 		dead = true
 	
-	if !$Camera/Viewmodel/AnimationPlayer.current_animation:
-		$Camera/Viewmodel/AnimationPlayer.play("idle")
+	if !viewmodel.get_node("AnimationPlayer").current_animation:
+		viewmodel.get_node("AnimationPlayer").play("idle")
 		
 	$Stand.disabled = crouching
 	
@@ -185,8 +208,8 @@ func _process(delta: float) -> void:
 		$StealthIndicator.modulate.a += (0.0 - $StealthIndicator.modulate.a) / (5 - ((1/delta)/60))
 		
 	if Input.is_action_just_pressed("melee") and !busy:
-		$Camera/Viewmodel/AnimationPlayer.stop()
-		$Camera/Viewmodel/AnimationPlayer.play("melee")
+		viewmodel.get_node("AnimationPlayer").stop()
+		viewmodel.get_node("AnimationPlayer").play("melee")
 		
 		busy = true
 		
@@ -222,6 +245,20 @@ func _process(delta: float) -> void:
 		
 		busy = false
 		
+	if Input.is_action_just_pressed("reload") and !busy:
+		viewmodel.get_node("AnimationPlayer").stop()
+		viewmodel.get_node("AnimationPlayer").play("reload")
+		
+		if viewmodel.has_node("Reload"): viewmodel.get_node("Reload").play()
+		
+		busy = true
+		
+		await get_tree().create_timer(viewmodel.get_node("AnimationPlayer").get_animation("reload").length).timeout
+		
+		ammo_in_mag = weapon_stats["mag_size"]
+		
+		busy = false
+		
 	if Input.is_action_just_pressed("interact"):
 		var collider = $Camera/InteractCast.get_collider()
 		
@@ -234,12 +271,14 @@ func _process(delta: float) -> void:
 				
 	fire_delay -= delta
 	
-	if Input.is_action_pressed("fire") and (!busy) and (fire_delay <= 0):
+	if Input.is_action_pressed("fire") and (!busy) and (fire_delay <= 0) and (ammo_in_mag > 0):
 		if !weapon_stats.has("automatic") and !Input.is_action_just_pressed("fire"): return
+		
+		ammo_in_mag -= 1
 			
 		fire_delay = weapon_stats.firerate
 		
-		var spread = 1
+		var spread = weapon_stats["spread"]
 		
 		raycast.rotation += Vector3(deg_to_rad(randf_range(-spread, spread)), deg_to_rad(randf_range(-spread, spread)), 0.0)
 		raycast.force_raycast_update()
@@ -264,8 +303,8 @@ func _process(delta: float) -> void:
 		
 		camera_shake = 0.05
 		
-		$Camera/Viewmodel/AnimationPlayer.stop()
-		$Camera/Viewmodel/AnimationPlayer.play("fire")
+		viewmodel.get_node("AnimationPlayer").stop()
+		viewmodel.get_node("AnimationPlayer").play("fire")
 		
 		var collider = raycast.get_collider()
 		

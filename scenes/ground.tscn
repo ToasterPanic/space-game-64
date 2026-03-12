@@ -18,11 +18,13 @@
 [ext_resource type="FontFile" uid="uid://n1nd5m2kwexu" path="res://fonts/Michroma.ttf" id="11_2c1ag"]
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="11_8gbjj"]
 [ext_resource type="Shader" uid="uid://05xjj2ikioj1" path="res://shaders/2d_outline.gdshader" id="11_176r3"]
+[ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://resources/ui_theme.tres" id="13_cc7iw"]
 [ext_resource type="PackedScene" uid="uid://2lfut7qmw7nx" path="res://scenes/ground_direction.tscn" id="16_5lhkr"]
 [ext_resource type="Shader" uid="uid://c51iixoxxscth" path="res://shaders/evil_vignette.gdshader" id="16_26mqe"]
 [ext_resource type="Texture2D" uid="uid://gh5sjt3e1lnw" path="res://textures/direction_waypoint.png" id="16_srehv"]
 [ext_resource type="Shader" uid="uid://bq6d3nyfjagl5" path="res://shaders/starry_sky.gdshader" id="18_87r8v"]
 [ext_resource type="Material" uid="uid://ds0y0ujl4l2kk" path="res://resources/flooring_1.tres" id="20_2tk4m"]
+[ext_resource type="Material" uid="uid://caw1tecn87i5h" path="res://resources/interior_tnh_point.tres" id="20_doxim"]
 [ext_resource type="Material" uid="uid://bfd5car26bvj2" path="res://resources/concrete_1.tres" id="21_eyphm"]
 [ext_resource type="Material" uid="uid://u5il0nk53oiq" path="res://resources/flooring_1_offset_.5.tres" id="21_gur08"]
 [ext_resource type="Texture2D" uid="uid://q1eyyd3dsciv" path="res://textures/map/wall_1.png" id="21_rncil"]
@@ -95,6 +97,14 @@ shader_parameter/effect_color = Color(0.251, 0, 0, 1)
 font = ExtResource("11_2c1ag")
 font_size = 24
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_doxim"]
+bg_color = Color(1, 0, 0, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hc0ul"]
+bg_color = Color(0.95000005, 1, 0, 1)
+corner_detail = 1
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6ra5r"]
 shader = ExtResource("5_ct7o8")
 shader_parameter/shake = 0.015
@@ -157,7 +167,7 @@ transparency = 3
 alpha_hash_scale = 1.0
 alpha_antialiasing_mode = 0
 shading_mode = 0
-albedo_color = Color(0, 1, 0.20000005, 0.4117647)
+albedo_color = Color(0, 1, 0.20000005, 0.22352941)
 texture_filter = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3i4li"]
@@ -298,6 +308,81 @@ grow_horizontal = 2
 text = "0 FPS"
 label_settings = SubResource("LabelSettings_bcjct")
 
+[node name="Health" type="ProgressBar" parent="UILayer/HUD" unique_id=704005784]
+use_parent_material = true
+custom_minimum_size = Vector2(256, 48)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -100.0
+offset_right = -100.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.06981317
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("13_cc7iw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_doxim")
+value = 1.0
+show_percentage = false
+
+[node name="Label" type="RichTextLabel" parent="UILayer/HUD/Health" unique_id=1461226300]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "[b]99[/b] 99 "
+vertical_alignment = 1
+
+[node name="Ammo" type="ProgressBar" parent="UILayer/HUD" unique_id=705707623]
+use_parent_material = true
+custom_minimum_size = Vector2(256, 48)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 122.0
+offset_top = -100.0
+offset_right = 378.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.06981317
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("13_cc7iw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hc0ul")
+max_value = 1.0
+value = 1.0
+fill_mode = 1
+show_percentage = false
+
+[node name="Label" type="RichTextLabel" parent="UILayer/HUD/Ammo" unique_id=1844409422]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "[b]99[/b] 99 "
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="CRT" type="ColorRect" parent="UILayer" unique_id=927231073]
 material = SubResource("ShaderMaterial_6ra5r")
 anchors_preset = 15
@@ -308,7 +393,7 @@ grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=1510734023]
-transform = Transform3D(-0.8660254, 0, -0.50000006, 0, 1, 0, 0.50000006, 0, -0.8660254, 6.5, 0, -2.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, -2.75)
 collision_layer = 37
 collision_mask = 37
 floor_stop_on_slope = false
@@ -400,6 +485,15 @@ radius = 1.0
 height = 24.0
 sides = 16
 material = SubResource("StandardMaterial3D_srehv")
+
+[node name="Mesh2" type="CSGCylinder3D" parent="HoldPoints/HoldPoint1/HoldArea" unique_id=1889196625]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+layers = 2
+cast_shadow = 0
+radius = 1.0
+height = 24.001
+sides = 16
+material = ExtResource("20_doxim")
 
 [node name="Label" type="Label3D" parent="HoldPoints/HoldPoint1/HoldArea" unique_id=115249728]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
@@ -513,6 +607,14 @@ radius = 1.0
 height = 24.0
 sides = 16
 material = SubResource("StandardMaterial3D_srehv")
+
+[node name="Mesh2" type="CSGCylinder3D" parent="HoldPoints/HoldPoint2/HoldArea" unique_id=1430036188]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+cast_shadow = 0
+radius = 1.0
+height = 24.001
+sides = 16
+material = ExtResource("20_doxim")
 
 [node name="Label" type="Label3D" parent="HoldPoints/HoldPoint2/HoldArea" unique_id=1568916578]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
@@ -632,6 +734,14 @@ radius = 1.0
 height = 24.0
 sides = 16
 material = SubResource("StandardMaterial3D_srehv")
+
+[node name="Mesh2" type="CSGCylinder3D" parent="HoldPoints/HoldPoint3/HoldArea" unique_id=678362096]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+cast_shadow = 0
+radius = 1.0
+height = 24.001
+sides = 16
+material = ExtResource("20_doxim")
 
 [node name="Label" type="Label3D" parent="HoldPoints/HoldPoint3/HoldArea" unique_id=1111100028]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)

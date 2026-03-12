@@ -7,6 +7,10 @@ extends Node3D
 @onready var interact_flow = $UILayer/HUD/InteractFlow
 @onready var damage_overlay = $UILayer/HUD/DamageOverlay
 @onready var fps_counter = $UILayer/HUD/FPSCounter
+@onready var health_bar = $UILayer/HUD/Health
+@onready var health_label = $UILayer/HUD/Health/Label
+@onready var ammo_bar = $UILayer/HUD/Ammo
+@onready var ammo_label = $UILayer/HUD/Ammo/Label
 
 @onready var viewport = get_viewport()
 
@@ -88,6 +92,12 @@ func _process(delta: float) -> void:
 		interact_flow.visible = false
 		
 	damage_overlay.material.set_shader_parameter("radius", 1.0 - (player.health/100.0))
+	
+	health_bar.value = player.health
+	ammo_bar.value = float(player.ammo_in_mag) / float(player.weapon_stats["mag_size"])
+	
+	health_label.text = " +[b]" + str(floori(player.health)) + "[/b]"
+	ammo_label.text = "[b]" + str(player.ammo_in_mag) + "[/b] / " + str(player.weapon_stats["mag_size"]) + " "
 	
 	if in_combat:
 		if !current_music or (current_music.get_parent() != $CombatMusic):

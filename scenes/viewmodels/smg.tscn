@@ -1,5 +1,21 @@
 [gd_scene format=3 uid="uid://ck5xourcfuhhb"]
 
 [ext_resource type="PackedScene" uid="uid://k0aa2sa0kxqh" path="res://models/viewmodels/smg.gltf" id="1_xt3nq"]
+[ext_resource type="AudioStream" uid="uid://cgelxulk1efhe" path="res://sounds/pistol_reload.mp3" id="2_dr1fc"]
 
 [node name="Viewmodel" unique_id=1282356338 instance=ExtResource("1_xt3nq")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+
+[node name="right_arm2" parent="." index="1" unique_id=370705033]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.25, 0.125)
+
+[node name="smg" parent="right_arm2" index="1" unique_id=64330722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0625, 0.40625, -1.75)
+
+[node name="left_arm2" parent="." index="2" unique_id=434278238]
+transform = Transform3D(0.892399, 0.23911761, -0.38268346, -0.258819, 0.9659258, 0, 0.3696438, 0.09904577, 0.9238795, 0, 0.1875, -0.75)
+
+[node name="Reload" type="AudioStreamPlayer" parent="." index="4" unique_id=1689373546]
+stream = ExtResource("2_dr1fc")
+volume_db = 6.0
+bus = &"Sound Effects"
