@@ -56,3 +56,8 @@ func _process(delta: float) -> void:
 			step = 6
 			game.get_node("World/Door4").queue_free()
 			game.get_node("HoldArea2").queue_free()
+			
+	elif step == 6:
+		if game.get_node("TeleArea").get_overlapping_bodies().has(game.get_node("Player")):
+			game_state.ground_location = "takenhold"
+			get_tree().change_scene_to_file("res://scenes/ground.tscn")

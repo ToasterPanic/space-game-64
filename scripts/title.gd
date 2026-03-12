@@ -78,3 +78,15 @@ func _on_play_take_and_hold_pressed() -> void:
 	game_state.ground_location = "takenhold"
 	
 	get_tree().change_scene_to_file("res://scenes/ground.tscn")
+
+
+func _on_play_tutorial_pressed() -> void:
+	$UiSelect.play()
+	
+	_set_panel("Goodbye")
+	
+	await get_tree().create_timer(2.5).timeout
+	
+	game_state.ground_location = "tutorial"
+	
+	get_tree().change_scene_to_file("res://scenes/ground.tscn")
