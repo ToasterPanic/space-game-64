@@ -203,6 +203,8 @@ func _physics_process(delta: float) -> void:
 		if phase == AI_PHASE.IDLE:
 			if state == AI_STATE.IDLE_WALK_TO_POINT:
 				var point = points[current_point]
+				
+				if !point: return
 			
 				if navigator.target_position != point.global_position:
 					navigator.target_position = point.global_position

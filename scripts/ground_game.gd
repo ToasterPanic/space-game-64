@@ -31,7 +31,11 @@ func play_music(track: AudioStreamPlayer):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	var world = load("res://scenes/locations/" + game_state.ground_location + ".tscn").instantiate()
+	
+	for n in world.get_children():
+		world.remove_child(n)
+		add_child(n)
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("hide_hud"): $UILayer/HUD.visible = !$UILayer/HUD.visible

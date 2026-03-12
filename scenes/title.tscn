@@ -8,7 +8,6 @@
 [ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://resources/ui_theme.tres" id="6_ah8jo"]
 [ext_resource type="FontFile" uid="uid://donsvh2l775rb" path="res://fonts/Doto.ttf" id="7_blk4q"]
 [ext_resource type="FontFile" uid="uid://n1nd5m2kwexu" path="res://fonts/Michroma.ttf" id="8_8magm"]
-[ext_resource type="Texture2D" uid="uid://bunt0b3fnys2h" path="res://textures/scraps_logo.png" id="9_fgbvm"]
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="10_vjr5h"]
 [ext_resource type="Shader" uid="uid://bq6d3nyfjagl5" path="res://shaders/starry_sky.gdshader" id="11_pmcd8"]
 [ext_resource type="PackedScene" uid="uid://bsgkqnjb6ic6h" path="res://models/ship.fbx" id="12_e75f2"]
@@ -25,8 +24,10 @@ font_size = 36
 font = ExtResource("8_8magm")
 font_size = 24
 
-[sub_resource type="LabelSettings" id="LabelSettings_xy61l"]
-font_size = 24
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygloa"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_detail = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7tjgy"]
 shader = ExtResource("10_vjr5h")
@@ -154,7 +155,6 @@ theme_type_variation = &"FlatButton"
 text = "quit"
 
 [node name="Scenarios" type="PanelContainer" parent="UILayer/UI" unique_id=1603970670]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -191,6 +191,22 @@ theme = ExtResource("6_ah8jo")
 theme_type_variation = &"FlatButton"
 text = "go back"
 
+[node name="Label9" type="Label" parent="UILayer/UI/Scenarios/Flow2" unique_id=1051167993]
+custom_minimum_size = Vector2(630, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TUTORIAL"
+label_settings = SubResource("LabelSettings_yd3hq")
+horizontal_alignment = 1
+
+[node name="PlayTutorial" type="Button" parent="UILayer/UI/Scenarios/Flow2" unique_id=1864413642]
+custom_minimum_size = Vector2(256, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_ah8jo")
+theme_type_variation = &"FlatButton"
+text = "play"
+
 [node name="Label7" type="Label" parent="UILayer/UI/Scenarios/Flow2" unique_id=1045434412]
 custom_minimum_size = Vector2(630, 0)
 layout_mode = 2
@@ -203,7 +219,7 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(630, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Simple gameplay prototype to show off the most important features, copying the gamemode of the same name from H3VR."
+text = "Simple gameplay prototype to show off the most important features of the FPS part of the game."
 label_settings = SubResource("LabelSettings_nkfx0")
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -228,7 +244,7 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(630, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "General gameplay test. Take your spaceship, land it at the local station, whatever. Likely HIGHLY unfinished."
+text = "General gameplay test. Take your spaceship and shoot stuff. Read the README for more information."
 label_settings = SubResource("LabelSettings_nkfx0")
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -242,6 +258,7 @@ theme_type_variation = &"FlatButton"
 text = "play"
 
 [node name="Splash" type="Panel" parent="UILayer/UI" unique_id=1399363165]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -249,27 +266,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("6_ah8jo")
-
-[node name="flow" type="HFlowContainer" parent="UILayer/UI/Splash" unique_id=1799982585]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="UILayer/UI/Splash/flow" unique_id=1588068083]
-layout_mode = 2
-text = "made with <3 for"
-label_settings = SubResource("LabelSettings_xy61l")
-
-[node name="Scraps" type="TextureRect" parent="UILayer/UI/Splash/flow" unique_id=1843544150]
-custom_minimum_size = Vector2(192, 0)
-layout_mode = 2
-texture = ExtResource("9_fgbvm")
-expand_mode = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_ygloa")
 
 [node name="CRT" type="ColorRect" parent="UILayer" unique_id=233542075]
 material = SubResource("ShaderMaterial_7tjgy")

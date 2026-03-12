@@ -23,6 +23,7 @@ buses/default_bus_layout="uid://gei1qsi0chw5"
 input_icon="*uid://bljuok1y1nutj"
 weapons="*uid://bab8wypuasob5"
 LimboConsole="*uid://dyxornv8vwibg"
+game_state="*uid://bijeauagtwuay"
 
 [debug_draw_3d]
 
