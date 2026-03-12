@@ -36,6 +36,10 @@ func _ready() -> void:
 	for n in world.get_children():
 		world.remove_child(n)
 		add_child(n)
+		
+	if has_node("PlayerSpawn"):
+		player.global_position = $PlayerSpawn.global_position + Vector3(0, -1, 0)
+		player.rotation = $PlayerSpawn.rotation
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("hide_hud"): $UILayer/HUD.visible = !$UILayer/HUD.visible

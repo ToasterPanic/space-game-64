@@ -1,3 +1,3 @@
 extends Node
 
-var ground_location = "takenhold"
+var ground_location = "tutorial"

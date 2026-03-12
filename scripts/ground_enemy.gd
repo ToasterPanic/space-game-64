@@ -10,6 +10,8 @@ extends CharacterBody3D
 @export var points: Array[Node3D] = [ ]
 @export var point_delay_time := 5.0
 
+@export var ai_enabled := true
+
 # Internal values
 #var dead := false
 var firing := false
@@ -155,7 +157,11 @@ func _physics_process(delta: float) -> void:
 	
 	ai_tick_timer -= delta
 	
-	if ai_tick_timer < 0:
+	if (health <= 0) and (phase != AI_PHASE.DEAD_AS_FUCK):
+		phase = AI_PHASE.DEAD_AS_FUCK
+		state = AI_STATE.DEAD_AS_FUCK_IDLE
+	
+	if (ai_tick_timer < 0) and (ai_enabled):
 		# Correct delta for AI ticks - regular delta would be extremely incorrect
 		var tick_delta = 0.05 - ai_tick_timer
 		
@@ -164,10 +170,6 @@ func _physics_process(delta: float) -> void:
 		# Stop movement
 		velocity.x = 0
 		velocity.z = 0
-		
-		if (health <= 0) and (phase != AI_PHASE.DEAD_AS_FUCK):
-			phase = AI_PHASE.DEAD_AS_FUCK
-			state = AI_STATE.DEAD_AS_FUCK_IDLE
 		
 		if (phase != AI_PHASE.ATTACK) and (phase != AI_PHASE.DEAD_AS_FUCK):
 			# Hearing
