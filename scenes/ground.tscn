@@ -310,7 +310,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 2
 current = true
 fov = 90.0
 size = 10.0
-near = 0.01
+near = 0.001
 
 [node name="Raycast" type="RayCast3D" parent="Player/Camera" unique_id=2120080855]
 target_position = Vector3(0, 0, -1024)

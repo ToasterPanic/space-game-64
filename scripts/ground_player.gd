@@ -279,55 +279,61 @@ func _process(delta: float) -> void:
 		
 		var spread = weapon_stats["spread"]
 		
-		raycast.rotation += Vector3(deg_to_rad(randf_range(-spread, spread)), deg_to_rad(randf_range(-spread, spread)), 0.0)
-		raycast.force_raycast_update()
+		var bullets_to_fire = weapon_stats["bullets_per_shot"] if weapon_stats.has("bullets_per_shot") else 1
 		
-		var bullet_trail = bullet_trail_scene.instantiate()
-		
-		bullet_trail.origin = $Camera/TrailOrigin.global_position
-		bullet_trail.target = raycast.get_collision_point()
-		
-		get_parent().add_child(bullet_trail)
-		
-		var sound_alert = sound_alert_scene.instantiate()
-		
-		sound_alert.radius = 16
-		sound_alert.aggravate_enemies = true
-		
-		get_parent().add_child(sound_alert)
-		
-		sound_alert.global_position = camera.global_position
-		
-		$Gunshot1.play()
-		
-		camera_shake = 0.05
-		
-		viewmodel.get_node("AnimationPlayer").stop()
-		viewmodel.get_node("AnimationPlayer").play("fire")
-		
-		var collider = raycast.get_collider()
-		
-		if collider:
-			game.handle_hit_particle_effect(collider, raycast.get_collision_point(), raycast.get_collision_normal())
+		var i = 0
+		while i < bullets_to_fire:
+			raycast.rotation += Vector3(deg_to_rad(randf_range(-spread, spread)), deg_to_rad(randf_range(-spread, spread)), 0.0)
+			raycast.force_raycast_update()
 			
-			if "health" in collider:
-				collider.health -= weapon_stats["damage"]
-			elif collider.has_meta("owner"):
-				var collider_owner = collider.get_meta("owner")
+			var bullet_trail = bullet_trail_scene.instantiate()
+			
+			bullet_trail.origin = $Camera/TrailOrigin.global_position
+			bullet_trail.target = raycast.get_collision_point()
+			
+			get_parent().add_child(bullet_trail)
+			
+			var sound_alert = sound_alert_scene.instantiate()
+			
+			sound_alert.radius = 16
+			sound_alert.aggravate_enemies = true
+			
+			get_parent().add_child(sound_alert)
+			
+			sound_alert.global_position = camera.global_position
+			
+			$Gunshot1.play()
+			
+			camera_shake = 0.05
+			
+			viewmodel.get_node("AnimationPlayer").stop()
+			viewmodel.get_node("AnimationPlayer").play("fire")
+			
+			var collider = raycast.get_collider()
+			
+			if collider:
+				game.handle_hit_particle_effect(collider, raycast.get_collision_point(), raycast.get_collision_normal())
 				
-				collider_owner.memory_point = global_position
-				
-				if collider.name == "head":
-					collider_owner.health -= weapon_stats["damage"] * weapon_stats.headshot_multiplier
-				elif collider.name.contains("leg"):
-					collider_owner.health -= weapon_stats["damage"] * 0.66
-				else:
-					collider_owner.health -= weapon_stats["damage"]
+				if "health" in collider:
+					collider.health -= weapon_stats["damage"]
+				elif collider.has_meta("owner"):
+					var collider_owner = collider.get_meta("owner")
 					
-				if (collider_owner.health <= 0) or (collider_owner.phase != collider_owner.AI_PHASE.DEAD_AS_FUCK):
-					collider_owner.phase = collider_owner.AI_PHASE.ATTACK
-					collider_owner.state = collider_owner.AI_STATE.ATTACK_DECIDE
-		
-		raycast.rotation = Vector3()
+					collider_owner.memory_point = global_position
+					
+					if collider.name == "head":
+						collider_owner.health -= weapon_stats["damage"] * weapon_stats.headshot_multiplier
+					elif collider.name.contains("leg"):
+						collider_owner.health -= weapon_stats["damage"] * 0.66
+					else:
+						collider_owner.health -= weapon_stats["damage"]
+						
+					if (collider_owner.health <= 0) or (collider_owner.phase != collider_owner.AI_PHASE.DEAD_AS_FUCK):
+						collider_owner.phase = collider_owner.AI_PHASE.ATTACK
+						collider_owner.state = collider_owner.AI_STATE.ATTACK_DECIDE
+			
+			raycast.rotation = Vector3()
+			
+			i += 1
 			
 			

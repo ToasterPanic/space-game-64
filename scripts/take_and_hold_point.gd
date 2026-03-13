@@ -6,6 +6,7 @@ extends Node3D
 
 var active = false
 var completed = false
+var loadout_state = false
 
 var timer = 35
 

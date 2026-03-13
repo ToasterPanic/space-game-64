@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dk6whchb2tlrj" path="res://scripts/interact_area.gd" id="3_aoepw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bt436"]
+radius = 0.4
 
 [node name="WeaponPickup" type="Node3D" unique_id=816893346]
 script = ExtResource("1_qjt78")
