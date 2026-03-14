@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dyj3ggaq1yxa3" path="res://scripts/ship_player.gd" id="6_jhjvm"]
 [ext_resource type="Texture2D" uid="uid://dnpdbcx6yacie" path="res://textures/placeholder.png" id="7_ibxys"]
 [ext_resource type="PackedScene" uid="uid://bsgkqnjb6ic6h" path="res://models/ship.fbx" id="8_kgxdp"]
-[ext_resource type="AudioStream" uid="uid://garhxg0lsr5m" path="res://sounds/fire.mp3" id="9_168cx"]
+[ext_resource type="AudioStream" uid="uid://garhxg0lsr5m" path="res://sounds/guns/laser_fire.mp3" id="9_168cx"]
 [ext_resource type="AudioStream" uid="uid://powqf1q618rs" path="res://sounds/boost.mp3" id="10_wftqc"]
 [ext_resource type="AudioStream" uid="uid://bvo24lokvih1e" path="res://sounds/boost_finish.mp3" id="11_yhx7r"]
 [ext_resource type="AudioStream" uid="uid://cgde1dap3r4d2" path="res://sounds/collision.mp3" id="12_iodg4"]

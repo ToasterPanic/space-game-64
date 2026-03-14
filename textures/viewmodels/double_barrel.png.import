@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://wgkvaj5oxpgm"
-path.s3tc="res://.godot/imported/double_barrel_viewmodel.png-c38f0479f26504df1c4003538b6794ca.s3tc.ctex"
-path.etc2="res://.godot/imported/double_barrel_viewmodel.png-c38f0479f26504df1c4003538b6794ca.etc2.ctex"
+path.s3tc="res://.godot/imported/double_barrel.png-986491a66ac4647c29272735c1cf779d.s3tc.ctex"
+path.etc2="res://.godot/imported/double_barrel.png-986491a66ac4647c29272735c1cf779d.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/double_barrel_viewmodel.png"
-dest_files=["res://.godot/imported/double_barrel_viewmodel.png-c38f0479f26504df1c4003538b6794ca.s3tc.ctex", "res://.godot/imported/double_barrel_viewmodel.png-c38f0479f26504df1c4003538b6794ca.etc2.ctex"]
+source_file="res://textures/viewmodels/double_barrel.png"
+dest_files=["res://.godot/imported/double_barrel.png-986491a66ac4647c29272735c1cf779d.s3tc.ctex", "res://.godot/imported/double_barrel.png-986491a66ac4647c29272735c1cf779d.etc2.ctex"]
 
 [params]
 

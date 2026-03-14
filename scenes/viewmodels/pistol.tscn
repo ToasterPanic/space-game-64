@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://b6pro5s2nbxr8"]
 
 [ext_resource type="PackedScene" uid="uid://be448jxbm8it5" path="res://models/viewmodels/pistol.gltf" id="1_ledqj"]
-[ext_resource type="AudioStream" uid="uid://cgelxulk1efhe" path="res://sounds/pistol_reload.mp3" id="2_r8cdt"]
+[ext_resource type="AudioStream" uid="uid://caj88r4d3p888" path="res://sounds/guns/pistol_reload.mp3" id="2_q8aaq"]
+[ext_resource type="AudioStream" uid="uid://bcf4vtlmsviap" path="res://sounds/guns/pistol_fire.mp3" id="3_q8aaq"]
 
 [node name="Pistol" unique_id=1663479736 instance=ExtResource("1_ledqj")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
@@ -10,9 +11,14 @@ transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0625, 0.40625, -1.8125)
 
 [node name="left_arm2" parent="." index="2" unique_id=1045963204]
-transform = Transform3D(0.8923991, 0.23911761, -0.38268346, -0.25881904, 0.9659258, 3.7252903e-09, 0.36964384, 0.09904577, 0.9238795, -0.0625, 0.1875, -0.125)
+transform = Transform3D(0.892399, 0.23911761, -0.38268346, -0.258819, 0.9659258, 3.7252903e-09, 0.3696438, 0.09904577, 0.9238795, -0.0625, 0.1875, -0.125)
 
 [node name="Reload" type="AudioStreamPlayer" parent="." index="4" unique_id=1897905458]
-stream = ExtResource("2_r8cdt")
+stream = ExtResource("2_q8aaq")
 volume_db = 6.0
+bus = &"Sound Effects"
+
+[node name="Fire" type="AudioStreamPlayer" parent="." index="5" unique_id=1296736100]
+stream = ExtResource("3_q8aaq")
+volume_db = -2.0
 bus = &"Sound Effects"

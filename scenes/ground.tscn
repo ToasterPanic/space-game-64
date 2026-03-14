@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://s3qjrm61nwpw" path="res://scripts/ground_player.gd" id="1_mi8v4"]
 [ext_resource type="Script" uid="uid://bwb4l3j7ix87f" path="res://scripts/ground_game.gd" id="1_modao"]
-[ext_resource type="AudioStream" uid="uid://bcf4vtlmsviap" path="res://sounds/gunshot_1.mp3" id="2_ct7o8"]
+[ext_resource type="AudioStream" uid="uid://bcf4vtlmsviap" path="res://sounds/guns/pistol_fire.mp3" id="2_ct7o8"]
 [ext_resource type="AudioStream" uid="uid://niq81duekkf8" path="res://sounds/music/loneliness.mp3" id="2_e3s4u"]
 [ext_resource type="AudioStream" uid="uid://dl8o1r8vbmgu2" path="res://sounds/music/stars.mp3" id="3_qqas2"]
 [ext_resource type="Shader" uid="uid://huqb1yknqiut" path="res://shaders/crosshair.gdshader" id="4_1ywih"]

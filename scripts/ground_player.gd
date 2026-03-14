@@ -295,14 +295,23 @@ func _process(delta: float) -> void:
 			
 			var sound_alert = sound_alert_scene.instantiate()
 			
-			sound_alert.radius = 16
+			sound_alert.radius = weapon_stats["firing_sound_radius"] if weapon_stats.has("firing_sound_radius") else 12
 			sound_alert.aggravate_enemies = true
-			
-			get_parent().add_child(sound_alert)
 			
 			sound_alert.global_position = camera.global_position
 			
-			$Gunshot1.play()
+			game.add_child(sound_alert)
+			
+			sound_alert = sound_alert_scene.instantiate()
+			
+			sound_alert.radius = weapon_stats["bullet_sound_radius"] if weapon_stats.has("bullet_sound_radius") else 6
+			
+			sound_alert.global_position = raycast.get_collision_point()
+			
+			game.add_child(sound_alert)
+			
+			if viewmodel.has_node("Fire"): viewmodel.get_node("Fire").play() 
+			else: $Gunshot1.play()
 			
 			camera_shake = 0.05
 			

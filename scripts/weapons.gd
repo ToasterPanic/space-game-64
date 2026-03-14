@@ -21,7 +21,7 @@ const list = {
 	"double_barrel": {
 		"firerate": 0.25,
 		
-		"damage": 16,
+		"damage": 22,
 		"damage_falloff_distance": 24,
 		"damage_min": 4,
 		
@@ -30,5 +30,15 @@ const list = {
 		"reload_time": 1,
 		"spread": 3.5,
 		"bullets_per_shot": 8,
-	}
+	},
+	"silenced_pistol": {
+		"firerate": 0.15,
+		"damage": 16,
+		"headshot_multiplier": 12,
+		"mag_size": 10,
+		"reload_time": 1,
+		"firing_sound_radius": 2,
+		"bullet_impact_radius": 2,
+		"spread": 1.25,
+	},
 }

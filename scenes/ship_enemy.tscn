@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://byd8bca1npbwr" path="res://scripts/ship_enemy.gd" id="1_5uy6h"]
 [ext_resource type="PackedScene" uid="uid://bsgkqnjb6ic6h" path="res://models/ship.fbx" id="2_c4w8v"]
 [ext_resource type="AudioStream" uid="uid://powqf1q618rs" path="res://sounds/boost.mp3" id="3_xwavj"]
-[ext_resource type="AudioStream" uid="uid://garhxg0lsr5m" path="res://sounds/fire.mp3" id="4_5uy6h"]
+[ext_resource type="AudioStream" uid="uid://garhxg0lsr5m" path="res://sounds/guns/laser_fire.mp3" id="4_5uy6h"]
 [ext_resource type="Texture2D" uid="uid://bvauy2ck8e0vh" path="res://textures/locked_on.png" id="5_c4w8v"]
 [ext_resource type="AudioStream" uid="uid://dc7mptruhhtal" path="res://sounds/ship_explode.mp3" id="5_md484"]
 [ext_resource type="AudioStream" uid="uid://bodcmrhwbdlg4" path="res://sounds/explode.mp3" id="5_xwavj"]

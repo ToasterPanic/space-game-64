@@ -224,6 +224,9 @@ func _physics_process(delta: float) -> void:
 			elif state == AI_STATE.IDLE_WAIT_AT_POINT:
 				state_timer -= tick_delta
 				
+				rotation_target = points[current_point].global_rotation
+				rotation_target.y -= deg_to_rad(90)
+				
 				if state_timer <= 0:
 					state = AI_STATE.IDLE_WALK_TO_POINT
 					
