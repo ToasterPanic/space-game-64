@@ -21,6 +21,7 @@ stream = ExtResource("2_iuyg2")
 volume_db = 4.0
 pitch_scale = 0.9
 max_polyphony = 16
+bus = &"Sound Effects"
 
 [node name="Reload" type="AudioStreamPlayer" parent="." index="5" unique_id=1689373546]
 stream = ExtResource("3_iuyg2")

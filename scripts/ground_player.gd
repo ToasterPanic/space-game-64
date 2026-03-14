@@ -281,6 +281,9 @@ func _process(delta: float) -> void:
 		
 		var bullets_to_fire = weapon_stats["bullets_per_shot"] if weapon_stats.has("bullets_per_shot") else 1
 		
+		if viewmodel.has_node("Fire"): viewmodel.get_node("Fire").play() 
+		else: $Gunshot1.play()
+		
 		var i = 0
 		while i < bullets_to_fire:
 			raycast.rotation += Vector3(deg_to_rad(randf_range(-spread, spread)), deg_to_rad(randf_range(-spread, spread)), 0.0)
@@ -309,9 +312,6 @@ func _process(delta: float) -> void:
 			sound_alert.global_position = raycast.get_collision_point()
 			
 			game.add_child(sound_alert)
-			
-			if viewmodel.has_node("Fire"): viewmodel.get_node("Fire").play() 
-			else: $Gunshot1.play()
 			
 			camera_shake = 0.05
 			

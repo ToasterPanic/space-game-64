@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://beiov00ct5wjf" path="res://models/viewmodels/silenced_pistol.gltf" id="1_flc4k"]
 [ext_resource type="AudioStream" uid="uid://caj88r4d3p888" path="res://sounds/guns/pistol_reload.mp3" id="2_1o4lm"]
-[ext_resource type="AudioStream" uid="uid://garhxg0lsr5m" path="res://sounds/guns/laser_fire.mp3" id="3_1o4lm"]
+[ext_resource type="AudioStream" uid="uid://c72nc41y46f45" path="res://sounds/guns/silenced_pistol_fire.mp3" id="3_1o4lm"]
 
 [node name="SilencedPistol" unique_id=1593448606 instance=ExtResource("1_flc4k")]
 
@@ -19,3 +19,4 @@ bus = &"Sound Effects"
 
 [node name="Fire" type="AudioStreamPlayer" parent="." index="5" unique_id=1607218490]
 stream = ExtResource("3_1o4lm")
+bus = &"Sound Effects"

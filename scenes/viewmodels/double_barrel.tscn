@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://brixuuapevdbd" path="res://models/viewmodels/double_barrel.gltf" id="1_1ixbb"]
 [ext_resource type="AudioStream" path="res://sounds/pistol_reload.mp3" id="2_wlik8"]
-[ext_resource type="AudioStream" uid="uid://garhxg0lsr5m" path="res://sounds/guns/laser_fire.mp3" id="3_wlik8"]
+[ext_resource type="AudioStream" uid="uid://doknepjatt32w" path="res://sounds/guns/double_barrel_fire.mp3" id="3_wlik8"]
 
 [node name="DoubleBarrel" unique_id=1367918350 instance=ExtResource("1_1ixbb")]
 
@@ -22,3 +22,4 @@ bus = &"Sound Effects"
 
 [node name="Fire" type="AudioStreamPlayer" parent="." index="5" unique_id=612357983]
 stream = ExtResource("3_wlik8")
+bus = &"Sound Effects"
