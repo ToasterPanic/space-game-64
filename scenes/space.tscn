@@ -21,7 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://dbrfkyriiaw2i" path="res://scenes/boost_particles.tscn" id="20_p1omw"]
 [ext_resource type="Texture2D" uid="uid://knhdbp0bqy7k" path="res://textures/direction_enemy.png" id="21_g7h33"]
 [ext_resource type="Script" uid="uid://bn0y5eutrcr3a" path="res://scripts/ship_direction.gd" id="22_y1g2g"]
-[ext_resource type="PackedScene" uid="uid://mp08hha7v1bs" path="res://scenes/ship_enemy.tscn" id="23_17l4g"]
 [ext_resource type="Shader" uid="uid://huqb1yknqiut" path="res://shaders/crosshair.gdshader" id="24_hcqao"]
 [ext_resource type="Shader" uid="uid://bamw7w21acwr4" path="res://shaders/retro_pixel.gdshader" id="25_mw0qc"]
 
@@ -219,7 +218,7 @@ no_depth_test = true
 texture_filter = 0
 texture = ExtResource("21_g7h33")
 script = ExtResource("22_y1g2g")
-target = NodePath("../../Enemies/Enemy")
+target = NodePath("")
 
 [node name="Distance" type="Label3D" parent="Player/ShipDirection" unique_id=1052864604]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.0214844)
@@ -236,7 +235,7 @@ no_depth_test = true
 texture_filter = 0
 texture = ExtResource("21_g7h33")
 script = ExtResource("22_y1g2g")
-target = NodePath("../../Enemies/Enemy2")
+target = NodePath("")
 
 [node name="Distance" type="Label3D" parent="Player/ShipDirection2" unique_id=927598213]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.0214844)
@@ -253,7 +252,7 @@ no_depth_test = true
 texture_filter = 0
 texture = ExtResource("21_g7h33")
 script = ExtResource("22_y1g2g")
-target = NodePath("../../Enemies/Enemy3")
+target = NodePath("")
 
 [node name="Distance" type="Label3D" parent="Player/ShipDirection3" unique_id=1395310279]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.0214844)
@@ -264,15 +263,6 @@ modulate = Color(1, 0, 0, 1)
 text = "99"
 
 [node name="Enemies" type="Node3D" parent="." unique_id=1790491082]
-
-[node name="Enemy" parent="Enemies" unique_id=1828576788 instance=ExtResource("23_17l4g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 23769)
-
-[node name="Enemy2" parent="Enemies" unique_id=1352278814 instance=ExtResource("23_17l4g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140, 0, 23769)
-
-[node name="Enemy3" parent="Enemies" unique_id=141642422 instance=ExtResource("23_17l4g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140, 108, 23769)
 
 [node name="Sun" type="CSGSphere3D" parent="." unique_id=1492795932]
 transform = Transform3D(256, 0, 0, 0, 256, 0, 0, 0, 256, 0, 0, 0)

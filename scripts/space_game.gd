@@ -4,9 +4,18 @@ extends Node3D
 var crosshair_size = 0.125
 var crosshair_color = Color(1, 1, 1)
 
+func spawn_enemy() -> void:
+	var enemy = preload("res://scenes/ship_enemy.tscn").instantiate()
+	
+	enemy.global_position = player.global_position + ((player.transform.basis * Vector3(0, 0, -1)).normalized() * 128)
+	
+	$Enemies.add_child(enemy)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	PhysicsServer3D.area_set_param(get_viewport().find_world_3d().space, PhysicsServer3D.AREA_PARAM_GRAVITY, 0.0)
+	
+	LimboConsole.register_command(spawn_enemy)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
