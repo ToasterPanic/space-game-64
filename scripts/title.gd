@@ -90,3 +90,7 @@ func _on_play_tutorial_pressed() -> void:
 	game_state.ground_location = "tutorial"
 	
 	get_tree().change_scene_to_file("res://scenes/ground.tscn")
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()

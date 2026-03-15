@@ -21,9 +21,9 @@
     - Mouse / right stick to steer
 
     - SHIFT / L3 / LS to boost
-    - SPACE / L1 / LB to lock on (you can only lock onto enemies when you're aiming at them. Your crosshair turns blue-green when you can lock on.)
-    - Right Click / R2 / RT to fire lasers (they will auto aim at locked-on enemies when they are near your crosshair)
-    - Left Click / L2 / LT to fire rockets (you can only fire them when locked onto an enemy!)
+	- SPACE / L1 / LB to lock on (you can only lock onto enemies when you're aiming at them. Your crosshair turns blue-green when you can lock on.)
+	- Right Click / R2 / RT to fire lasers (they will auto aim at locked-on enemies when they are near your crosshair)
+	- Left Click / L2 / LT to fire rockets (you can only fire them when locked onto an enemy!)
  
 ### other things
 

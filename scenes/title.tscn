@@ -236,6 +236,7 @@ theme_type_variation = &"FlatButton"
 text = "play"
 
 [node name="Settings" type="Button" parent="UILayer/UI/Main/Flow" unique_id=1215443339]
+visible = false
 custom_minimum_size = Vector2(256, 36)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -244,6 +245,7 @@ theme_type_variation = &"FlatButton"
 text = "settings"
 
 [node name="Credits" type="Button" parent="UILayer/UI/Main/Flow" unique_id=1913529357]
+visible = false
 custom_minimum_size = Vector2(256, 36)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -364,6 +366,7 @@ theme_type_variation = &"FlatButton"
 text = "play"
 
 [node name="Settings" type="PanelContainer" parent="UILayer/UI" unique_id=2039608708]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -579,7 +582,6 @@ label_settings = SubResource("LabelSettings_6civk")
 horizontal_alignment = 1
 
 [node name="Splash" type="Panel" parent="UILayer/UI" unique_id=1399363165]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -622,6 +624,7 @@ transform = Transform3D(0.24148148, 0, 0.06470478, 0, 0.25, 0, -0.06470478, 0, 0
 transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, -16.617008, -1.25, -0.35355282)
 
 [connection signal="pressed" from="UILayer/UI/Main/Flow/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="UILayer/UI/Main/Flow/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="UILayer/UI/Scenarios/Flow2/ReturnToMain" to="." method="_on_return_to_main_pressed"]
 [connection signal="pressed" from="UILayer/UI/Scenarios/Flow2/PlayTutorial" to="." method="_on_play_tutorial_pressed"]
 [connection signal="pressed" from="UILayer/UI/Scenarios/Flow2/PlayTakeAndHold" to="." method="_on_play_take_and_hold_pressed"]
