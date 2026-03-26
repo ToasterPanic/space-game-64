@@ -1,5 +1,7 @@
 # space game 64
 
+Further development of Space Game 64 will be continued on a private repository.
+
 ## THINGS TO NOTE FOR SCRAPS REVIEWERS
 
 - Obviously, this game isn't finished. Like, at all. But it will be! I'm telling you now, I have plans that I cannot share with you right now because the haters will sabotage me.
